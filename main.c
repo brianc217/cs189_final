@@ -69,12 +69,15 @@ unsigned char smoothedColors[80];
 
 /* PUT ROLES IN HERE */
 // Ox00 = FRODO, 0x01-0x03 allies; 0x04 = WITCH-KING, 0x05-0x07 allies
-unsigned char id0 = 0x05; 
-unsigned char id1 = 0x05;
+unsigned char id0 = 0x00; 
+unsigned char id1 = 0x01;
 unsigned char id2 = 0x02;
 unsigned char id3 = 0x03;
+
 unsigned char id4 = 0x04;
 unsigned char id5 = 0x05;
+unsigned char id6 = 0x06;
+unsigned char id7 = 0x07;
 // TODO: decide what to do with this
 
 /*** CHANGE TEAM HERE ***/
@@ -90,7 +93,7 @@ unsigned int goalLost;
 //Eases the transmission of integers as ascii code
 #define uart_send_text(msg) do { e_send_uart1_char(msg,strlen(msg)); while(e_uart1_sending()); } while(0)
 
-
+// Extracts RGB values for a given pixel from the cam buffer
 void getColor(int pixel) {
 	byte1 = buffer[pixel];
     byte2 = buffer[pixel + 1];
@@ -101,18 +104,60 @@ void getColor(int pixel) {
 }
 
 // Given a pixel on [0,cam_width), return 1 if yellow, 0 otherwise
-int checkYellow() {
-        return (red > 10 && green >= 2 && blue < 2);
+int checkYellow(int robotID) {
+	int red_thresh, green_thresh, blue_thresh;
+
+	switch (robotID) {
+		case 2046:
+			red_thresh = 10;
+			green_thresh = 2;
+			blue_thresh = 2;
+			break;
+		default:
+			red_thresh = 10;
+			green_thresh = 2;
+			blue_thresh = 2;
+			break;
+	}
+    return (red > red_thresh && green >= green_thresh && blue < blue_thresh);
 }
 
 // Given a pixel on [0,cam_width), return 1 if green, 0 otherwise
-int checkGreen() {
-        return (red < 5 && green >= 2 && blue < 2);
+int checkGreen(int robotID) {
+	int red_thresh, green_thresh, blue_thresh;
+
+	switch (robotID) {
+		case 2046:
+			red_thresh = 5;
+			green_thresh = 2;
+			blue_thresh = 2;
+			break;
+		default:
+			red_thresh = 5;
+			green_thresh = 2;
+			blue_thresh = 2;
+			break;
+	}
+    return (red < 5 && green >= 2 && blue < 2);
 }
 
 // Given a pixel on [0,cam_width), return 1 if  red, 0 otherwise
-int checkRed() {
-        return (red > 13 && green <= 1 && blue <= 1);
+int checkRed(int robotID) {
+	int red_thresh, green_thresh, blue_thresh;
+
+	switch (robotID) {
+		case 2046:
+			red_thresh = 13;
+			green_thresh = 1;
+			blue_thresh = 1;
+			break;
+		default:
+			red_thresh = 13;
+			green_thresh = 1;
+			blue_thresh = 1;
+			break;
+	}
+    return (red > 13 && green <= 1 && blue <= 1);
 }
 
 // for debugging
@@ -132,11 +177,11 @@ void smoothColorLine() {
 	}
 }
 
-void getPenaltyCameraLine() {
+void getPenaltyCameraLine(int robotID) {
 	// Store array of which pixels are the penalty box color (red)
 	for (i = 0; i < cam_width; i++) {
 		getColor(i*2);
-		pixelColors[i] = checkRed(i*2);
+		pixelColors[i] = checkRed(robotID);
 	}
 	smoothColorLine();		// puts values in smoothedColors (global)
 }
@@ -150,14 +195,14 @@ int inPenaltyBox() {
 	return (sum > PENALTY_THRESH);	
 }
 
-void getGoalCameraLine() {
+void getGoalCameraLine(int robotID) {
 	// Store array of which pixels are the goal color (yellow or green)
 	for (i = 0; i < cam_width; i++) {
 		getColor(i*2);
 		if (team == GONDOR) 
-	    	pixelColors[i] = checkYellow(i*2);
+	    	pixelColors[i] = checkYellow(robotID);
 		else
-			pixelColors[i] = checkGreen(i*2);
+			pixelColors[i] = checkGreen(robotID);
 	}
 	smoothColorLine();
 }
@@ -193,9 +238,7 @@ int atGoal() {
 	return (sum > DONE_THRESH);		// TODO: this will need to later include "prox"
 }
 
-
-int main(void)
-{	
+void robot_init() {
 	//Definitions of variables
 	int cam_mode, cam_heigth, cam_zoom, buffer_size;
 
@@ -205,57 +248,81 @@ int main(void)
 	e_init_uart1();   //Initialize UART to 115200 Kbit
 	e_i2cp_init();    //I2C bus for the camera
 
-	//e_init_randb(I2C); // IR ring in I2C mode
-	//e_randb_set_range(0); // Transmit IR with full power (0xff is min power)
-	//e_randb_store_light_conditions(); // Calibrate background IR levels
+	cam_mode=RGB_565_MODE; 					//Value defined in e_poxxxx.h (RGB_565_MODE, GREY_SCALE_MODE, YUV_MODE)
+	cam_width=80;
+	cam_heigth=1; 
+	cam_zoom=8; 							//Fully zoomed out
+	buffer_size=cam_width*cam_heigth*2; 	//Multiply by 1 or 2 depending on if grayscale or color is used.
+	e_poxxxx_init_cam(); 					//Located in e_common.c 
+	 
+	//Returns 0 if setup parameters for the camera are ok. Returns -1 if not.       
+	if(0 != e_poxxxx_config_cam((ARRAY_WIDTH -cam_width*cam_zoom)/2,LINE_OF_INTEREST,cam_width*cam_zoom,cam_heigth*cam_zoom,cam_zoom,cam_zoom,cam_mode))	
+	{
+		e_set_led(0, 1);  //Turn on center diode when robot is considered from the front if setup FAILED.
+		while(1);         //And then stay passive 
+	}
+
+	manual_camera_calibration();
+	e_poxxxx_write_cam_registers(); //Initialization and changes to the setup of the camera.
+}
+
+int atObstacle(int robotID, int sensor, int range) {
+	switch (robotID) {
+		case 2046:
+			switch (sensor) {
+				case 0: return (range > 70);
+				case 1: return (range > 100);
+				case 2: return (range > 300);
+				case 3: return (range > 350);
+				case 9: return (range > 500);
+				case 10: return (range > 250);
+				//case 11: return (range > 0);  // sensor is gone :(
+				default: return 0;
+			}
+			break;
+		default:
+			return 0;
+			break;
+	}
+}
 
 
+
+int main(void)
+{	
 	if(RCONbits.POR) {	//Reset if necessary
 		RCONbits.POR=0;
 		RESET();
 	}
 
 	sel = getselector();			//Read position of selector switch, refer to utility.c
-
-	if(sel==0)						//During this class, sel==0 should always do nothing. This will be the programming mode.
-	{
-		while(1) {
-			NOP();
-		};
+	if (sel != 0) {
+		robot_init();
+	} 
+	else {
+		while(1) { NOP(); }
 	}
-	else if(sel==1)						//Camera stuff! :)
-	{
-		cam_mode=RGB_565_MODE; 					//Value defined in e_poxxxx.h (RGB_565_MODE, GREY_SCALE_MODE, YUV_MODE)
-		cam_width=80;
-		cam_heigth=1; 
-		cam_zoom=8; 							//Fully zoomed out
-		buffer_size=cam_width*cam_heigth*2; 	//Multiply by 1 or 2 depending on if grayscale or color is used.
-		e_poxxxx_init_cam(); 					//Located in e_common.c 
-		 
-		//Returns 0 if setup parameters for the camera are ok. Returns -1 if not.       
-		if(0 != e_poxxxx_config_cam((ARRAY_WIDTH -cam_width*cam_zoom)/2,LINE_OF_INTEREST,cam_width*cam_zoom,cam_heigth*cam_zoom,cam_zoom,cam_zoom,cam_mode))	
-		{
-			e_set_led(0, 1);  //Turn on center diode when robot is considered from the front if setup FAILED.
-			while(1);         //And then stay passive 
-		}
-
-		manual_camera_calibration();
-		e_poxxxx_write_cam_registers(); //Initialization and changes to the setup of the camera.
 	
-		unsigned char seed = time(NULL);
-		comm_init(seed, id1);
-		//e_start_agendas_processing(); 	//Motor control
-		
+	/* Each selector corresponds to a robot */
+
+	if(sel == 1)		// ARTISAN 2046
+	{
+		int robotID = 2046;
+		int sendID = id0;
 		unsigned int ir_range;
 		float ir_bearing;
 		unsigned char sensor;
-		unsigned int ID;
+		unsigned int receivedID;
 		union comm_value msg_data;
 		unsigned int custom_msg;
-
 		goalLost = 0;
-
 		mode = -1;
+
+		unsigned char seed = time(NULL);
+		comm_init(seed, sendID); // need to factor out a way 
+	
+		setSpeeds(HI_SPEED, HI_SPEED);
+
 		while(1)
 		{
 			//myWait(500);
@@ -268,10 +335,41 @@ int main(void)
 			ir_bearing = 57.296*((data).bearing);
 			sensor = (data).max_sensor;
 			msg_data = (union comm_value) (data).data;
-			ID = (unsigned int) msg_data.bits.ID;
+			receivedID = (unsigned int) msg_data.bits.ID;
 			custom_msg = (unsigned int) msg_data.bits.data;
-			sprintf(msg, "sensor: %u, range: %u, bearing: %f, ID: %u\r\n", (unsigned int) sensor, ir_range, ir_bearing, ID);
-			btcomSendString(msg);
+			//sprintf(msg, "sensor: %u, range: %u, bearing: %f, ID: %u\r\n", (unsigned int) sensor, ir_range, ir_bearing, receivedID);
+			//btcomSendString(msg);
+
+			if (receivedID == sendID) {
+				if (atObstacle(robotID, sensor, ir_range)) {
+					sprintf(msg, "OBSTACLE: sensor %u, range %u, bearing %f\r\n", (unsigned int) sensor, ir_range);
+					btcomSendString(msg);
+
+					// soft turn left
+					if (ir_bearing < -30) {
+						setSpeeds(HI_SPEED/2, HI_SPEED);
+					}
+					// soft turn right
+					else if (ir_bearing > 30) {
+						setSpeeds(HI_SPEED, HI_SPEED/2);
+					}
+					// hard turn based on sign of bearing
+					else {
+						// hard turn right
+						if (ir_bearing > 0) 
+							setSpeeds(HI_SPEED, -HI_SPEED);
+						else
+							setSpeeds(-HI_SPEED, HI_SPEED);
+					}
+					
+				}
+				else {
+					setSpeeds(HI_SPEED, HI_SPEED);
+				}
+			}
+			else {
+				setSpeeds(HI_SPEED, HI_SPEED);
+			}
 			
 
 			/* CAMERA */
@@ -279,7 +377,7 @@ int main(void)
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
 
 			// if in penalty box, stop all movement 
-			getPenaltyCameraLine();
+			getPenaltyCameraLine(robotID);
 			if (inPenaltyBox()) {
 				setSpeeds(0,0);
 				sprintf(msg, "IN THE PENALTY BOX\r\n");
@@ -293,7 +391,7 @@ int main(void)
 						setSpeeds(LO_SPEED, -LO_SPEED);
 						break;
 					}
-					getGoalCameraLine();
+					getGoalCameraLine(robotID);
 					if (goalInView()) {
 						goalLost = 0;
 						if (atGoal()) {
