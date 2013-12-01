@@ -36,16 +36,22 @@
 #define LINE_OF_INTEREST 290
 #define MORDOR 0 			// the goal will be green
 #define GONDOR 1			// the goal will be yellow
+
+// thresholds
 #define PENALTY_THRESH 50
 #define GOAL_THRESH 8
 #define DONE_THRESH 70
 
+// speeds
 #define HI_SPEED 800
 #define LO_SPEED 300
 
 // modes
 #define GOAL_MODE 0
+#define WALL_FOLLOW 1
 
+
+/* global vars */
 
 char msg[80]; 				//this is some data to store screen-bound debug messages
 double range = 0;
@@ -56,7 +62,14 @@ unsigned int i, red, green, blue;
 int byte1, byte2;
 int cam_width;
 
+// IR-related globals
 finalDataRegister data;
+unsigned int ir_range;
+float ir_bearing;
+unsigned char ir_sensor;
+unsigned int receivedID;
+union comm_value msg_data;
+unsigned int custom_msg;
 
 //Buffer for the camera image
 static unsigned char buffer[300];
@@ -89,6 +102,7 @@ unsigned int mode;
 
 // stuff related to goal-finding
 unsigned int goalLost;
+unsigned int spinMode;
 
 //Eases the transmission of integers as ascii code
 #define uart_send_text(msg) do { e_send_uart1_char(msg,strlen(msg)); while(e_uart1_sending()); } while(0)
@@ -113,6 +127,12 @@ int checkYellow(int robotID) {
 			green_thresh = 2;
 			blue_thresh = 2;
 			break;
+		case 2180:
+			red_thresh = 12;
+			green_thresh = 2;
+			blue_thresh = 1;
+			break;
+		
 		default:
 			red_thresh = 10;
 			green_thresh = 2;
@@ -132,13 +152,18 @@ int checkGreen(int robotID) {
 			green_thresh = 2;
 			blue_thresh = 2;
 			break;
+		case 2180:
+			red_thresh = 8;
+			green_thresh = 2;
+			blue_thresh = 1;
+			break;
 		default:
 			red_thresh = 5;
 			green_thresh = 2;
 			blue_thresh = 2;
 			break;
 	}
-    return (red < 5 && green >= 2 && blue < 2);
+    return (red < red_thresh && green >= green_thresh && blue < blue_thresh);
 }
 
 // Given a pixel on [0,cam_width), return 1 if  red, 0 otherwise
@@ -157,7 +182,7 @@ int checkRed(int robotID) {
 			blue_thresh = 1;
 			break;
 	}
-    return (red > 13 && green <= 1 && blue <= 1);
+    return (red > red_thresh && green <= green_thresh && blue <= blue_thresh);
 }
 
 // for debugging
@@ -229,13 +254,35 @@ int getGoalMidpoint() {
 	return sum/total;
 }
 
+int atObstacle(int robotID) {
+	switch (robotID) {
+		case 2046:
+			switch (ir_sensor) {
+				case 0: return (ir_range > 30);
+				case 1: return (ir_range > 1000);
+				case 2: return (ir_range > 300);
+				case 3: return (ir_range > 350);
+				case 9: return (ir_range > 450);
+				case 10: return (ir_range > 100);
+				case 11: return (ir_range > 100); 
+				default: return 0;
+			}
+			break;
+		default:
+			return 0;
+			break;
+	}
+}
+
 // assumes goalInView has been called (to update smoothedColors)
-int atGoal() {
+int atGoal(robotID) {
 	int sum = 0;
 	for (i = 0; i < cam_width; i++) {
 		sum += smoothedColors[i];
 	}
-	return (sum > DONE_THRESH);		// TODO: this will need to later include "prox"
+	return (sum > DONE_THRESH 
+			&& ((ir_bearing < 90 && ir_bearing > 70) || (ir_bearing > -90 && ir_bearing < -70))
+			&& atObstacle(robotID));
 }
 
 void robot_init() {
@@ -266,27 +313,140 @@ void robot_init() {
 	e_poxxxx_write_cam_registers(); //Initialization and changes to the setup of the camera.
 }
 
-int atObstacle(int robotID, int sensor, int range) {
-	switch (robotID) {
-		case 2046:
-			switch (sensor) {
-				case 0: return (range > 70);
-				case 1: return (range > 100);
-				case 2: return (range > 300);
-				case 3: return (range > 350);
-				case 9: return (range > 500);
-				case 10: return (range > 250);
-				//case 11: return (range > 0);  // sensor is gone :(
-				default: return 0;
-			}
-			break;
-		default:
-			return 0;
-			break;
+void wallFollow(int robotID, int sendID) {
+	int delta;
+	if (receivedID == sendID) {
+		sprintf(msg, "ANGLE ADJUSTMENT: sensor %u, range %u, bearing %f\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing);
+		btcomSendString(msg);
+		if (ir_bearing > 0) { // left wall follow
+			delta = ir_bearing - 90;
+		}
+		else { 	// right wall follow
+			delta = ir_bearing + 90;
+		}
+		if (abs(delta) > 30) {
+			if (delta > 0)
+				setSpeeds(3*HI_SPEED/4, HI_SPEED); // soft left
+			else
+				setSpeeds(HI_SPEED, 3*HI_SPEED/4); // soft right
+		}
+		else {
+			setSpeeds(HI_SPEED, HI_SPEED);
+		}
+		
 	}
 }
 
+int avoidObstacle(int robotID, int sendID) {
+	if (receivedID == sendID) {
+		if (atObstacle(robotID)) {
+			//sprintf(msg, "OBSTACLE: sensor %u, range %u, bearing %f\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing);
+			//btcomSendString(msg);
 
+			// soft turn left
+			if (ir_bearing < -30) {
+				setSpeeds(HI_SPEED/2, HI_SPEED);
+				//setSpeeds(-LO_SPEED, LO_SPEED);
+			}
+			// soft turn right
+			else if (ir_bearing > 30) {
+				setSpeeds(HI_SPEED, HI_SPEED/2);
+				//setSpeeds(LO_SPEED, -LO_SPEED);
+			}
+			// hard turn based on sign of bearing
+			else {
+				// hard turn right
+				if (ir_bearing > 0) 
+					setSpeeds(HI_SPEED, -HI_SPEED);
+				else
+					setSpeeds(-HI_SPEED, HI_SPEED);
+			}
+			return 1;
+		}
+	}
+	return 0;
+}
+
+void receiveIR() {
+	comm_rx(&data);
+	ir_range = (data).range;
+	ir_bearing = 57.296*((data).bearing);
+	ir_sensor = (data).max_sensor;
+	msg_data = (union comm_value) (data).data;
+	receivedID = (unsigned int) msg_data.bits.ID;
+	custom_msg = (unsigned int) msg_data.bits.data;
+	//sprintf(msg, "sensor: %u, range: %u, bearing: %f, ID: %u\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing, receivedID);
+	//btcomSendString(msg);
+}
+
+void beelineToGoal(int robotID) {
+	if (goalLost >= 3) {
+		goalLost = 0;
+		if (spinMode > 5) {
+			setSpeeds(HI_SPEED, HI_SPEED);
+		}
+		else { // spin
+			setSpeeds(LO_SPEED, -LO_SPEED);
+		}
+		spinMode = (spinMode + 1) % 11;
+	}
+	getGoalCameraLine(robotID);
+	printCameraLine();
+
+	if (goalInView()) {
+		goalLost = 0;
+		if (atGoal(robotID)) {
+			setSpeeds(0,0);
+			sprintf(msg, "DONE\r\n");
+			btcomSendString(msg);
+			myWait(2000);
+		}
+		else {
+			sprintf(msg, "SEES GOAL\r\n");
+			btcomSendString(msg);
+			// compute midpoint (center of gravity, really) of goal pixels
+			int mid = getGoalMidpoint();
+			int delta = cam_width/2 - mid;
+			//sprintf(msg, "delta: %d\r\n", delta);
+			//btcomSendString(msg);
+			float p;
+
+			// if roughly in center of view, move straight forward
+			if (abs(delta) < 15) {
+            	setSpeeds(HI_SPEED, HI_SPEED);
+            }
+
+            // if the puck is not centered, turn softly toward puck (proportional to midpoint's distance from camera center)
+            else {
+				// set proportionality constant
+                p = 1.0 - (abs(delta) - 15.0)/50.0;
+
+                // turn softly right
+                if (delta > 0) { // soft turn right
+                	setSpeeds(HI_SPEED, HI_SPEED*p);
+                }
+
+                // turn softly left
+                else {
+                	setSpeeds(HI_SPEED*p, HI_SPEED);
+                }               
+            }
+		}
+	}
+	else {			
+		goalLost++;						
+	}
+}
+
+void printCameraLine() {
+	// Debug print of camera line
+	sprintf(msg, "");
+	for (i = 0; i < cam_width; i++) {
+		sprintf(msg, "%s%d", msg, smoothedColors[i]);
+	}
+	sprintf(msg, "%s\r\n", msg);
+	btcomSendString(msg); 
+}
 
 int main(void)
 {	
@@ -305,146 +465,57 @@ int main(void)
 	
 	/* Each selector corresponds to a robot */
 
-	if(sel == 1)		// ARTISAN 2046
+	if (sel == 1)		// ARTISAN 2046
 	{
-		int robotID = 2046;
+		int robotID = 2180;
 		int sendID = id0;
-		unsigned int ir_range;
-		float ir_bearing;
-		unsigned char sensor;
-		unsigned int receivedID;
-		union comm_value msg_data;
-		unsigned int custom_msg;
+		
 		goalLost = 0;
-		mode = -1;
+		spinMode = 0;
+		mode = 0;
 
 		unsigned char seed = time(NULL);
 		comm_init(seed, sendID); // need to factor out a way 
 	
-		setSpeeds(HI_SPEED, HI_SPEED);
+		//setSpeeds(HI_SPEED, HI_SPEED);
 
 		while(1)
 		{
-			//myWait(500);
-			
-			/* IR receive */
-			sprintf(msg, "start of loop\r\n");
-			btcomSendString(msg);
-			comm_rx(&data);
-			ir_range = (data).range;
-			ir_bearing = 57.296*((data).bearing);
-			sensor = (data).max_sensor;
-			msg_data = (union comm_value) (data).data;
-			receivedID = (unsigned int) msg_data.bits.ID;
-			custom_msg = (unsigned int) msg_data.bits.data;
-			//sprintf(msg, "sensor: %u, range: %u, bearing: %f, ID: %u\r\n", (unsigned int) sensor, ir_range, ir_bearing, receivedID);
-			//btcomSendString(msg);
-
-			if (receivedID == sendID) {
-				if (atObstacle(robotID, sensor, ir_range)) {
-					sprintf(msg, "OBSTACLE: sensor %u, range %u, bearing %f\r\n", (unsigned int) sensor, ir_range);
-					btcomSendString(msg);
-
-					// soft turn left
-					if (ir_bearing < -30) {
-						setSpeeds(HI_SPEED/2, HI_SPEED);
-					}
-					// soft turn right
-					else if (ir_bearing > 30) {
-						setSpeeds(HI_SPEED, HI_SPEED/2);
-					}
-					// hard turn based on sign of bearing
-					else {
-						// hard turn right
-						if (ir_bearing > 0) 
-							setSpeeds(HI_SPEED, -HI_SPEED);
-						else
-							setSpeeds(-HI_SPEED, HI_SPEED);
-					}
-					
-				}
-				else {
-					setSpeeds(HI_SPEED, HI_SPEED);
-				}
-			}
-			else {
-				setSpeeds(HI_SPEED, HI_SPEED);
-			}
-			
-
 			/* CAMERA */
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
 
+
+			
+			//getGoalCameraLine(robotID);
+			//printCameraLine();
+			//myWait(500);
+			
+
 			// if in penalty box, stop all movement 
-			getPenaltyCameraLine(robotID);
+			/*getPenaltyCameraLine(robotID);
 			if (inPenaltyBox()) {
 				setSpeeds(0,0);
 				sprintf(msg, "IN THE PENALTY BOX\r\n");
 				btcomSendString(msg);
-			}
-			
-			switch (mode) {
-				case GOAL_MODE:
-					if (goalLost >= 3) {
-						goalLost = 0;
-						setSpeeds(LO_SPEED, -LO_SPEED);
-						break;
-					}
-					getGoalCameraLine(robotID);
-					if (goalInView()) {
-						goalLost = 0;
-						if (atGoal()) {
-							setSpeeds(0,0);
-							sprintf(msg, "DONE\r\n");
-							btcomSendString(msg);
-						}
-						else {
-							// compute midpoint (center of gravity, really) of goal pixels
-							int mid = getGoalMidpoint();
-							int delta = cam_width/2 - mid;
-							sprintf(msg, "delta: %d\r\n", delta);
-							btcomSendString(msg);
-							float p;
-		
-							// if roughly in center of view, move straight forward
-							if (abs(delta) < 15) {
-		                    	setSpeeds(HI_SPEED, HI_SPEED);
-		                    }
-		
-		                    // if the puck is not centered, turn softly toward puck (proportional to midpoint's distance from camera center)
-		                    else {
-								// set proportionality constant
-		                        p = 1.0 - (abs(delta) - 15.0)/50.0;
-		
-		                        // turn softly right
-		                        if (delta > 0) { // soft turn right
-		                        	setSpeeds(HI_SPEED, HI_SPEED*p);
-		                        }
-		
-		                        // turn softly left
-		                        else {
-		                        	setSpeeds(HI_SPEED*p, HI_SPEED);
-		                        }               
-		                    }
-							sprintf(msg, "SEES GOAL\r\n");
-							btcomSendString(msg);
-						}
-					}
-					else {			
-						//setSpeeds(LO_SPEED, -LO_SPEED);
-						goalLost++;						
-					}
-		
-					// Debug print of camera line
-					sprintf(msg, "");
-					for (i = 0; i < cam_width; i++) {
-						sprintf(msg, "%s%d", msg, smoothedColors[i]);
-					}
-					sprintf(msg, "%s\r\n", msg);
-					btcomSendString(msg);
+			}*/
 
+			/* IR */
+			//receiveIR();
+			
+					
+			switch (mode) {
+				case 0:
+					//if (!avoidObstacle(robotID, sendID)) {
+						beelineToGoal(robotID);
+					//}
 					break;
+				case 1:
+					//wallFollow(robotID, sendID);
+					break;	
+				default:
+					//wallFollow(robotID, sendID);
+					break;			
 			}
 			
 		}
