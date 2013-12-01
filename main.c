@@ -1,5 +1,7 @@
 //////////////////////////////////////////////////////
-// Stuff goes here 							    //
+// NOTES:
+// 2180 has a fantastic camera
+// 2110 has pretty good IR							    
 //////////////////////////////////////////////////////
 
 // The camera is, by default, configured with the following settings:
@@ -39,7 +41,7 @@
 
 // thresholds
 #define PENALTY_THRESH 50
-#define GOAL_THRESH 8
+#define GOAL_THRESH 7
 #define DONE_THRESH 70
 
 // speeds
@@ -94,7 +96,7 @@ unsigned char id7 = 0x07;
 // TODO: decide what to do with this
 
 /*** CHANGE TEAM HERE ***/
-unsigned int team = MORDOR;
+unsigned int team = GONDOR;
 /************************/
 
 // current state of the robot 
@@ -132,7 +134,10 @@ int checkYellow(int robotID) {
 			green_thresh = 2;
 			blue_thresh = 1;
 			break;
-		
+		case 2110:
+			red_thresh = 15;
+			green_thresh = 3;
+			blue_thresh = 2;
 		default:
 			red_thresh = 10;
 			green_thresh = 2;
@@ -157,6 +162,10 @@ int checkGreen(int robotID) {
 			green_thresh = 2;
 			blue_thresh = 1;
 			break;
+		case 2110: // shitty green guys
+			red_thresh = 3;
+			green_thresh = 2;
+			blue_thresh = 6;
 		default:
 			red_thresh = 5;
 			green_thresh = 2;
@@ -265,6 +274,30 @@ int atObstacle(int robotID) {
 				case 9: return (ir_range > 450);
 				case 10: return (ir_range > 100);
 				case 11: return (ir_range > 100); 
+				default: return 0;
+			}
+			break;
+		case 2180:
+			switch (ir_sensor) {
+				case 0: return (ir_range > 1100);
+				case 1: return (ir_range > 1500);
+				case 2: return (ir_range > 1400); // dummy value -- no sensor 2 readings
+				case 3: return (ir_range > 1300);
+				case 9: return (ir_range > 1400);
+				case 10: return (ir_range > 1400);
+				case 11: return (ir_range > 1300); 
+				default: return 0;
+			}
+			break;
+		case 2110:
+			switch (ir_sensor) {
+				case 0: return (ir_range > 700);
+				case 1: return (ir_range > 1100);
+				case 2: return (ir_range > 1500);
+				case 3: return (ir_range > 1700);
+				case 9: return (ir_range > 1700);
+				case 10: return (ir_range > 1500);
+				case 11: return (ir_range > 1100); 
 				default: return 0;
 			}
 			break;
@@ -381,14 +414,13 @@ void receiveIR() {
 
 void beelineToGoal(int robotID) {
 	if (goalLost >= 3) {
-		goalLost = 0;
-		if (spinMode > 5) {
+		if (spinMode > 18) {
 			setSpeeds(HI_SPEED, HI_SPEED);
 		}
 		else { // spin
 			setSpeeds(LO_SPEED, -LO_SPEED);
 		}
-		spinMode = (spinMode + 1) % 11;
+		spinMode = (spinMode + 1) % 30;
 	}
 	getGoalCameraLine(robotID);
 	printCameraLine();
@@ -397,13 +429,13 @@ void beelineToGoal(int robotID) {
 		goalLost = 0;
 		if (atGoal(robotID)) {
 			setSpeeds(0,0);
-			sprintf(msg, "DONE\r\n");
-			btcomSendString(msg);
+			//sprintf(msg, "DONE\r\n");
+			//btcomSendString(msg);
 			myWait(2000);
 		}
 		else {
-			sprintf(msg, "SEES GOAL\r\n");
-			btcomSendString(msg);
+			//sprintf(msg, "SEES GOAL\r\n");
+			//btcomSendString(msg);
 			// compute midpoint (center of gravity, really) of goal pixels
 			int mid = getGoalMidpoint();
 			int delta = cam_width/2 - mid;
@@ -468,7 +500,7 @@ int main(void)
 	if (sel == 1)		// ARTISAN 2046
 	{
 		int robotID = 2180;
-		int sendID = id0;
+		int sendID = id3;
 		
 		goalLost = 0;
 		spinMode = 0;
@@ -486,7 +518,9 @@ int main(void)
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
 
 
-			
+			//printRGB(80);
+			//myWait(500);
+
 			//getGoalCameraLine(robotID);
 			//printCameraLine();
 			//myWait(500);
@@ -501,13 +535,16 @@ int main(void)
 			}*/
 
 			/* IR */
-			//receiveIR();
+			receiveIR();
+			if (!avoidObstacle(robotID, sendID)) {
+				beelineToGoal(robotID);		
+			}
 			
-					
+			/*		
 			switch (mode) {
 				case 0:
 					//if (!avoidObstacle(robotID, sendID)) {
-						beelineToGoal(robotID);
+						
 					//}
 					break;
 				case 1:
@@ -517,36 +554,10 @@ int main(void)
 					//wallFollow(robotID, sendID);
 					break;			
 			}
+			*/
 			
 		}
 	}
-
-	/*
-	else if (sel == 2) {	// Always broadcast an increasing number through IR
-		tx_data.value = 0xfe;
-		init_timer3();		// Start broadcasting the contents of tx_data every 200 ms
-		while (1) { 
-	  		
-			//Choose specific channel
-			e_randb_send_all_data(0xFE);
-			//Send all stored data
-		} ;
-
-	}
-	else if (sel == 3) {	// Wait until receiving a packet through IR
-		union comm_value rx_data;
-		double ir_bearing;
-		double ir_range;
-		while (1)
-		{
-			range = e_randb_get_range();
-		
-			//e_randb_uart_store_data(10,range);
-			sprintf(msg, "%i\r\n", range);
-			btcomSendString(msg);
-		}
-	}
-	*/
 	else
 	{
 		while(1) NOP();
