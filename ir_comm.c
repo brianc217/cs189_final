@@ -17,6 +17,8 @@
 static int random_backoff[RANDOM_BACKOFF_SIZE];
 static int rand_ind = 0;
 
+int time_counter = 0;
+
 static union comm_value tx_buffer;
 
 // Calculates parity of the high-order 15 bits of @value.
@@ -53,6 +55,7 @@ _T3Interrupt(void) {
 
 	/* Clear timer value */
 	TMR3 = 0;
+	time_counter++;
 
 	e_randb_send_all_data(tx_buffer.value);
 }

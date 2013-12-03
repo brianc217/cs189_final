@@ -42,9 +42,12 @@
 
 #define HI_SPEED 800
 #define LO_SPEED 300
+#define HALF_SPEED 500
 
 // modes
-#define GOAL_MODE 0
+#define GOTO_GOAL 0
+#define ESCORT_LEADER 1
+#define DEFEND_GOAL 2
 
 
 char msg[80]; 				//this is some data to store screen-bound debug messages
@@ -68,21 +71,28 @@ unsigned char pixelColors[80];
 unsigned char smoothedColors[80];
 
 /* PUT ROLES IN HERE */
-// Ox00 = FRODO, 0x01-0x03 allies; 0x04 = WITCH-KING, 0x05-0x07 allies
-unsigned char id0 = 0x05; 
-unsigned char id1 = 0x05;
-unsigned char id2 = 0x02;
-unsigned char id3 = 0x03;
-unsigned char id4 = 0x04;
-unsigned char id5 = 0x05;
-// TODO: decide what to do with this
+unsigned char id1 = 0x01;  	// FRODO
+unsigned char id2 = 0x02;	// Ally 1
+unsigned char id3 = 0x03;	// Ally 2
+unsigned char id4 = 0x04;	// Ally 3
 
-/*** CHANGE TEAM HERE ***/
+unsigned char id5 = 0x05;	// WITCH_KING	
+unsigned char id6 = 0x06;	// Bad 1 - goaltender
+unsigned char id7 = 0x07;	// Bad 2 - escort
+unsigned char id8 = 0x08;	// Bad 3 - escort
+
+unsigned char id9 = 0x09;	// Ent 1
+unsigned char id10 = 0x0a;	// Ent 2
+
+
+/*** CHANGE TEAM AND ID HERE ***/
 unsigned int team = MORDOR;
+unsigned char myID = 0x07;
 /************************/
 
 // current state of the robot 
 unsigned int mode;
+extern int time_counter;
 
 // stuff related to goal-finding
 unsigned int goalLost;
@@ -90,6 +100,45 @@ unsigned int goalLost;
 //Eases the transmission of integers as ascii code
 #define uart_send_text(msg) do { e_send_uart1_char(msg,strlen(msg)); while(e_uart1_sending()); } while(0)
 
+
+typedef struct IR {
+	finalDataRegister data;
+	double time;
+} IR;
+
+IR robots[12];
+
+void orientToRobot(int id, double theta) {
+	double bearing = robots[id].data.bearing;
+	turn(bearing + theta, HALF_SPEED);
+}
+
+void kill(int id) {
+	/*orientToRobot(id, 0);
+	while(time_counter/2 - robots[id].time < 15) {
+		setSpeeds(HI_SPEED, HI_SPEED);	
+	}
+	setSpeeds(0,0);*/
+
+	//Opting for simpler idea - turn towards robot and go straight every 3 seconds
+	int i = 0;
+	for(; i<5; i++){
+		orientToRobot(id, 0);
+		setSpeeds(HI_SPEED, HI_SPEED);
+		myWait(3000);
+	}
+}
+
+void printRobots() {
+	int i = 0;
+	for(; i<12; i++) {
+		IR robot = robots[i];
+		char string[80];
+		sprintf(string, "Robot:%i, Range:%i, Bearing:%f, Time:%f\r\n", i, robot.data.range, robot.data.bearing, robot.time);
+		btcomSendString(string);
+	}
+		
+}
 
 void getColor(int pixel) {
 	byte1 = buffer[pixel];
@@ -160,6 +209,36 @@ void getGoalCameraLine() {
 			pixelColors[i] = checkGreen(i*2);
 	}
 	smoothColorLine();
+}
+
+// converts intensity to range in cm
+int intensityToRange(unsigned int intensity) {
+	if(intensity < 100) {
+		return 100;
+		//old number 33->15cm  1500->5cm
+	} else if(intensity >= 100 && intensity < 150) {
+		return 50;
+	} else if(intensity >= 150 && intensity < 230) {
+		return 25;
+	} else if(intensity >= 230 && intensity < 475) {
+		return 20;
+	} else if(intensity >= 475 && intensity < 515) {
+		return 15;
+	} else if(intensity >= 515 && intensity < 625) {
+		return 10;
+	} else if(intensity >= 625 && intensity < 850) {
+		return 9;
+	} else if(intensity >= 850 && intensity < 1250) {
+		return 8;
+	} else if(intensity >= 1250 && intensity < 1500) {
+		return 7;
+	} else if(intensity >= 1500 && intensity < 2200) {
+		return 6;
+	} else if(intensity >= 2200 && intensity < 2500) {
+		return 4;
+	} else {
+		return 0;
+	}
 }
 
 int goalInView() {
@@ -243,36 +322,57 @@ int main(void)
 		e_poxxxx_write_cam_registers(); //Initialization and changes to the setup of the camera.
 	
 		unsigned char seed = time(NULL);
-		comm_init(seed, id1);
-		//e_start_agendas_processing(); 	//Motor control
+		comm_init(seed, myID);
 		
-		unsigned int ir_range;
 		float ir_bearing;
-		unsigned char sensor;
 		unsigned int ID;
 		union comm_value msg_data;
 		unsigned int custom_msg;
+		unsigned char companion;		// Refers to an escort's fellow escort
+		unsigned char leader;			// Leader of the team
 
 		goalLost = 0;
 
-		mode = -1;
+		if(team == MORDOR){
+			leader = 0x05;
+			companion = (myID==0x07) ? 0x08 : 0x07;
+		} else {
+			leader = 0x01;
+			companion = (myID==0x03) ? 0x04 : 0x03;
+		}
+		
+		// Dynamically figure out role and strategy
+		if(myID == 0x01 || myID == 0x05){
+			mode = GOTO_GOAL;
+		} else if(myID == 0x02 || myID == 0x06){
+			mode = DEFEND_GOAL;
+		} else {
+			mode = ESCORT_LEADER;
+		}
+
+
 		while(1)
 		{
-			//myWait(500);
+			//myWait(1000);
 			
 			/* IR receive */
-			sprintf(msg, "start of loop\r\n");
-			btcomSendString(msg);
 			comm_rx(&data);
-			ir_range = (data).range;
-			ir_bearing = 57.296*((data).bearing);
-			sensor = (data).max_sensor;
+
+			data.bearing = 57.296*(data.bearing);
 			msg_data = (union comm_value) (data).data;
 			ID = (unsigned int) msg_data.bits.ID;
-			custom_msg = (unsigned int) msg_data.bits.data;
-			sprintf(msg, "sensor: %u, range: %u, bearing: %f, ID: %u\r\n", (unsigned int) sensor, ir_range, ir_bearing, ID);
-			btcomSendString(msg);
+
+			IR rData;
+			rData.data = data;
+			rData.time = time_counter / 2;
 			
+			if(ID >= 0 && ID <= 12) {
+				robots[ID] = rData;
+			}
+
+			//kill(5);
+			printRobots();
+		
 
 			/* CAMERA */
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
@@ -285,9 +385,11 @@ int main(void)
 				sprintf(msg, "IN THE PENALTY BOX\r\n");
 				btcomSendString(msg);
 			}
-			
+			sprintf(msg, "Mode: %i", mode);
+			btcomSendString(msg);
+
 			switch (mode) {
-				case GOAL_MODE:
+				case GOTO_GOAL:
 					if (goalLost >= 3) {
 						goalLost = 0;
 						setSpeeds(LO_SPEED, -LO_SPEED);
@@ -346,6 +448,18 @@ int main(void)
 					sprintf(msg, "%s\r\n", msg);
 					btcomSendString(msg);
 
+					break;
+
+				case ESCORT_LEADER:
+					myWait(500);
+					while(robots[(int)leader].data.bearing == 0) NOP();
+					orientToRobot(leader, 0);
+					int range = robots[(int)leader].data.range;
+					double p = (range - 10) / 50;
+					setSpeeds(HI_SPEED+p, HI_SPEED+p);
+						
+					break;
+				case DEFEND_GOAL:
 					break;
 			}
 			

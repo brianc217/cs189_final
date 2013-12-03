@@ -136,10 +136,10 @@ double e_randb_get_bearing ( void )
 	unsigned char aux1;
 	unsigned char aux2;
 	aux1 = e_i2cp_read(RAB_ID,3);
-	/*int i;*/
-	/*for(i=0 ; i < 10000 ; i++) __asm__("nop");*/
+	int i;
+	for(i=0 ; i < 10000 ; i++) __asm__("nop");
 	aux2 = e_i2cp_read(RAB_ID,4);
-	/*for(i=0 ; i < 10000 ; i++) __asm__("nop");*/
+	for(i=0 ; i < 10000 ; i++) __asm__("nop");
 	int angle = (((unsigned int) aux1) << 8) + aux2;
 	return ( ((double) angle) * 0.0001);
 }
