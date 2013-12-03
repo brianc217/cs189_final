@@ -53,16 +53,16 @@ unsigned int mode;
 char msg[80]; 				
 
 /* PUT ROLES IN HERE */
-// Ox00 = FRODO, 0x01-0x03 allies; 0x04 = WITCH-KING, 0x05-0x07 allies
-unsigned char id0 = 0x00; 
+// Ox01 = FRODO, 0x02-0x04 allies; 0x04 = WITCH-KING, 0x05-0x07 allies
 unsigned char id1 = 0x01;
 unsigned char id2 = 0x02;
 unsigned char id3 = 0x03;
-
 unsigned char id4 = 0x04;
+
 unsigned char id5 = 0x05;
 unsigned char id6 = 0x06;
 unsigned char id7 = 0x07;
+unsigned char id8 = 0x08;
 // TODO: decide what to do with this
 
 /* PUT ROBOT IDS HERE */
@@ -363,7 +363,7 @@ int main(void)
 	if (sel == 1)		// ARTISAN 2046
 	{
 		int robotID = robot0;
-		int sendID = (team == GONDOR ) ? id0 : id4;
+		unsigned char sendID = id1;
 		
 		goalLost = 0;
 		spinMode = 0;
@@ -411,15 +411,37 @@ int main(void)
 			} */
 		}
 	}
-	else if (sel == 3) {
-		int robotID = robot2;
-		int sendID = (team == GONDOR ) ? id1 : id5;
+	else if (sel == 2) {
+		int robotID = robot0;
+		unsigned char sendID = id2;
+		
+		goalLost = 0;
+		spinMode = 0;
+		mode = 0;
 
 		unsigned char seed = time(NULL);
-		comm_init(seed, sendID); 
+		comm_init(seed, sendID); // need to factor out a way 
+	
+		//setSpeeds(HI_SPEED, HI_SPEED);
 
-		receiveIR();
+		while(1)
+		{
+			/* CAMERA */
+			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
+			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
 
+			/* IR */
+			receiveIR();
+			/*
+			if (!nearGoal(robotID)) {
+				if (!avoidObstacle(robotID, sendID)) {
+					beelineToGoal(robotID);		
+				}
+			}
+			else {
+				beelineToGoal(robotID);
+			} */
+		}
 	}
 	else
 	{
