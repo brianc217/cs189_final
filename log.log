@@ -1,0 +1,47 @@
+[33mcommit 4ccb5df913d29e1c372e3584fca8c92be5c0bc60[m
+Author: brianc217 <cs141tf@eelab907.fas.harvard.edu>
+Date:   Tue Dec 3 15:59:39 2013 -0500
+
+    pre-merge
+
+[33mcommit 9297f26d503b72d0eebd4e0ef1b8df949e33fec9[m
+Author: brianc217 <cs141tf@eelab907.fas.harvard.edu>
+Date:   Tue Dec 3 15:59:08 2013 -0500
+
+    updated escort 2
+
+[33mcommit 587eeed292c7346383e181000637f2cf4bedacd1[m
+Author: brianc217 <cs141tf@eelab907.fas.harvard.edu>
+Date:   Tue Dec 3 15:55:48 2013 -0500
+
+    updated escort
+
+[33mcommit 2f437586ae751f4183e91f7901f21f65ac0a0253[m
+Author: unknown <instlab@lab2109.fas.harvard.edu>
+Date:   Fri Nov 22 16:00:52 2013 -0500
+
+    added new main file with camera-related functions and some working IR tests
+
+[33mcommit 8b39f619d7abbfc61e1e7ed134b8b12eea1efb18[m
+Author: brianc217 <cs141tf@eelab907.fas.harvard.edu>
+Date:   Fri Nov 22 14:31:55 2013 -0500
+
+    added old main
+
+[33mcommit 7f45af88da9b7bcb67d3de9a94be169fd37d3ed5[m
+Author: brianc217 <cs141tf@eelab907.fas.harvard.edu>
+Date:   Fri Nov 22 14:30:57 2013 -0500
+
+    changed main name
+
+[33mcommit 628de0574ba63b9c4da88c8582da58b0a3a31227[m
+Author: brianc217 <cs141tf@eelab907.fas.harvard.edu>
+Date:   Wed Nov 20 21:31:42 2013 -0500
+
+    initial source code
+
+[33mcommit ec54eff146f1b46501bff1667fd5e891d4c7c244[m
+Author: brianc217 <brianc217@gmail.com>
+Date:   Wed Nov 20 18:20:07 2013 -0800
+
+    Initial commit

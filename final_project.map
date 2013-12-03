@@ -1,4 +1,4 @@
-Microchip Technology Inc, vv3_30 (B) 
+Microchip Technology Inc, vv3_30 (B) >
 
 Tool Name:
   c:\program files\microchip\mplabc30\v3.30c\bin\bin\..\bin/pic30-coff-ld.exe
@@ -48,6 +48,7 @@ Command:
   e_calc_po3030k.o \
   e_randb.o \
   ir_comm.o \
+  camera_helpers.o \
   -Tp30f6014A.gld.00 \
   --defsym=__MPLAB_BUILD=1 \
   --defsym=__MPLAB_DEBUG=1 \
@@ -74,8 +75,11 @@ c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(feqltle
                               main.o (__eqsf2)
 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(divsi3.o)
                               e_po3030k_registers.o (__divsi3)
+c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fgtge.o)
+                              main.o (__gtsf2)
 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(addsf3.o)
                               main.o (__subsf3)
+<<<<<<< HEAD
 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(mulsf3.o)
                               main.o (__mulsf3)
 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(divsf3.o)
@@ -84,6 +88,14 @@ c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fixsfsi
                               main.o (__fixsfsi)
 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fgtge.o)
                               utility.o (__gtsf2)
+=======
+c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fixsfsi.o)
+                              main.o (__fixsfsi)
+c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(mulsf3.o)
+                              main.o (__mulsf3)
+c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(divsf3.o)
+                              main.o (__divsf3)
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(atan2f.o)
                               e_randb.o (atan2f)
 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(cosf.o)
@@ -239,6 +251,7 @@ Program Memory  [Origin = 0x100, Length = 0x17f00]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x100              0x1f12          0x2e9b  (11931)
+<<<<<<< HEAD
 .const                      0x2012                0x98            0xe4  (228)
 .text                       0x20aa              0x2d20          0x43b0  (17328)
 .dinit                      0x4dca               0x3dc           0x5ca  (1482)
@@ -246,12 +259,22 @@ section                    address   length (PC units)   length (bytes) (dec)
 .isr                        0x71e4                 0x4             0x6  (6)
 
                      Total program memory used (bytes):         0xa95c  (43356) 29%
+=======
+.const                      0x2012                0x92            0xdb  (219)
+.text                       0x20a4              0x2bf0          0x41e8  (16872)
+.dinit                      0x4c94               0x3d8           0x5c4  (1476)
+.text                       0x506c              0x2378          0x3534  (13620)
+.isr                        0x73e4                 0x4             0x6  (6)
+
+                     Total program memory used (bytes):         0xac5c  (44124) 30%
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
 
 
 Data Memory  [Origin = 0x800, Length = 0x1fa0]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
+<<<<<<< HEAD
 .nbss                        0x800                   0           0x678  (1656)
 .ndata                       0xe78                   0           0x182  (386)
 .nbss                        0xffa                   0            0x84  (132)
@@ -275,20 +298,53 @@ section                    address      alignment gaps    total length  (dec)
 .heap                       0x141e                   0           0x200  (512)
 
                         Total data memory used (bytes):          0xe1e  (3614) 44%
+=======
+.nbss                        0x800                   0           0x5c8  (1480)
+.ndata                       0xdc8                   0           0x182  (386)
+.nbss                        0xf4a                   0            0x84  (132)
+.data                        0xfce                   0            0x88  (136)
+.nbss                       0x1056                   0            0x54  (84)
+.ndata                      0x10aa                   0            0x16  (22)
+.nbss                       0x10c0                   0            0x18  (24)
+.data                       0x10d8                   0             0x6  (6)
+.nbss                       0x10de                   0             0x6  (6)
+.data                       0x10e4                   0             0x6  (6)
+.nbss                       0x10ea                   0             0x8  (8)
+.ndata                      0x10f2                   0             0x2  (2)
+.nbss                       0x10f4                   0             0x2  (2)
+.ndata                      0x10f6                   0             0x2  (2)
+.nbss                       0x10f8                   0             0x2  (2)
+.data                       0x10fa                   0           0x200  (512)
+.dconst                     0x12fa                   0            0x2a  (42)
+.data                       0x1324                   0            0x26  (38)
+.bss                        0x134a                   0            0x24  (36)
+.data                       0x136e                   0             0x2  (2)
+.heap                       0x1370                   0           0x200  (512)
+
+                        Total data memory used (bytes):          0xd70  (3440) 42%
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
 
 
 Dynamic Memory Usage
 
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
+<<<<<<< HEAD
 heap                        0x141e                               0x200  (512)
 stack                       0x161e                              0x1182  (4482)
 
                         Maximum dynamic memory (bytes):         0x1382  (4994)
+=======
+heap                        0x1370                               0x200  (512)
+stack                       0x1570                              0x1230  (4656)
+
+                        Maximum dynamic memory (bytes):         0x1430  (5168)
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
 
 
 External Symbols in Data Memory (by address):
 
+<<<<<<< HEAD
                     0x0990                  _msg
                     0x09e0                  _sel
                     0x09e2                  _i
@@ -450,6 +506,183 @@ External Symbols in Data Memory (by name):
                     0x0a4c                  _smoothedColors
                     0x1168                  _team
                     0x11a4                  _time_counter
+=======
+                    0x0864                  _i
+                    0x0866                  _red
+                    0x0868                  _green
+                    0x086a                  _blue
+                    0x086c                  _byte1
+                    0x086e                  _byte2
+                    0x0870                  _cam_width
+                    0x0872                  _goalLost
+                    0x0874                  _spinMode
+                    0x0876                  _pixelColors
+                    0x08c6                  _smoothedColors
+                    0x0916                  _buffer
+                    0x0a42                  _sel
+                    0x0a44                  _mode
+                    0x0a46                  _msg
+                    0x0a96                  _data
+                    0x0aa2                  _ir_range
+                    0x0aa4                  _ir_bearing
+                    0x0aa8                  _ir_sensor
+                    0x0aaa                  _receivedID
+                    0x0aac                  _msg_data
+                    0x0aae                  _custom_msg
+                    0x0ab0                  _e_bt_local_paired_device
+                    0x0ae0                  _e_bt_present_device
+                    0x0c02                  _e_bt_present_epuck
+                    0x0c70                  _local_bt_PIN
+                    0x0c76                  __poxxxx_buffer
+                    0x0c78                  __poxxxx_img_ready
+                    0x0c7a                  __poxxxx_current_row
+                    0x0c7c                  __poxxxx_row
+                    0x0c7e                  __poxxxx_line_conf
+                    0x0ea0                  _SensorAngle
+                    0x0eb8                  _SensorAngleRads
+                    0x0ee8                  _CosSensorAngle
+                    0x0f18                  _SinSensorAngle
+                    0x0f48                  _p
+                    0x0fce                  _U1RXBuf
+                    0x100e                  _U1RXRcvCnt
+                    0x1010                  _U1RXReadCnt
+                    0x1012                  _U2RXBuf
+                    0x1052                  _U2RXRcvCnt
+                    0x1054                  _U2RXReadCnt
+                    0x108a                  _calcOnBoard
+                    0x108c                  _erandbTmpData
+                    0x1098                  _erandbFinalData
+                    0x10a4                  _erandbFinished
+                    0x10a6                  _erandbState
+                    0x10a8                  _erandbCounter
+                    0x10aa                  _range
+                    0x10ae                  _id0
+                    0x10af                  _id1
+                    0x10b0                  _id2
+                    0x10b1                  _id3
+                    0x10b2                  _id4
+                    0x10b3                  _id5
+                    0x10b4                  _id6
+                    0x10b5                  _id7
+                    0x10b6                  _robot0
+                    0x10b8                  _robot1
+                    0x10ba                  _robot2
+                    0x10bc                  _robot3
+                    0x10be                  _team
+                    0x10d0                  _e_i2c_mode
+                    0x10d2                  _e_interrupts
+                    0x10d8                  U1TXPtr
+                    0x10da                  U1TXLength
+                    0x10dc                  U1TXOk
+                    0x10e4                  U2TXPtr
+                    0x10e6                  U2TXLength
+                    0x10e8                  U2TXOk
+                    0x10f6                  _errorPercent
+                    0x10fa                  __npowers_
+                    0x11aa                  __powers_
+                    0x1324                  __Files
+                    0x1326                  __iob
+                    0x134a                  __allocx
+                    0x134e                  __alloct
+                    0x1350                  __allocp
+                    0x1352                  __allocs
+                    0x1360                  __sobuf
+                    0x1362                  __sibuf
+                    0x1364                  __outdone
+                    0x1366                  __atexitptr
+                    0x136a                  __tfilesptr
+                    0x136c                  ___curbrk
+                    0x136e                  ___C30_UART
+
+External Symbols in Data Memory (by name):
+
+                    0x10da                  U1TXLength
+                    0x10dc                  U1TXOk
+                    0x10d8                  U1TXPtr
+                    0x10e6                  U2TXLength
+                    0x10e8                  U2TXOk
+                    0x10e4                  U2TXPtr
+                    0x0ee8                  _CosSensorAngle
+                    0x0ea0                  _SensorAngle
+                    0x0eb8                  _SensorAngleRads
+                    0x0f18                  _SinSensorAngle
+                    0x0fce                  _U1RXBuf
+                    0x100e                  _U1RXRcvCnt
+                    0x1010                  _U1RXReadCnt
+                    0x1012                  _U2RXBuf
+                    0x1052                  _U2RXRcvCnt
+                    0x1054                  _U2RXReadCnt
+                    0x1324                  __Files
+                    0x136e                  ___C30_UART
+                    0x136c                  ___curbrk
+                    0x1350                  __allocp
+                    0x1352                  __allocs
+                    0x134e                  __alloct
+                    0x134a                  __allocx
+                    0x1366                  __atexitptr
+                    0x1326                  __iob
+                    0x10fa                  __npowers_
+                    0x1364                  __outdone
+                    0x11aa                  __powers_
+                    0x0c76                  __poxxxx_buffer
+                    0x0c7a                  __poxxxx_current_row
+                    0x0c78                  __poxxxx_img_ready
+                    0x0c7e                  __poxxxx_line_conf
+                    0x0c7c                  __poxxxx_row
+                    0x1362                  __sibuf
+                    0x1360                  __sobuf
+                    0x136a                  __tfilesptr
+                    0x086a                  _blue
+                    0x0916                  _buffer
+                    0x086c                  _byte1
+                    0x086e                  _byte2
+                    0x108a                  _calcOnBoard
+                    0x0870                  _cam_width
+                    0x0aae                  _custom_msg
+                    0x0a96                  _data
+                    0x0ab0                  _e_bt_local_paired_device
+                    0x0ae0                  _e_bt_present_device
+                    0x0c02                  _e_bt_present_epuck
+                    0x10d0                  _e_i2c_mode
+                    0x10d2                  _e_interrupts
+                    0x10a8                  _erandbCounter
+                    0x1098                  _erandbFinalData
+                    0x10a4                  _erandbFinished
+                    0x10a6                  _erandbState
+                    0x108c                  _erandbTmpData
+                    0x10f6                  _errorPercent
+                    0x0872                  _goalLost
+                    0x0868                  _green
+                    0x0864                  _i
+                    0x10ae                  _id0
+                    0x10af                  _id1
+                    0x10b0                  _id2
+                    0x10b1                  _id3
+                    0x10b2                  _id4
+                    0x10b3                  _id5
+                    0x10b4                  _id6
+                    0x10b5                  _id7
+                    0x0aa4                  _ir_bearing
+                    0x0aa2                  _ir_range
+                    0x0aa8                  _ir_sensor
+                    0x0c70                  _local_bt_PIN
+                    0x0a44                  _mode
+                    0x0a46                  _msg
+                    0x0aac                  _msg_data
+                    0x0f48                  _p
+                    0x0876                  _pixelColors
+                    0x10aa                  _range
+                    0x0aaa                  _receivedID
+                    0x0866                  _red
+                    0x10b6                  _robot0
+                    0x10b8                  _robot1
+                    0x10ba                  _robot2
+                    0x10bc                  _robot3
+                    0x0a42                  _sel
+                    0x08c6                  _smoothedColors
+                    0x0874                  _spinMode
+                    0x10be                  _team
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
 
 External Symbols in Program Memory (by address):
 
@@ -465,6 +698,7 @@ External Symbols in Program Memory (by address):
                   0x000306                  ___lesf2
                   0x000306                  ___eqsf2
                   0x00030a                  ___divsi3
+<<<<<<< HEAD
                   0x000328                  ___subsf3
                   0x00032a                  ___addsf3
                   0x0003e4                  ___mulsf3
@@ -472,6 +706,15 @@ External Symbols in Program Memory (by address):
                   0x0004d0                  ___fixsfsi
                   0x000512                  ___gesf2
                   0x000512                  ___gtsf2
+=======
+                  0x000328                  ___gtsf2
+                  0x000328                  ___gesf2
+                  0x00032c                  ___subsf3
+                  0x00032e                  ___addsf3
+                  0x0003e8                  ___fixsfsi
+                  0x00042a                  ___mulsf3
+                  0x000492                  ___divsf3
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
                   0x000516                  _atan2f
                   0x000550                  _cosf
                   0x000554                  _sqrtf
@@ -501,8 +744,8 @@ External Symbols in Program Memory (by address):
                   0x000c76                  ___nedf2
                   0x000c80                  ___truncdfsf2
                   0x000cd6                  _frexpf
-                  0x000cdc                  ___gtdf2
                   0x000cdc                  ___gedf2
+                  0x000cdc                  ___gtdf2
                   0x000ce6                  ___adddf3
                   0x000de0                  ___fixunsdfdi
                   0x000e42                  ___divdf3
@@ -519,9 +762,15 @@ External Symbols in Program Memory (by address):
                   0x0010c8                  __dtype
                   0x0010ec                  _strlen
                   0x0010f8                  _atoi
+<<<<<<< HEAD
                   0x001140                  __sprintf_cdnopuxX
                   0x001140                  __sprintf_cdfFnopuxX
                   0x001140                  __sprintf_cdfFnopsuxX
+=======
+                  0x001140                  __sprintf_cdfFnopsuxX
+                  0x001140                  __sprintf_cdnopuxX
+                  0x001140                  __sprintf_cdfFnopuxX
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
                   0x00116e                  _malloc
                   0x001292                  _free
                   0x00129e                  _realloc
@@ -529,14 +778,20 @@ External Symbols in Program Memory (by address):
                   0x001300                  _srand
                   0x00130e                  _rand
                   0x0013ee                  __vfprintf_cdnopuxX
+<<<<<<< HEAD
                   0x0013ee                  __vfprintf_cdfFnopuxX
                   0x0013ee                  __vfprintf_cdfFnopsuxX
+=======
+                  0x0013ee                  __vfprintf_cdfFnopsuxX
+                  0x0013ee                  __vfprintf_cdfFnopuxX
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
                   0x001dea                  _memcpy
                   0x001df8                  __cleanup
                   0x001ea2                  _fclose
                   0x001f98                  _fflush
                   0x001fec                  __bufallo
                   0x00200a                  __buffree
+<<<<<<< HEAD
                   0x0020aa                  _e_bt_find_epuck
                   0x002246                  _e_bt_connect_epuck
                   0x002274                  _e_bt_reset
@@ -770,10 +1025,250 @@ External Symbols in Program Memory (by address):
                   0x007188                  _e_init_uart1
                   0x0071b6                  _e_init_uart2
                   0x0071e4                  __DefaultInterrupt
+=======
+                  0x0020a4                  _e_bt_find_epuck
+                  0x002240                  _e_bt_connect_epuck
+                  0x00226e                  _e_bt_reset
+                  0x00231c                  _e_bt_factory_reset
+                  0x00239c                  _e_bt_tranparent_mode
+                  0x002422                  _e_bt_exit_tranparent_mode
+                  0x002450                  _e_bt_read_local_pin_number
+                  0x002506                  _e_bt_read_local_name
+                  0x0025ae                  _e_bt_write_local_pin_number
+                  0x002688                  _e_bt_write_local_name
+                  0x002764                  _e_bt_inquiry
+                  0x00288a                  _e_bt_get_friendly_name
+                  0x002976                  _e_bt_etablish_SPP_link
+                  0x002a62                  _e_bt_release_SPP_link
+                  0x002b84                  _e_bt_send_SPP_data
+                  0x002c6a                  _e_bt_list_local_paired_device
+                  0x002d18                  _e_bt_remove_local_paired_device
+                  0x002e02                  _e_bt_set_event_filter
+                  0x002e98                  _e_bt_get_event_filter
+                  0x002f18                  _e_po3030k_write_cam_registers
+                  0x002f4a                  _e_po3030k_read_cam_registers
+                  0x002f80                  _e_po3030k_set_color_mode
+                  0x002fbe                  _e_po3030k_set_sampling_mode
+                  0x002fe8                  _e_po3030k_set_speed
+                  0x00302e                  _e_po3030k_set_wx
+                  0x003084                  _e_po3030k_set_wy
+                  0x0030d4                  _e_po3030k_set_vsync
+                  0x003146                  _e_po3030k_set_mirror
+                  0x003182                  _e_po3030k_set_register
+                  0x0031c0                  _e_po3030k_get_register
+                  0x003200                  _e_po3030k_set_bias
+                  0x003212                  _e_po3030k_set_color_gain
+                  0x003248                  _e_po3030k_set_integr_time
+                  0x00326c                  _e_po3030k_set_adc_offset
+                  0x003278                  _e_po3030k_set_sepia
+                  0x003294                  _e_po3030k_set_lens_gain
+                  0x0032ac                  _e_po3030k_set_edge_prop
+                  0x0032c2                  _e_po3030k_set_gamma_coef
+                  0x003302                  _e_po3030k_write_gamma_coef
+                  0x003320                  _e_po3030k_sync_register_array
+                  0x003380                  _e_po3030k_SetColorMatrix
+                  0x0033ae                  _e_po3030k_set_cb_cr_gain
+                  0x0033c0                  _e_po3030k_set_brigh_contr
+                  0x0033d2                  _e_po3030k_set_sepia_tone
+                  0x0033e4                  _e_po3030k_set_ww
+                  0x0033f4                  _e_po3030k_set_awb_ae_tol
+                  0x00340c                  _e_po3030k_set_ae_speed
+                  0x003426                  _e_po3030k_set_exposure
+                  0x003446                  _e_po3030k_set_ref_exposure
+                  0x003452                  _e_po3030k_set_max_min_exp
+                  0x003470                  _e_po3030k_set_max_min_awb
+                  0x00349a                  _e_po3030k_set_weight_win
+                  0x003540                  _e_po3030k_set_awb_ae
+                  0x00357c                  _e_po3030k_set_flicker_mode
+                  0x00359a                  _e_po3030k_set_flicker_detection
+                  0x003690                  _e_po3030k_set_flicker_man_set
+                  0x003750                  _e_set_led
+                  0x0039f2                  _e_led_clear
+                  0x003a08                  _e_set_body_led
+                  0x003a48                  _e_set_front_led
+                  0x003a88                  _e_blink_led
+                  0x003b5e                  _e_blink_led0
+                  0x003b80                  _e_blink_led1
+                  0x003b9a                  _e_blink_led2
+                  0x003bbc                  _e_blink_led3
+                  0x003bde                  _e_blink_led4
+                  0x003c00                  _e_blink_led5
+                  0x003c22                  _e_blink_led6
+                  0x003c44                  _e_blink_led7
+                  0x003c5e                  _e_start_led_blinking
+                  0x003c6c                  _e_stop_led_blinking
+                  0x003c76                  _e_set_blinking_cycle
+                  0x003c88                  _snake_led
+                  0x003ce0                  _flow_led
+                  0x003d5e                  _k2000_led
+                  0x003dde                  _right_led
+                  0x003e44                  _left_led
+                  0x003eaa                  _e_init_randb
+                  0x003ee4                  _e_randb_get_if_received
+                  0x003f14                  _e_randb_get_sensor
+                  0x003f22                  _e_randb_get_peak
+                  0x003f42                  _e_randb_get_data
+                  0x003f66                  _e_randb_get_range
+                  0x003f8a                  _e_randb_get_bearing
+                  0x003fba                  _e_randb_reception
+                  0x003ffa                  _e_randb_send_all_data
+                  0x004038                  _e_randb_store_data
+                  0x004062                  _e_randb_send_data
+                  0x00408a                  _e_randb_set_range
+                  0x0040aa                  _e_randb_store_light_conditions
+                  0x0040d2                  _e_randb_set_calculation
+                  0x0040f8                  _e_randb_get_uart2
+                  0x004166                  _e_randb_get_data_uart
+                  0x00419c                  _e_randb_uart_set_range
+                  0x0041bc                  _e_randb_uart_store_light_conditions
+                  0x0041da                  _e_randb_uart_set_calculation
+                  0x004200                  _e_randb_uart_store_data
+                  0x004224                  _e_randb_uart_send_data
+                  0x004262                  _e_randb_uart_send_all_data
+                  0x0042a8                  _e_randb_set_uart_communication
+                  0x0042c8                  _e_randb_get_all_data
+                  0x004348                  _e_randb_all_reception
+                  0x004602                  _printRGB
+                  0x004628                  _atObstacle
+                  0x00488e                  _atGoal
+                  0x0048be                  _nearGoal
+                  0x0048fc                  _robot_init
+                  0x004972                  _wallFollow
+                  0x0049fe                  _avoidObstacle
+                  0x004a70                  _receiveIR
+                  0x004ac8                  _printCameraLine
+                  0x004b14                  _beelineToGoal
+                  0x004bec                  _main
+                  0x00506c                  _idle_i2c
+                  0x00509c                  _e_i2c_init
+                  0x0050d6                  _e_i2c_reset
+                  0x00511e                  _e_i2c_enable
+                  0x00512a                  _e_i2c_disable
+                  0x005136                  _e_i2c_start
+                  0x00517a                  _e_i2c_restart
+                  0x0051be                  _e_i2c_stop
+                  0x0051f4                  _e_i2c_ack
+                  0x00525a                  _e_i2c_nack
+                  0x0052c0                  _e_i2c_read
+                  0x00536c                  _e_i2c_write
+                  0x0053a8                  __MI2CInterrupt
+                  0x0053c0                  _e_po6030k_set_bank
+                  0x0053d4                  _e_po6030k_write_register
+                  0x0053f0                  _e_po6030k_read_register
+                  0x00540c                  _e_po6030k_set_bayer_clkdiv
+                  0x00541c                  _e_po6030k_set_pclkdiv
+                  0x005550                  _e_po6030k_set_mode
+                  0x0055a8                  _e_po6030k_set_wx
+                  0x0055fe                  _e_po6030k_set_wy
+                  0x00560a                  _e_po6030k_set_vsync
+                  0x00566a                  _e_po6030k_set_sketch_mode
+                  0x0056c8                  _e_po6030k_set_mirror
+                  0x005702                  _getColor
+                  0x00573e                  _checkYellow
+                  0x0057bc                  _checkGreen
+                  0x00583a                  _checkRed
+                  0x00588a                  _smoothColorLine
+                  0x00591c                  _getPenaltyCameraLine
+                  0x00594c                  _getGoalCameraLine
+                  0x005994                  _goalInView
+                  0x0059cc                  _getGoalMidpoint
+                  0x005a08                  _inPenaltyBox
+                  0x005a42                  _run_left_motor
+                  0x005b26                  _run_right_motor
+                  0x005c0a                  _e_init_motors
+                  0x005c1c                  _e_set_speed_left
+                  0x005c96                  _e_set_speed_right
+                  0x005d10                  _e_set_speed
+                  0x005d52                  _e_get_steps_left
+                  0x005d5a                  _e_set_steps_left
+                  0x005d66                  _e_get_steps_right
+                  0x005d6e                  _e_set_steps_right
+                  0x005d7a                  _wait
+                  0x005d9c                  _myWait
+                  0x005dd2                  _getselector
+                  0x005e0a                  _setLED
+                  0x005ed6                  _setErrorPercent
+                  0x005ee2                  _setSpeeds
+                  0x005f78                  _moveForward
+                  0x005fae                  _move
+                  0x006004                  _turn
+                  0x00606a                  _allRedLEDsOff
+                  0x006080                  _allRedLEDsOn
+                  0x006096                  _e_po6030k_config_cam
+                  0x006308                  _e_po6030k_get_bytes_per_pixel
+                  0x006340                  _e_po3030k_config_cam
+                  0x00657c                  _e_po3030k_get_bytes_per_pixel
+                  0x0065b4                  _manual_camera_calibration
+                  0x006608                  _e_po6030k_exposure_control
+                  0x006660                  _e_po6030k_manual_exposure_value
+                  0x006736                  _e_po6030k_white_balance
+                  0x00676a                  _e_po6030k_automatic_digital_gain
+                  0x00679e                  _e_po6030k_mean_brightness
+                  0x0067bc                  _wait_for_bluetooth
+                  0x0067fc                  _init_tmr1
+                  0x006820                  __T1Interrupt
+                  0x006990                  _e_init_prox
+                  0x00699a                  _e_stop_prox
+                  0x0069da                  _e_get_prox
+                  0x0069fc                  _e_get_ambient_light
+                  0x006a1e                  _e_start_agendas_processing
+                  0x006a40                  _e_end_agendas_processing
+                  0x006a48                  _e_activate_agenda
+                  0x006aa8                  _e_destroy_agenda
+                  0x006af8                  _e_set_agenda_cycle
+                  0x006b2e                  _e_reset_agenda
+                  0x006b62                  _e_pause_agenda
+                  0x006b96                  _e_restart_agenda
+                  0x006bca                  __T2Interrupt
+                  0x006c84                  __T3Interrupt
+                  0x006cca                  _comm_init
+                  0x006d26                  _comm_rx
+                  0x006d7a                  _comm_store_tx
+                  0x006daa                  __T5Interrupt
+                  0x006df4                  _e_poxxxx_launch_capture
+                  0x006e0c                  _e_poxxxx_apply_timer_config
+                  0x006eaa                  _e_poxxxx_is_img_ready
+                  0x006eb2                  _e_poxxxx_config_cam
+                  0x006f0a                  _e_poxxxx_set_mirror
+                  0x006f38                  _e_poxxxx_write_cam_registers
+                  0x006f4a                  _e_poxxxx_init_cam
+                  0x006faa                  _btcomSendStringStatic
+                  0x006fbe                  _btcomSendString
+                  0x006fd6                  _btcomSendInt
+                  0x006ff4                  _btcomSendFloat
+                  0x007012                  _btcomSendChar
+                  0x007026                  _btcomWaitForCommand
+                  0x007054                  _btcomGetCharacter
+                  0x00707c                  _e_i2cp_init
+                  0x007084                  _e_i2cp_enable
+                  0x00708c                  _e_i2cp_disable
+                  0x007094                  _e_i2cp_read
+                  0x0070dc                  _e_i2cp_write
+                  0x007118                  _e_init_port
+                  0x0071a2                  _e_init_ad
+                  0x0071de                  _e_read_ad
+                  0x007218                  __U1TXInterrupt
+                  0x00725c                  _e_send_uart1_char
+                  0x007274                  _e_uart1_sending
+                  0x007278                  __U2TXInterrupt
+                  0x0072bc                  _e_send_uart2_char
+                  0x0072d4                  _e_uart2_sending
+                  0x0072d8                  __U1RXInterrupt
+                  0x0072f0                  _e_ischar_uart1
+                  0x0072f8                  _e_getchar_uart1
+                  0x007314                  __U2RXInterrupt
+                  0x00732c                  _e_ischar_uart2
+                  0x007334                  _e_getchar_uart2
+                  0x007350                  __T4Interrupt
+                  0x007388                  _e_init_uart1
+                  0x0073b6                  _e_init_uart2
+                  0x0073e4                  __DefaultInterrupt
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
                   0xf8000a                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
+<<<<<<< HEAD
                   0x0071e4                  __DefaultInterrupt
                   0xf8000a                  __FGS.sec
                   0x0054e2                  __MI2CInterrupt
@@ -786,24 +1281,42 @@ External Symbols in Program Memory (by name):
                   0x007018                  __U1TXInterrupt
                   0x007114                  __U2RXInterrupt
                   0x007078                  __U2TXInterrupt
+=======
+                  0x0073e4                  __DefaultInterrupt
+                  0xf8000a                  __FGS.sec
+                  0x0053a8                  __MI2CInterrupt
+                  0x006820                  __T1Interrupt
+                  0x006bca                  __T2Interrupt
+                  0x006c84                  __T3Interrupt
+                  0x007350                  __T4Interrupt
+                  0x006daa                  __T5Interrupt
+                  0x0072d8                  __U1RXInterrupt
+                  0x007218                  __U1TXInterrupt
+                  0x007314                  __U2RXInterrupt
+                  0x007278                  __U2TXInterrupt
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
                   0x000ce6                  ___adddf3
-                  0x00032a                  ___addsf3
+                  0x00032e                  ___addsf3
                   0x000e42                  ___divdf3
                   0x000a38                  ___divdi3
+<<<<<<< HEAD
                   0x00044c                  ___divsf3
+=======
+                  0x000492                  ___divsf3
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
                   0x00030a                  ___divsi3
                   0x000c6c                  ___eqdf2
                   0x000306                  ___eqsf2
                   0x000c2e                  ___extendsfdf2
-                  0x0004d0                  ___fixsfsi
+                  0x0003e8                  ___fixsfsi
                   0x000de0                  ___fixunsdfdi
                   0x0005be                  ___fixunssfsi
                   0x000ef6                  ___floatdidf
                   0x0002b0                  ___floatsisf
                   0x000cdc                  ___gedf2
-                  0x000512                  ___gesf2
+                  0x000328                  ___gesf2
                   0x000cdc                  ___gtdf2
-                  0x000512                  ___gtsf2
+                  0x000328                  ___gtsf2
                   0x000c6c                  ___ledf2
                   0x000306                  ___lesf2
                   0x000c6c                  ___ltdf2
@@ -812,11 +1325,15 @@ External Symbols in Program Memory (by name):
                   0x000b44                  ___muldf3
                   0x0002a4                  ___mulp32eds3
                   0x0002a4                  ___mulp32peds3
+<<<<<<< HEAD
                   0x0003e4                  ___mulsf3
+=======
+                  0x00042a                  ___mulsf3
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
                   0x0002a4                  ___mulsi3
                   0x000c76                  ___nedf2
                   0x000f64                  ___subdf3
-                  0x000328                  ___subsf3
+                  0x00032c                  ___subsf3
                   0x000c80                  ___truncdfsf2
                   0x000a22                  ___udivdi3
                   0x000954                  ___udivmoddi3
@@ -853,6 +1370,7 @@ External Symbols in Program Memory (by name):
                   0x0013ee                  __vfprintf_cdfFnopsuxX
                   0x0013ee                  __vfprintf_cdfFnopuxX
                   0x0013ee                  __vfprintf_cdnopuxX
+<<<<<<< HEAD
                   0x005e64                  _allRedLEDsOff
                   0x005e7a                  _allRedLEDsOn
                   0x003b70                  _atGoal
@@ -1092,6 +1610,251 @@ External Symbols in Program Memory (by name):
                   0x005dfe                  _turn
                   0x005b74                  _wait
                   0x0065b6                  _wait_for_bluetooth
+=======
+                  0x00606a                  _allRedLEDsOff
+                  0x006080                  _allRedLEDsOn
+                  0x00488e                  _atGoal
+                  0x004628                  _atObstacle
+                  0x000516                  _atan2f
+                  0x0006f0                  _atanf
+                  0x0010f8                  _atoi
+                  0x0049fe                  _avoidObstacle
+                  0x004b14                  _beelineToGoal
+                  0x007054                  _btcomGetCharacter
+                  0x007012                  _btcomSendChar
+                  0x006ff4                  _btcomSendFloat
+                  0x006fd6                  _btcomSendInt
+                  0x006fbe                  _btcomSendString
+                  0x006faa                  _btcomSendStringStatic
+                  0x007026                  _btcomWaitForCommand
+                  0x0057bc                  _checkGreen
+                  0x00583a                  _checkRed
+                  0x00573e                  _checkYellow
+                  0x006cca                  _comm_init
+                  0x006d26                  _comm_rx
+                  0x006d7a                  _comm_store_tx
+                  0x000550                  _cosf
+                  0x006a48                  _e_activate_agenda
+                  0x003a88                  _e_blink_led
+                  0x003b5e                  _e_blink_led0
+                  0x003b80                  _e_blink_led1
+                  0x003b9a                  _e_blink_led2
+                  0x003bbc                  _e_blink_led3
+                  0x003bde                  _e_blink_led4
+                  0x003c00                  _e_blink_led5
+                  0x003c22                  _e_blink_led6
+                  0x003c44                  _e_blink_led7
+                  0x002240                  _e_bt_connect_epuck
+                  0x002976                  _e_bt_etablish_SPP_link
+                  0x002422                  _e_bt_exit_tranparent_mode
+                  0x00231c                  _e_bt_factory_reset
+                  0x0020a4                  _e_bt_find_epuck
+                  0x002e98                  _e_bt_get_event_filter
+                  0x00288a                  _e_bt_get_friendly_name
+                  0x002764                  _e_bt_inquiry
+                  0x002c6a                  _e_bt_list_local_paired_device
+                  0x002506                  _e_bt_read_local_name
+                  0x002450                  _e_bt_read_local_pin_number
+                  0x002a62                  _e_bt_release_SPP_link
+                  0x002d18                  _e_bt_remove_local_paired_device
+                  0x00226e                  _e_bt_reset
+                  0x002b84                  _e_bt_send_SPP_data
+                  0x002e02                  _e_bt_set_event_filter
+                  0x00239c                  _e_bt_tranparent_mode
+                  0x002688                  _e_bt_write_local_name
+                  0x0025ae                  _e_bt_write_local_pin_number
+                  0x006aa8                  _e_destroy_agenda
+                  0x006a40                  _e_end_agendas_processing
+                  0x0069fc                  _e_get_ambient_light
+                  0x0069da                  _e_get_prox
+                  0x005d52                  _e_get_steps_left
+                  0x005d66                  _e_get_steps_right
+                  0x0072f8                  _e_getchar_uart1
+                  0x007334                  _e_getchar_uart2
+                  0x0051f4                  _e_i2c_ack
+                  0x00512a                  _e_i2c_disable
+                  0x00511e                  _e_i2c_enable
+                  0x00509c                  _e_i2c_init
+                  0x00525a                  _e_i2c_nack
+                  0x0052c0                  _e_i2c_read
+                  0x0050d6                  _e_i2c_reset
+                  0x00517a                  _e_i2c_restart
+                  0x005136                  _e_i2c_start
+                  0x0051be                  _e_i2c_stop
+                  0x00536c                  _e_i2c_write
+                  0x00708c                  _e_i2cp_disable
+                  0x007084                  _e_i2cp_enable
+                  0x00707c                  _e_i2cp_init
+                  0x007094                  _e_i2cp_read
+                  0x0070dc                  _e_i2cp_write
+                  0x0071a2                  _e_init_ad
+                  0x005c0a                  _e_init_motors
+                  0x007118                  _e_init_port
+                  0x006990                  _e_init_prox
+                  0x003eaa                  _e_init_randb
+                  0x007388                  _e_init_uart1
+                  0x0073b6                  _e_init_uart2
+                  0x0072f0                  _e_ischar_uart1
+                  0x00732c                  _e_ischar_uart2
+                  0x0039f2                  _e_led_clear
+                  0x006b62                  _e_pause_agenda
+                  0x003380                  _e_po3030k_SetColorMatrix
+                  0x006340                  _e_po3030k_config_cam
+                  0x00657c                  _e_po3030k_get_bytes_per_pixel
+                  0x0031c0                  _e_po3030k_get_register
+                  0x002f4a                  _e_po3030k_read_cam_registers
+                  0x00326c                  _e_po3030k_set_adc_offset
+                  0x00340c                  _e_po3030k_set_ae_speed
+                  0x003540                  _e_po3030k_set_awb_ae
+                  0x0033f4                  _e_po3030k_set_awb_ae_tol
+                  0x003200                  _e_po3030k_set_bias
+                  0x0033c0                  _e_po3030k_set_brigh_contr
+                  0x0033ae                  _e_po3030k_set_cb_cr_gain
+                  0x003212                  _e_po3030k_set_color_gain
+                  0x002f80                  _e_po3030k_set_color_mode
+                  0x0032ac                  _e_po3030k_set_edge_prop
+                  0x003426                  _e_po3030k_set_exposure
+                  0x00359a                  _e_po3030k_set_flicker_detection
+                  0x003690                  _e_po3030k_set_flicker_man_set
+                  0x00357c                  _e_po3030k_set_flicker_mode
+                  0x0032c2                  _e_po3030k_set_gamma_coef
+                  0x003248                  _e_po3030k_set_integr_time
+                  0x003294                  _e_po3030k_set_lens_gain
+                  0x003470                  _e_po3030k_set_max_min_awb
+                  0x003452                  _e_po3030k_set_max_min_exp
+                  0x003146                  _e_po3030k_set_mirror
+                  0x003446                  _e_po3030k_set_ref_exposure
+                  0x003182                  _e_po3030k_set_register
+                  0x002fbe                  _e_po3030k_set_sampling_mode
+                  0x003278                  _e_po3030k_set_sepia
+                  0x0033d2                  _e_po3030k_set_sepia_tone
+                  0x002fe8                  _e_po3030k_set_speed
+                  0x0030d4                  _e_po3030k_set_vsync
+                  0x00349a                  _e_po3030k_set_weight_win
+                  0x0033e4                  _e_po3030k_set_ww
+                  0x00302e                  _e_po3030k_set_wx
+                  0x003084                  _e_po3030k_set_wy
+                  0x003320                  _e_po3030k_sync_register_array
+                  0x002f18                  _e_po3030k_write_cam_registers
+                  0x003302                  _e_po3030k_write_gamma_coef
+                  0x00676a                  _e_po6030k_automatic_digital_gain
+                  0x006096                  _e_po6030k_config_cam
+                  0x006608                  _e_po6030k_exposure_control
+                  0x006308                  _e_po6030k_get_bytes_per_pixel
+                  0x006660                  _e_po6030k_manual_exposure_value
+                  0x00679e                  _e_po6030k_mean_brightness
+                  0x0053f0                  _e_po6030k_read_register
+                  0x0053c0                  _e_po6030k_set_bank
+                  0x00540c                  _e_po6030k_set_bayer_clkdiv
+                  0x0056c8                  _e_po6030k_set_mirror
+                  0x005550                  _e_po6030k_set_mode
+                  0x00541c                  _e_po6030k_set_pclkdiv
+                  0x00566a                  _e_po6030k_set_sketch_mode
+                  0x00560a                  _e_po6030k_set_vsync
+                  0x0055a8                  _e_po6030k_set_wx
+                  0x0055fe                  _e_po6030k_set_wy
+                  0x006736                  _e_po6030k_white_balance
+                  0x0053d4                  _e_po6030k_write_register
+                  0x006e0c                  _e_poxxxx_apply_timer_config
+                  0x006eb2                  _e_poxxxx_config_cam
+                  0x006f4a                  _e_poxxxx_init_cam
+                  0x006eaa                  _e_poxxxx_is_img_ready
+                  0x006df4                  _e_poxxxx_launch_capture
+                  0x006f0a                  _e_poxxxx_set_mirror
+                  0x006f38                  _e_poxxxx_write_cam_registers
+                  0x004348                  _e_randb_all_reception
+                  0x0042c8                  _e_randb_get_all_data
+                  0x003f8a                  _e_randb_get_bearing
+                  0x003f42                  _e_randb_get_data
+                  0x004166                  _e_randb_get_data_uart
+                  0x003ee4                  _e_randb_get_if_received
+                  0x003f22                  _e_randb_get_peak
+                  0x003f66                  _e_randb_get_range
+                  0x003f14                  _e_randb_get_sensor
+                  0x0040f8                  _e_randb_get_uart2
+                  0x003fba                  _e_randb_reception
+                  0x003ffa                  _e_randb_send_all_data
+                  0x004062                  _e_randb_send_data
+                  0x0040d2                  _e_randb_set_calculation
+                  0x00408a                  _e_randb_set_range
+                  0x0042a8                  _e_randb_set_uart_communication
+                  0x004038                  _e_randb_store_data
+                  0x0040aa                  _e_randb_store_light_conditions
+                  0x004262                  _e_randb_uart_send_all_data
+                  0x004224                  _e_randb_uart_send_data
+                  0x0041da                  _e_randb_uart_set_calculation
+                  0x00419c                  _e_randb_uart_set_range
+                  0x004200                  _e_randb_uart_store_data
+                  0x0041bc                  _e_randb_uart_store_light_conditions
+                  0x0071de                  _e_read_ad
+                  0x006b2e                  _e_reset_agenda
+                  0x006b96                  _e_restart_agenda
+                  0x00725c                  _e_send_uart1_char
+                  0x0072bc                  _e_send_uart2_char
+                  0x006af8                  _e_set_agenda_cycle
+                  0x003c76                  _e_set_blinking_cycle
+                  0x003a08                  _e_set_body_led
+                  0x003a48                  _e_set_front_led
+                  0x003750                  _e_set_led
+                  0x005d10                  _e_set_speed
+                  0x005c1c                  _e_set_speed_left
+                  0x005c96                  _e_set_speed_right
+                  0x005d5a                  _e_set_steps_left
+                  0x005d6e                  _e_set_steps_right
+                  0x006a1e                  _e_start_agendas_processing
+                  0x003c5e                  _e_start_led_blinking
+                  0x003c6c                  _e_stop_led_blinking
+                  0x00699a                  _e_stop_prox
+                  0x007274                  _e_uart1_sending
+                  0x0072d4                  _e_uart2_sending
+                  0x0012f8                  _exit
+                  0x001ea2                  _fclose
+                  0x001f98                  _fflush
+                  0x003ce0                  _flow_led
+                  0x00088c                  _fmodf
+                  0x001292                  _free
+                  0x000cd6                  _frexpf
+                  0x005702                  _getColor
+                  0x00594c                  _getGoalCameraLine
+                  0x0059cc                  _getGoalMidpoint
+                  0x00591c                  _getPenaltyCameraLine
+                  0x005dd2                  _getselector
+                  0x005994                  _goalInView
+                  0x00506c                  _idle_i2c
+                  0x005a08                  _inPenaltyBox
+                  0x0067fc                  _init_tmr1
+                  0x003d5e                  _k2000_led
+                  0x003e44                  _left_led
+                  0x004bec                  _main
+                  0x00116e                  _malloc
+                  0x0065b4                  _manual_camera_calibration
+                  0x001dea                  _memcpy
+                  0x005fae                  _move
+                  0x005f78                  _moveForward
+                  0x005d9c                  _myWait
+                  0x0048be                  _nearGoal
+                  0x004ac8                  _printCameraLine
+                  0x004602                  _printRGB
+                  0x00130e                  _rand
+                  0x00129e                  _realloc
+                  0x004a70                  _receiveIR
+                  0x003dde                  _right_led
+                  0x0048fc                  _robot_init
+                  0x005a42                  _run_left_motor
+                  0x005b26                  _run_right_motor
+                  0x005ed6                  _setErrorPercent
+                  0x005e0a                  _setLED
+                  0x005ee2                  _setSpeeds
+                  0x00588a                  _smoothColorLine
+                  0x003c88                  _snake_led
+                  0x000554                  _sqrtf
+                  0x001300                  _srand
+                  0x0010ec                  _strlen
+                  0x006004                  _turn
+                  0x005d7a                  _wait
+                  0x0067bc                  _wait_for_bluetooth
+                  0x004972                  _wallFollow
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
 
 Memory Configuration
 
@@ -1145,6 +1908,7 @@ LOAD utility.o
 LOAD e_calc_po3030k.o
 LOAD e_randb.o
 LOAD ir_comm.o
+LOAD camera_helpers.o
 LOAD c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib/dsPIC30F\libp30F6014A-coff.a
                     0xf80000                  __FOSC = 0xf80000
                     0xf80002                  __FWDT = 0xf80002
@@ -1211,6 +1975,7 @@ LOAD c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib/dsPIC30F\libp3
                   0x000306                  __lesf2
  .libm            0x00030a         0x1e c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(divsi3.o)
                   0x00030a                  __divsi3
+<<<<<<< HEAD
  .libm            0x000328         0xbc c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(addsf3.o)
                   0x000328                  __subsf3
                   0x00032a                  __addsf3
@@ -1223,6 +1988,20 @@ LOAD c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib/dsPIC30F\libp3
  .libm            0x000512          0x4 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fgtge.o)
                   0x000512                  __gesf2
                   0x000512                  __gtsf2
+=======
+ .libm            0x000328          0x4 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fgtge.o)
+                  0x000328                  __gesf2
+                  0x000328                  __gtsf2
+ .libm            0x00032c         0xbc c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(addsf3.o)
+                  0x00032c                  __subsf3
+                  0x00032e                  __addsf3
+ .libm            0x0003e8         0x42 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fixsfsi.o)
+                  0x0003e8                  __fixsfsi
+ .libm            0x00042a         0x68 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(mulsf3.o)
+                  0x00042a                  __mulsf3
+ .libm            0x000492         0x84 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(divsf3.o)
+                  0x000492                  __divsf3
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
  .libm            0x000516         0x3a c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(atan2f.o)
                   0x000516                  atan2f
  .libm            0x000550          0x4 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(cosf.o)
@@ -1433,6 +2212,7 @@ userdata
  *(.debug_aranges)
 
 .ivt              0x000004         0x7c
+<<<<<<< HEAD
                   0x000004          0x4 LONG 0x71e4 DEFINED (__ReservedTrap0)?ABSOLUTE (__ReservedTrap0):ABSOLUTE (__DefaultInterrupt)
                   0x000006          0x4 LONG 0x71e4 DEFINED (__OscillatorFail)?ABSOLUTE (__OscillatorFail):ABSOLUTE (__DefaultInterrupt)
                   0x000008          0x4 LONG 0x71e4 DEFINED (__AddressError)?ABSOLUTE (__AddressError):ABSOLUTE (__DefaultInterrupt)
@@ -1559,6 +2339,134 @@ userdata
                   0x0000fa          0x4 LONG 0x71e4 DEFINED (__AltInterrupt51)?ABSOLUTE (__AltInterrupt51):DEFINED (__Interrupt51)?ABSOLUTE (__Interrupt51):ABSOLUTE (__DefaultInterrupt)
                   0x0000fc          0x4 LONG 0x71e4 DEFINED (__AltInterrupt52)?ABSOLUTE (__AltInterrupt52):DEFINED (__Interrupt52)?ABSOLUTE (__Interrupt52):ABSOLUTE (__DefaultInterrupt)
                   0x0000fe          0x4 LONG 0x71e4 DEFINED (__AltInterrupt53)?ABSOLUTE (__AltInterrupt53):DEFINED (__Interrupt53)?ABSOLUTE (__Interrupt53):ABSOLUTE (__DefaultInterrupt)
+=======
+                  0x000004          0x4 LONG 0x73e4 DEFINED (__ReservedTrap0)?ABSOLUTE (__ReservedTrap0):ABSOLUTE (__DefaultInterrupt)
+                  0x000006          0x4 LONG 0x73e4 DEFINED (__OscillatorFail)?ABSOLUTE (__OscillatorFail):ABSOLUTE (__DefaultInterrupt)
+                  0x000008          0x4 LONG 0x73e4 DEFINED (__AddressError)?ABSOLUTE (__AddressError):ABSOLUTE (__DefaultInterrupt)
+                  0x00000a          0x4 LONG 0x73e4 DEFINED (__StackError)?ABSOLUTE (__StackError):ABSOLUTE (__DefaultInterrupt)
+                  0x00000c          0x4 LONG 0x73e4 DEFINED (__MathError)?ABSOLUTE (__MathError):ABSOLUTE (__DefaultInterrupt)
+                  0x00000e          0x4 LONG 0x73e4 DEFINED (__ReservedTrap5)?ABSOLUTE (__ReservedTrap5):ABSOLUTE (__DefaultInterrupt)
+                  0x000010          0x4 LONG 0x73e4 DEFINED (__ReservedTrap6)?ABSOLUTE (__ReservedTrap6):ABSOLUTE (__DefaultInterrupt)
+                  0x000012          0x4 LONG 0x73e4 DEFINED (__ReservedTrap7)?ABSOLUTE (__ReservedTrap7):ABSOLUTE (__DefaultInterrupt)
+                  0x000014          0x4 LONG 0x73e4 DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000016          0x4 LONG 0x73e4 DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000018          0x4 LONG 0x73e4 DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00001a          0x4 LONG 0x6820 DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00001c          0x4 LONG 0x73e4 DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00001e          0x4 LONG 0x73e4 DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000020          0x4 LONG 0x6bca DEFINED (__T2Interrupt)?ABSOLUTE (__T2Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000022          0x4 LONG 0x6c84 DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000024          0x4 LONG 0x73e4 DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000026          0x4 LONG 0x72d8 DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000028          0x4 LONG 0x7218 DEFINED (__U1TXInterrupt)?ABSOLUTE (__U1TXInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00002a          0x4 LONG 0x73e4 DEFINED (__ADCInterrupt)?ABSOLUTE (__ADCInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00002c          0x4 LONG 0x73e4 DEFINED (__NVMInterrupt)?ABSOLUTE (__NVMInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00002e          0x4 LONG 0x73e4 DEFINED (__SI2CInterrupt)?ABSOLUTE (__SI2CInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000030          0x4 LONG 0x53a8 DEFINED (__MI2CInterrupt)?ABSOLUTE (__MI2CInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000032          0x4 LONG 0x73e4 DEFINED (__CNInterrupt)?ABSOLUTE (__CNInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000034          0x4 LONG 0x73e4 DEFINED (__INT1Interrupt)?ABSOLUTE (__INT1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000036          0x4 LONG 0x73e4 DEFINED (__IC7Interrupt)?ABSOLUTE (__IC7Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000038          0x4 LONG 0x73e4 DEFINED (__IC8Interrupt)?ABSOLUTE (__IC8Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00003a          0x4 LONG 0x73e4 DEFINED (__OC3Interrupt)?ABSOLUTE (__OC3Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00003c          0x4 LONG 0x73e4 DEFINED (__OC4Interrupt)?ABSOLUTE (__OC4Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00003e          0x4 LONG 0x7350 DEFINED (__T4Interrupt)?ABSOLUTE (__T4Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000040          0x4 LONG 0x6daa DEFINED (__T5Interrupt)?ABSOLUTE (__T5Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000042          0x4 LONG 0x73e4 DEFINED (__INT2Interrupt)?ABSOLUTE (__INT2Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000044          0x4 LONG 0x7314 DEFINED (__U2RXInterrupt)?ABSOLUTE (__U2RXInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000046          0x4 LONG 0x7278 DEFINED (__U2TXInterrupt)?ABSOLUTE (__U2TXInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000048          0x4 LONG 0x73e4 DEFINED (__SPI2Interrupt)?ABSOLUTE (__SPI2Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00004a          0x4 LONG 0x73e4 DEFINED (__C1Interrupt)?ABSOLUTE (__C1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00004c          0x4 LONG 0x73e4 DEFINED (__IC3Interrupt)?ABSOLUTE (__IC3Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00004e          0x4 LONG 0x73e4 DEFINED (__IC4Interrupt)?ABSOLUTE (__IC4Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000050          0x4 LONG 0x73e4 DEFINED (__IC5Interrupt)?ABSOLUTE (__IC5Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000052          0x4 LONG 0x73e4 DEFINED (__IC6Interrupt)?ABSOLUTE (__IC6Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000054          0x4 LONG 0x73e4 DEFINED (__OC5Interrupt)?ABSOLUTE (__OC5Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000056          0x4 LONG 0x73e4 DEFINED (__OC6Interrupt)?ABSOLUTE (__OC6Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000058          0x4 LONG 0x73e4 DEFINED (__OC7Interrupt)?ABSOLUTE (__OC7Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00005a          0x4 LONG 0x73e4 DEFINED (__OC8Interrupt)?ABSOLUTE (__OC8Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00005c          0x4 LONG 0x73e4 DEFINED (__INT3Interrupt)?ABSOLUTE (__INT3Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00005e          0x4 LONG 0x73e4 DEFINED (__INT4Interrupt)?ABSOLUTE (__INT4Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000060          0x4 LONG 0x73e4 DEFINED (__C2Interrupt)?ABSOLUTE (__C2Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000062          0x4 LONG 0x73e4 DEFINED (__PWMInterrupt)?ABSOLUTE (__PWMInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000064          0x4 LONG 0x73e4 DEFINED (__QEIInterrupt)?ABSOLUTE (__QEIInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000066          0x4 LONG 0x73e4 DEFINED (__DCIInterrupt)?ABSOLUTE (__DCIInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000068          0x4 LONG 0x73e4 DEFINED (__LVDInterrupt)?ABSOLUTE (__LVDInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00006a          0x4 LONG 0x73e4 DEFINED (__FLTAInterrupt)?ABSOLUTE (__FLTAInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00006c          0x4 LONG 0x73e4 DEFINED (__FLTBInterrupt)?ABSOLUTE (__FLTBInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00006e          0x4 LONG 0x73e4 DEFINED (__Interrupt45)?ABSOLUTE (__Interrupt45):ABSOLUTE (__DefaultInterrupt)
+                  0x000070          0x4 LONG 0x73e4 DEFINED (__Interrupt46)?ABSOLUTE (__Interrupt46):ABSOLUTE (__DefaultInterrupt)
+                  0x000072          0x4 LONG 0x73e4 DEFINED (__Interrupt47)?ABSOLUTE (__Interrupt47):ABSOLUTE (__DefaultInterrupt)
+                  0x000074          0x4 LONG 0x73e4 DEFINED (__Interrupt48)?ABSOLUTE (__Interrupt48):ABSOLUTE (__DefaultInterrupt)
+                  0x000076          0x4 LONG 0x73e4 DEFINED (__Interrupt49)?ABSOLUTE (__Interrupt49):ABSOLUTE (__DefaultInterrupt)
+                  0x000078          0x4 LONG 0x73e4 DEFINED (__Interrupt50)?ABSOLUTE (__Interrupt50):ABSOLUTE (__DefaultInterrupt)
+                  0x00007a          0x4 LONG 0x73e4 DEFINED (__Interrupt51)?ABSOLUTE (__Interrupt51):ABSOLUTE (__DefaultInterrupt)
+                  0x00007c          0x4 LONG 0x73e4 DEFINED (__Interrupt52)?ABSOLUTE (__Interrupt52):ABSOLUTE (__DefaultInterrupt)
+                  0x00007e          0x4 LONG 0x73e4 DEFINED (__Interrupt53)?ABSOLUTE (__Interrupt53):ABSOLUTE (__DefaultInterrupt)
+
+.aivt             0x000084         0x7c
+                  0x000084          0x4 LONG 0x73e4 DEFINED (__AltReservedTrap0)?ABSOLUTE (__AltReservedTrap0):DEFINED (__ReservedTrap0)?ABSOLUTE (__ReservedTrap0):ABSOLUTE (__DefaultInterrupt)
+                  0x000086          0x4 LONG 0x73e4 DEFINED (__AltOscillatorFail)?ABSOLUTE (__AltOscillatorFail):DEFINED (__OscillatorFail)?ABSOLUTE (__OscillatorFail):ABSOLUTE (__DefaultInterrupt)
+                  0x000088          0x4 LONG 0x73e4 DEFINED (__AltAddressError)?ABSOLUTE (__AltAddressError):DEFINED (__AddressError)?ABSOLUTE (__AddressError):ABSOLUTE (__DefaultInterrupt)
+                  0x00008a          0x4 LONG 0x73e4 DEFINED (__AltStackError)?ABSOLUTE (__AltStackError):DEFINED (__StackError)?ABSOLUTE (__StackError):ABSOLUTE (__DefaultInterrupt)
+                  0x00008c          0x4 LONG 0x73e4 DEFINED (__AltMathError)?ABSOLUTE (__AltMathError):DEFINED (__MathError)?ABSOLUTE (__MathError):ABSOLUTE (__DefaultInterrupt)
+                  0x00008e          0x4 LONG 0x73e4 DEFINED (__AltReservedTrap5)?ABSOLUTE (__AltReservedTrap5):DEFINED (__ReservedTrap5)?ABSOLUTE (__ReservedTrap5):ABSOLUTE (__DefaultInterrupt)
+                  0x000090          0x4 LONG 0x73e4 DEFINED (__AltReservedTrap6)?ABSOLUTE (__AltReservedTrap6):DEFINED (__ReservedTrap6)?ABSOLUTE (__ReservedTrap6):ABSOLUTE (__DefaultInterrupt)
+                  0x000092          0x4 LONG 0x73e4 DEFINED (__AltReservedTrap7)?ABSOLUTE (__AltReservedTrap7):DEFINED (__ReservedTrap7)?ABSOLUTE (__ReservedTrap7):ABSOLUTE (__DefaultInterrupt)
+                  0x000094          0x4 LONG 0x73e4 DEFINED (__AltINT0Interrupt)?ABSOLUTE (__AltINT0Interrupt):DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000096          0x4 LONG 0x73e4 DEFINED (__AltIC1Interrupt)?ABSOLUTE (__AltIC1Interrupt):DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x000098          0x4 LONG 0x73e4 DEFINED (__AltOC1Interrupt)?ABSOLUTE (__AltOC1Interrupt):DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00009a          0x4 LONG 0x6820 DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00009c          0x4 LONG 0x73e4 DEFINED (__AltIC2Interrupt)?ABSOLUTE (__AltIC2Interrupt):DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00009e          0x4 LONG 0x73e4 DEFINED (__AltOC2Interrupt)?ABSOLUTE (__AltOC2Interrupt):DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000a0          0x4 LONG 0x6bca DEFINED (__AltT2Interrupt)?ABSOLUTE (__AltT2Interrupt):DEFINED (__T2Interrupt)?ABSOLUTE (__T2Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000a2          0x4 LONG 0x6c84 DEFINED (__AltT3Interrupt)?ABSOLUTE (__AltT3Interrupt):DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000a4          0x4 LONG 0x73e4 DEFINED (__AltSPI1Interrupt)?ABSOLUTE (__AltSPI1Interrupt):DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000a6          0x4 LONG 0x72d8 DEFINED (__AltU1RXInterrupt)?ABSOLUTE (__AltU1RXInterrupt):DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000a8          0x4 LONG 0x7218 DEFINED (__AltU1TXInterrupt)?ABSOLUTE (__AltU1TXInterrupt):DEFINED (__U1TXInterrupt)?ABSOLUTE (__U1TXInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000aa          0x4 LONG 0x73e4 DEFINED (__AltADCInterrupt)?ABSOLUTE (__AltADCInterrupt):DEFINED (__ADCInterrupt)?ABSOLUTE (__ADCInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000ac          0x4 LONG 0x73e4 DEFINED (__AltNVMInterrupt)?ABSOLUTE (__AltNVMInterrupt):DEFINED (__NVMInterrupt)?ABSOLUTE (__NVMInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000ae          0x4 LONG 0x73e4 DEFINED (__AltSI2CInterrupt)?ABSOLUTE (__AltSI2CInterrupt):DEFINED (__SI2CInterrupt)?ABSOLUTE (__SI2CInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000b0          0x4 LONG 0x53a8 DEFINED (__AltMI2CInterrupt)?ABSOLUTE (__AltMI2CInterrupt):DEFINED (__MI2CInterrupt)?ABSOLUTE (__MI2CInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000b2          0x4 LONG 0x73e4 DEFINED (__AltCNInterrupt)?ABSOLUTE (__AltCNInterrupt):DEFINED (__CNInterrupt)?ABSOLUTE (__CNInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000b4          0x4 LONG 0x73e4 DEFINED (__AltINT1Interrupt)?ABSOLUTE (__AltINT1Interrupt):DEFINED (__INT1Interrupt)?ABSOLUTE (__INT1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000b6          0x4 LONG 0x73e4 DEFINED (__AltIC7Interrupt)?ABSOLUTE (__AltIC7Interrupt):DEFINED (__IC7Interrupt)?ABSOLUTE (__IC7Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000b8          0x4 LONG 0x73e4 DEFINED (__AltIC8Interrupt)?ABSOLUTE (__AltIC8Interrupt):DEFINED (__IC8Interrupt)?ABSOLUTE (__IC8Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000ba          0x4 LONG 0x73e4 DEFINED (__AltOC3Interrupt)?ABSOLUTE (__AltOC3Interrupt):DEFINED (__OC3Interrupt)?ABSOLUTE (__OC3Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000bc          0x4 LONG 0x73e4 DEFINED (__AltOC4Interrupt)?ABSOLUTE (__AltOC4Interrupt):DEFINED (__OC4Interrupt)?ABSOLUTE (__OC4Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000be          0x4 LONG 0x7350 DEFINED (__AltT4Interrupt)?ABSOLUTE (__AltT4Interrupt):DEFINED (__T4Interrupt)?ABSOLUTE (__T4Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000c0          0x4 LONG 0x6daa DEFINED (__AltT5Interrupt)?ABSOLUTE (__AltT5Interrupt):DEFINED (__T5Interrupt)?ABSOLUTE (__T5Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000c2          0x4 LONG 0x73e4 DEFINED (__AltINT2Interrupt)?ABSOLUTE (__AltINT2Interrupt):DEFINED (__INT2Interrupt)?ABSOLUTE (__INT2Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000c4          0x4 LONG 0x7314 DEFINED (__AltU2RXInterrupt)?ABSOLUTE (__AltU2RXInterrupt):DEFINED (__U2RXInterrupt)?ABSOLUTE (__U2RXInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000c6          0x4 LONG 0x7278 DEFINED (__AltU2TXInterrupt)?ABSOLUTE (__AltU2TXInterrupt):DEFINED (__U2TXInterrupt)?ABSOLUTE (__U2TXInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000c8          0x4 LONG 0x73e4 DEFINED (__AltSPI2Interrupt)?ABSOLUTE (__AltSPI2Interrupt):DEFINED (__SPI2Interrupt)?ABSOLUTE (__SPI2Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000ca          0x4 LONG 0x73e4 DEFINED (__AltC1Interrupt)?ABSOLUTE (__AltC1Interrupt):DEFINED (__C1Interrupt)?ABSOLUTE (__C1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000cc          0x4 LONG 0x73e4 DEFINED (__AltIC3Interrupt)?ABSOLUTE (__AltIC3Interrupt):DEFINED (__IC3Interrupt)?ABSOLUTE (__IC3Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000ce          0x4 LONG 0x73e4 DEFINED (__AltIC4Interrupt)?ABSOLUTE (__AltIC4Interrupt):DEFINED (__IC4Interrupt)?ABSOLUTE (__IC4Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000d0          0x4 LONG 0x73e4 DEFINED (__AltIC5Interrupt)?ABSOLUTE (__AltIC5Interrupt):DEFINED (__IC5Interrupt)?ABSOLUTE (__IC5Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000d2          0x4 LONG 0x73e4 DEFINED (__AltIC6Interrupt)?ABSOLUTE (__AltIC6Interrupt):DEFINED (__IC6Interrupt)?ABSOLUTE (__IC6Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000d4          0x4 LONG 0x73e4 DEFINED (__AltOC5Interrupt)?ABSOLUTE (__AltOC5Interrupt):DEFINED (__OC5Interrupt)?ABSOLUTE (__OC5Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000d6          0x4 LONG 0x73e4 DEFINED (__AltOC6Interrupt)?ABSOLUTE (__AltOC6Interrupt):DEFINED (__OC6Interrupt)?ABSOLUTE (__OC6Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000d8          0x4 LONG 0x73e4 DEFINED (__AltOC7Interrupt)?ABSOLUTE (__AltOC7Interrupt):DEFINED (__OC7Interrupt)?ABSOLUTE (__OC7Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000da          0x4 LONG 0x73e4 DEFINED (__AltOC8Interrupt)?ABSOLUTE (__AltOC8Interrupt):DEFINED (__OC8Interrupt)?ABSOLUTE (__OC8Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000dc          0x4 LONG 0x73e4 DEFINED (__AltINT3Interrupt)?ABSOLUTE (__AltINT3Interrupt):DEFINED (__INT3Interrupt)?ABSOLUTE (__INT3Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000de          0x4 LONG 0x73e4 DEFINED (__AltINT4Interrupt)?ABSOLUTE (__AltINT4Interrupt):DEFINED (__INT4Interrupt)?ABSOLUTE (__INT4Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000e0          0x4 LONG 0x73e4 DEFINED (__AltC2Interrupt)?ABSOLUTE (__AltC2Interrupt):DEFINED (__C2Interrupt)?ABSOLUTE (__C2Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000e2          0x4 LONG 0x73e4 DEFINED (__AltPWMInterrupt)?ABSOLUTE (__AltPWMInterrupt):DEFINED (__PWMInterrupt)?ABSOLUTE (__PWMInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000e4          0x4 LONG 0x73e4 DEFINED (__AltQEIInterrupt)?ABSOLUTE (__AltQEIInterrupt):DEFINED (__QEIInterrupt)?ABSOLUTE (__QEIInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000e6          0x4 LONG 0x73e4 DEFINED (__AltDCIInterrupt)?ABSOLUTE (__AltDCIInterrupt):DEFINED (__DCIInterrupt)?ABSOLUTE (__DCIInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000e8          0x4 LONG 0x73e4 DEFINED (__AltLVDInterrupt)?ABSOLUTE (__AltLVDInterrupt):DEFINED (__LVDInterrupt)?ABSOLUTE (__LVDInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000ea          0x4 LONG 0x73e4 DEFINED (__AltFLTAInterrupt)?ABSOLUTE (__AltFLTAInterrupt):DEFINED (__FLTAInterrupt)?ABSOLUTE (__FLTAInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000ec          0x4 LONG 0x73e4 DEFINED (__AltFLTBInterrupt)?ABSOLUTE (__AltFLTBInterrupt):DEFINED (__FLTBInterrupt)?ABSOLUTE (__FLTBInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x0000ee          0x4 LONG 0x73e4 DEFINED (__AltInterrupt45)?ABSOLUTE (__AltInterrupt45):DEFINED (__Interrupt45)?ABSOLUTE (__Interrupt45):ABSOLUTE (__DefaultInterrupt)
+                  0x0000f0          0x4 LONG 0x73e4 DEFINED (__AltInterrupt46)?ABSOLUTE (__AltInterrupt46):DEFINED (__Interrupt46)?ABSOLUTE (__Interrupt46):ABSOLUTE (__DefaultInterrupt)
+                  0x0000f2          0x4 LONG 0x73e4 DEFINED (__AltInterrupt47)?ABSOLUTE (__AltInterrupt47):DEFINED (__Interrupt47)?ABSOLUTE (__Interrupt47):ABSOLUTE (__DefaultInterrupt)
+                  0x0000f4          0x4 LONG 0x73e4 DEFINED (__AltInterrupt48)?ABSOLUTE (__AltInterrupt48):DEFINED (__Interrupt48)?ABSOLUTE (__Interrupt48):ABSOLUTE (__DefaultInterrupt)
+                  0x0000f6          0x4 LONG 0x73e4 DEFINED (__AltInterrupt49)?ABSOLUTE (__AltInterrupt49):DEFINED (__Interrupt49)?ABSOLUTE (__Interrupt49):ABSOLUTE (__DefaultInterrupt)
+                  0x0000f8          0x4 LONG 0x73e4 DEFINED (__AltInterrupt50)?ABSOLUTE (__AltInterrupt50):DEFINED (__Interrupt50)?ABSOLUTE (__Interrupt50):ABSOLUTE (__DefaultInterrupt)
+                  0x0000fa          0x4 LONG 0x73e4 DEFINED (__AltInterrupt51)?ABSOLUTE (__AltInterrupt51):DEFINED (__Interrupt51)?ABSOLUTE (__Interrupt51):ABSOLUTE (__DefaultInterrupt)
+                  0x0000fc          0x4 LONG 0x73e4 DEFINED (__AltInterrupt52)?ABSOLUTE (__AltInterrupt52):DEFINED (__Interrupt52)?ABSOLUTE (__Interrupt52):ABSOLUTE (__DefaultInterrupt)
+                  0x0000fe          0x4 LONG 0x73e4 DEFINED (__AltInterrupt53)?ABSOLUTE (__AltInterrupt53):DEFINED (__Interrupt53)?ABSOLUTE (__Interrupt53):ABSOLUTE (__DefaultInterrupt)
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
                     0x0000                  WREG0 = 0x0
                     0x0000                  _WREG0 = 0x0
                     0x0002                  WREG1 = 0x2
@@ -2828,7 +3736,7 @@ LOAD default_isr
 LOAD heap
 
 __c30_signature
-                  0x000000        0x228
+                  0x000000        0x22e
  __c30_signature
                   0x000000          0x6 e_ad_conv.o
  __c30_signature
@@ -2872,146 +3780,161 @@ __c30_signature
  __c30_signature
                   0x000078          0x6 ir_comm.o
  __c30_signature
-                  0x00007e          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(crt0_standard.o)
+                  0x00007e          0x6 camera_helpers.o
  __c30_signature
-                  0x000084          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(time.o)
+                  0x000084          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(crt0_standard.o)
  __c30_signature
-                  0x00008a          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(data_init_standard.o)
+                  0x00008a          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(time.o)
  __c30_signature
-                  0x000090          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(floatsisf.o)
+                  0x000090          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(data_init_standard.o)
  __c30_signature
-                  0x000096          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(feqltle.o)
+                  0x000096          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(floatsisf.o)
  __c30_signature
-                  0x00009c          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(divsi3.o)
+                  0x00009c          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(feqltle.o)
  __c30_signature
-                  0x0000a2          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(addsf3.o)
+                  0x0000a2          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(divsi3.o)
  __c30_signature
+<<<<<<< HEAD
                   0x0000a8          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(mulsf3.o)
  __c30_signature
                   0x0000ae          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(divsf3.o)
+=======
+                  0x0000a8          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fgtge.o)
+ __c30_signature
+                  0x0000ae          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(addsf3.o)
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
  __c30_signature
                   0x0000b4          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fixsfsi.o)
  __c30_signature
-                  0x0000ba          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fgtge.o)
+                  0x0000ba          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(mulsf3.o)
  __c30_signature
-                  0x0000c0          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(atan2f.o)
+                  0x0000c0          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(divsf3.o)
  __c30_signature
-                  0x0000c6          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(cosf.o)
+                  0x0000c6          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(atan2f.o)
  __c30_signature
-                  0x0000cc          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(sqrtf.o)
+                  0x0000cc          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(cosf.o)
  __c30_signature
-                  0x0000d2          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fixunssfsi.o)
+                  0x0000d2          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(sqrtf.o)
  __c30_signature
-                  0x0000d8          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fpack.o)
+                  0x0000d8          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fixunssfsi.o)
  __c30_signature
-                  0x0000de          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fcompare.o)
+                  0x0000de          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fpack.o)
  __c30_signature
-                  0x0000e4          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(udivsi3.o)
+                  0x0000e4          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fcompare.o)
  __c30_signature
-                  0x0000ea          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(funpack2.o)
+                  0x0000ea          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(udivsi3.o)
  __c30_signature
-                  0x0000f0          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(futil.o)
+                  0x0000f0          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(funpack2.o)
  __c30_signature
-                  0x0000f6          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(funpack.o)
+                  0x0000f6          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(futil.o)
  __c30_signature
-                  0x0000fc          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(errno.o)
+                  0x0000fc          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(funpack.o)
  __c30_signature
-                  0x000102          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(atanf.o)
+                  0x000102          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(errno.o)
  __c30_signature
-                  0x000108          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(sincosf.o)
+                  0x000108          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(atanf.o)
  __c30_signature
-                  0x00010e          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fmodf.o)
+                  0x00010e          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(sincosf.o)
  __c30_signature
-                  0x000114          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fmodrem.o)
+                  0x000114          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fmodf.o)
  __c30_signature
-                  0x00011a          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(strlen.XXo)
+                  0x00011a          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fmodrem.o)
  __c30_signature
+<<<<<<< HEAD
                   0x000120          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(atoi.XXo)
+=======
+                  0x000120          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(strlen.XXo)
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
  __c30_signature
                   0x000126          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(sprintf_cdfFnopsuxX.XXo)
  __c30_signature
-                  0x00012c          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(malloc.XXo)
+                  0x00012c          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(sprintf_cdfFnopsuxX.XXo)
  __c30_signature
-                  0x000132          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(exit.XXo)
+                  0x000132          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(malloc.XXo)
  __c30_signature
-                  0x000138          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(rand.XXo)
+                  0x000138          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(exit.XXo)
  __c30_signature
+<<<<<<< HEAD
                   0x00013e          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(doprnt_cdfFnopsuxX.XXo)
+=======
+                  0x00013e          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(rand.XXo)
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
  __c30_signature
-                  0x000144          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(memcpy.XXo)
+                  0x000144          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(doprnt_cdfFnopsuxX.XXo)
  __c30_signature
-                  0x00014a          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(stdclean.XXo)
+                  0x00014a          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(memcpy.XXo)
  __c30_signature
-                  0x000150          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(fputc.XXo)
+                  0x000150          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(stdclean.XXo)
  __c30_signature
-                  0x000156          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(powers.XXo)
+                  0x000156          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(fputc.XXo)
  __c30_signature
-                  0x00015c          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(_iob.XXo)
+                  0x00015c          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(powers.XXo)
  __c30_signature
-                  0x000162          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(fclose.XXo)
+                  0x000162          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(_iob.XXo)
  __c30_signature
-                  0x000168          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(flsbuf.XXo)
+                  0x000168          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(fclose.XXo)
  __c30_signature
-                  0x00016e          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(fflush.XXo)
+                  0x00016e          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(flsbuf.XXo)
  __c30_signature
-                  0x000174          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(buf.XXo)
+                  0x000174          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(fflush.XXo)
  __c30_signature
-                  0x00017a          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(tfiles.XXo)
+                  0x00017a          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(buf.XXo)
  __c30_signature
-                  0x000180          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(sbrk.o)
+                  0x000180          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(tfiles.XXo)
  __c30_signature
-                  0x000186          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(_exit.o)
+                  0x000186          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(sbrk.o)
  __c30_signature
-                  0x00018c          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(write.o)
+                  0x00018c          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(_exit.o)
  __c30_signature
-                  0x000192          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(close.o)
+                  0x000192          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(write.o)
  __c30_signature
-                  0x000198          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(remove.o)
+                  0x000198          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(close.o)
  __c30_signature
-                  0x00019e          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(brk.o)
+                  0x00019e          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(remove.o)
  __c30_signature
-                  0x0001a4          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(c30_uart.o)
+                  0x0001a4          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(brk.o)
  __c30_signature
-                  0x0001aa          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(mulsi3.o)
+                  0x0001aa          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(c30_uart.o)
  __c30_signature
-                  0x0001b0          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(divmoddi3.o)
+                  0x0001b0          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(mulsi3.o)
  __c30_signature
-                  0x0001b6          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(muldf3.o)
+                  0x0001b6          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(divmoddi3.o)
  __c30_signature
-                  0x0001bc          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(extendsfdf.o)
+                  0x0001bc          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(muldf3.o)
  __c30_signature
-                  0x0001c2          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(deqltle.o)
+                  0x0001c2          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(extendsfdf.o)
  __c30_signature
-                  0x0001c8          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(dne.o)
+                  0x0001c8          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(deqltle.o)
  __c30_signature
-                  0x0001ce          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(truncdfsf.o)
+                  0x0001ce          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(dne.o)
  __c30_signature
-                  0x0001d4          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(frexpf.o)
+                  0x0001d4          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(truncdfsf.o)
  __c30_signature
-                  0x0001da          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(dgtge.o)
+                  0x0001da          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(frexpf.o)
  __c30_signature
-                  0x0001e0          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(adddf3.o)
+                  0x0001e0          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(dgtge.o)
  __c30_signature
-                  0x0001e6          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fixunsdfdi.o)
+                  0x0001e6          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(adddf3.o)
  __c30_signature
-                  0x0001ec          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(divdf3.o)
+                  0x0001ec          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(fixunsdfdi.o)
  __c30_signature
-                  0x0001f2          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(floatdidf.o)
+                  0x0001f2          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(divdf3.o)
  __c30_signature
-                  0x0001f8          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(subdf3.o)
+                  0x0001f8          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(floatdidf.o)
  __c30_signature
-                  0x0001fe          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(dunpack2.o)
+                  0x0001fe          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(subdf3.o)
  __c30_signature
-                  0x000204          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(dpack.o)
+                  0x000204          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(dunpack2.o)
  __c30_signature
-                  0x00020a          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(dcompare.o)
+                  0x00020a          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(dpack.o)
  __c30_signature
-                  0x000210          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(dunpack.o)
+                  0x000210          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(dcompare.o)
  __c30_signature
-                  0x000216          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(_frexpf.o)
+                  0x000216          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(dunpack.o)
  __c30_signature
-                  0x00021c          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(dpropagateNaN.o)
+                  0x00021c          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(_frexpf.o)
  __c30_signature
+<<<<<<< HEAD
                   0x000222          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(dtype.o)
 
 .nbss               0x0800        0x678
@@ -3446,3 +4369,452 @@ __c30_signature
 .isr              0x0071e4          0x4
  .isr             0x0071e4          0x4 default_isr
                   0x0071e4                  _DefaultInterrupt
+=======
+                  0x000222          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(dpropagateNaN.o)
+ __c30_signature
+                  0x000228          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(dtype.o)
+
+.nbss               0x0800        0x5c8
+ .nbss              0x0800        0x2b0 main.o
+                    0x0864                  i
+                    0x0866                  red
+                    0x0868                  green
+                    0x086a                  blue
+                    0x086c                  byte1
+                    0x086e                  byte2
+                    0x0870                  cam_width
+                    0x0872                  goalLost
+                    0x0874                  spinMode
+                    0x0876                  pixelColors
+                    0x08c6                  smoothedColors
+                    0x0916                  buffer
+                    0x0a42                  sel
+                    0x0a44                  mode
+                    0x0a46                  msg
+                    0x0a96                  data
+                    0x0aa2                  ir_range
+                    0x0aa4                  ir_bearing
+                    0x0aa8                  ir_sensor
+                    0x0aaa                  receivedID
+                    0x0aac                  msg_data
+                    0x0aae                  custom_msg
+ .nbss              0x0ab0        0x1c4 e_bluetooth.o
+                    0x0ab0                  e_bt_local_paired_device
+                    0x0ae0                  e_bt_present_device
+                    0x0c02                  e_bt_present_epuck
+                    0x0c70                  local_bt_PIN
+ .nbss              0x0c74        0x154 e_timers.o
+                    0x0c76                  _poxxxx_buffer
+                    0x0c78                  _poxxxx_img_ready
+                    0x0c7a                  _poxxxx_current_row
+                    0x0c7c                  _poxxxx_row
+                    0x0c7e                  _poxxxx_line_conf
+
+.ndata              0x0dc8        0x182
+ .ndata             0x0dc8         0xd8 e_po3030k_registers.o
+ .ndata             0x0ea0         0xaa e_randb.o
+                    0x0ea0                  SensorAngle
+                    0x0eb8                  SensorAngleRads
+                    0x0ee8                  CosSensorAngle
+                    0x0f18                  SinSensorAngle
+                    0x0f48                  p
+
+.nbss               0x0f4a         0x84
+ .nbss              0x0f4a         0x84 ir_comm.o
+
+.data               0x0fce         0x88
+ .data              0x0fce         0x44 e_uart1_rx_char.o
+                    0x0fce                  U1RXBuf
+                    0x100e                  U1RXRcvCnt
+                    0x1010                  U1RXReadCnt
+ .data              0x1012         0x44 e_uart2_rx_char.o
+                    0x1012                  U2RXBuf
+                    0x1052                  U2RXRcvCnt
+                    0x1054                  U2RXReadCnt
+
+.nbss               0x1056         0x54
+ .nbss              0x1056         0x34 e_prox.o
+ .nbss              0x108a         0x20 e_randb.o
+                    0x108a                  calcOnBoard
+                    0x108c                  erandbTmpData
+                    0x1098                  erandbFinalData
+                    0x10a4                  erandbFinished
+                    0x10a6                  erandbState
+                    0x10a8                  erandbCounter
+
+.ndata              0x10aa         0x16
+ .ndata             0x10aa         0x16 main.o
+                    0x10aa                  range
+                    0x10ae                  id0
+                    0x10af                  id1
+                    0x10b0                  id2
+                    0x10b1                  id3
+                    0x10b2                  id4
+                    0x10b3                  id5
+                    0x10b4                  id6
+                    0x10b5                  id7
+                    0x10b6                  robot0
+                    0x10b8                  robot1
+                    0x10ba                  robot2
+                    0x10bc                  robot3
+                    0x10be                  team
+
+.nbss               0x10c0         0x18
+ .nbss              0x10c0         0x10 e_motors.o
+ .nbss              0x10d0          0x8 e_I2C_master_module.o
+                    0x10d0                  e_i2c_mode
+                    0x10d2                  e_interrupts
+
+.data               0x10d8          0x6
+ .data              0x10d8          0x6 e_uart1_tx_char.o
+                    0x10d8                  U1TXPtr
+                    0x10da                  U1TXLength
+                    0x10dc                  U1TXOk
+
+.nbss               0x10de          0x6
+ .nbss              0x10de          0x6 additional_functions_seas.o
+
+.data               0x10e4          0x6
+ .data              0x10e4          0x6 e_uart2_tx_char.o
+                    0x10e4                  U2TXPtr
+                    0x10e6                  U2TXLength
+                    0x10e8                  U2TXOk
+
+.nbss               0x10ea          0x8
+ .nbss              0x10ea          0x6 e_led.o
+ .nbss              0x10f0          0x2 e_common.o
+
+.ndata              0x10f2          0x2
+ .ndata             0x10f2          0x2 e_led.o
+
+.nbss               0x10f4          0x2
+ .nbss              0x10f4          0x2 e_agenda.o
+
+.ndata              0x10f6          0x2
+ .ndata             0x10f6          0x2 utility.o
+                    0x10f6                  errorPercent
+
+.nbss               0x10f8          0x2
+ .nbss              0x10f8          0x2 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libm-coff.a(errno.o)
+                    0x10f8                  errno
+
+.data               0x10fa        0x200
+ .data              0x10fa        0x160 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(powers.XXo)
+                    0x10fa                  _npowers_
+                    0x11aa                  _powers_
+ .data              0x125a         0xa0 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(doprnt_cdfFnopsuxX.XXo)
+
+.dconst             0x12fa         0x2a
+ .dconst            0x12fa         0x2a c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(doprnt_cdfFnopsuxX.XXo)
+
+.data               0x1324         0x26
+ .data              0x1324         0x26 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(_iob.XXo)
+                    0x1324                  _Files
+                    0x1326                  _iob
+
+.bss                0x134a         0x24
+ .bss               0x134a         0x10 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(malloc.XXo)
+                    0x134a                  _allocx
+                    0x134e                  _alloct
+                    0x1350                  _allocp
+                    0x1352                  _allocs
+ .bss               0x135a          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(rand.XXo)
+ .bss               0x1360          0x6 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(_iob.XXo)
+                    0x1360                  _sobuf
+                    0x1362                  _sibuf
+                    0x1364                  _outdone
+ .bss               0x1366          0x2 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(stdclean.XXo)
+                    0x1366                  _atexitptr
+ .bss               0x1368          0x2 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(buf.XXo)
+ .bss               0x136a          0x2 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libc-coff.a(tfiles.XXo)
+                    0x136a                  _tfilesptr
+ .bss               0x136c          0x2 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(brk.o)
+                    0x136c                  __curbrk
+
+.data               0x136e          0x2
+ .data              0x136e          0x2 c:/program files/microchip/mplabc30/v3.30c/bin/bin/../../lib\libpic30-coff.a(c30_uart.o)
+                    0x136e                  __C30_UART
+
+.heap               0x1370        0x200
+ .heap              0x1370        0x200 heap
+
+.const              0xa012         0x92 load address 0x002012  
+ .const             0xa012         0x8a main.o
+ .const             0xa09c          0x8 btcom.o
+
+.text             0x0020a4       0x2bf0
+ .text            0x0020a4        0xe74 e_bluetooth.o
+                  0x0020a4                  e_bt_find_epuck
+                  0x002240                  e_bt_connect_epuck
+                  0x00226e                  e_bt_reset
+                  0x00231c                  e_bt_factory_reset
+                  0x00239c                  e_bt_tranparent_mode
+                  0x002422                  e_bt_exit_tranparent_mode
+                  0x002450                  e_bt_read_local_pin_number
+                  0x002506                  e_bt_read_local_name
+                  0x0025ae                  e_bt_write_local_pin_number
+                  0x002688                  e_bt_write_local_name
+                  0x002764                  e_bt_inquiry
+                  0x00288a                  e_bt_get_friendly_name
+                  0x002976                  e_bt_etablish_SPP_link
+                  0x002a62                  e_bt_release_SPP_link
+                  0x002b84                  e_bt_send_SPP_data
+                  0x002c6a                  e_bt_list_local_paired_device
+                  0x002d18                  e_bt_remove_local_paired_device
+                  0x002e02                  e_bt_set_event_filter
+                  0x002e98                  e_bt_get_event_filter
+ .text            0x002f18        0x838 e_po3030k_registers.o
+                  0x002f18                  e_po3030k_write_cam_registers
+                  0x002f4a                  e_po3030k_read_cam_registers
+                  0x002f80                  e_po3030k_set_color_mode
+                  0x002fbe                  e_po3030k_set_sampling_mode
+                  0x002fe8                  e_po3030k_set_speed
+                  0x00302e                  e_po3030k_set_wx
+                  0x003084                  e_po3030k_set_wy
+                  0x0030d4                  e_po3030k_set_vsync
+                  0x003146                  e_po3030k_set_mirror
+                  0x003182                  e_po3030k_set_register
+                  0x0031c0                  e_po3030k_get_register
+                  0x003200                  e_po3030k_set_bias
+                  0x003212                  e_po3030k_set_color_gain
+                  0x003248                  e_po3030k_set_integr_time
+                  0x00326c                  e_po3030k_set_adc_offset
+                  0x003278                  e_po3030k_set_sepia
+                  0x003294                  e_po3030k_set_lens_gain
+                  0x0032ac                  e_po3030k_set_edge_prop
+                  0x0032c2                  e_po3030k_set_gamma_coef
+                  0x003302                  e_po3030k_write_gamma_coef
+                  0x003320                  e_po3030k_sync_register_array
+                  0x003380                  e_po3030k_SetColorMatrix
+                  0x0033ae                  e_po3030k_set_cb_cr_gain
+                  0x0033c0                  e_po3030k_set_brigh_contr
+                  0x0033d2                  e_po3030k_set_sepia_tone
+                  0x0033e4                  e_po3030k_set_ww
+                  0x0033f4                  e_po3030k_set_awb_ae_tol
+                  0x00340c                  e_po3030k_set_ae_speed
+                  0x003426                  e_po3030k_set_exposure
+                  0x003446                  e_po3030k_set_ref_exposure
+                  0x003452                  e_po3030k_set_max_min_exp
+                  0x003470                  e_po3030k_set_max_min_awb
+                  0x00349a                  e_po3030k_set_weight_win
+                  0x003540                  e_po3030k_set_awb_ae
+                  0x00357c                  e_po3030k_set_flicker_mode
+                  0x00359a                  e_po3030k_set_flicker_detection
+                  0x003690                  e_po3030k_set_flicker_man_set
+ .text            0x003750        0x75a e_led.o
+                  0x003750                  e_set_led
+                  0x0039f2                  e_led_clear
+                  0x003a08                  e_set_body_led
+                  0x003a48                  e_set_front_led
+                  0x003a88                  e_blink_led
+                  0x003b5e                  e_blink_led0
+                  0x003b80                  e_blink_led1
+                  0x003b9a                  e_blink_led2
+                  0x003bbc                  e_blink_led3
+                  0x003bde                  e_blink_led4
+                  0x003c00                  e_blink_led5
+                  0x003c22                  e_blink_led6
+                  0x003c44                  e_blink_led7
+                  0x003c5e                  e_start_led_blinking
+                  0x003c6c                  e_stop_led_blinking
+                  0x003c76                  e_set_blinking_cycle
+                  0x003c88                  snake_led
+                  0x003ce0                  flow_led
+                  0x003d5e                  k2000_led
+                  0x003dde                  right_led
+                  0x003e44                  left_led
+ .text            0x003eaa        0x758 e_randb.o
+                  0x003eaa                  e_init_randb
+                  0x003ee4                  e_randb_get_if_received
+                  0x003f14                  e_randb_get_sensor
+                  0x003f22                  e_randb_get_peak
+                  0x003f42                  e_randb_get_data
+                  0x003f66                  e_randb_get_range
+                  0x003f8a                  e_randb_get_bearing
+                  0x003fba                  e_randb_reception
+                  0x003ffa                  e_randb_send_all_data
+                  0x004038                  e_randb_store_data
+                  0x004062                  e_randb_send_data
+                  0x00408a                  e_randb_set_range
+                  0x0040aa                  e_randb_store_light_conditions
+                  0x0040d2                  e_randb_set_calculation
+                  0x0040f8                  e_randb_get_uart2
+                  0x004166                  e_randb_get_data_uart
+                  0x00419c                  e_randb_uart_set_range
+                  0x0041bc                  e_randb_uart_store_light_conditions
+                  0x0041da                  e_randb_uart_set_calculation
+                  0x004200                  e_randb_uart_store_data
+                  0x004224                  e_randb_uart_send_data
+                  0x004262                  e_randb_uart_send_all_data
+                  0x0042a8                  e_randb_set_uart_communication
+                  0x0042c8                  e_randb_get_all_data
+                  0x004348                  e_randb_all_reception
+ .text            0x004602        0x692 main.o
+                  0x004602                  printRGB
+                  0x004628                  atObstacle
+                  0x00488e                  atGoal
+                  0x0048be                  nearGoal
+                  0x0048fc                  robot_init
+                  0x004972                  wallFollow
+                  0x0049fe                  avoidObstacle
+                  0x004a70                  receiveIR
+                  0x004ac8                  printCameraLine
+                  0x004b14                  beelineToGoal
+                  0x004bec                  main
+
+.dinit            0x004c94        0x3d8
+ .dinit           0x004c94        0x3d8 data_init
+
+.text             0x00506c       0x2378
+ .text            0x00506c        0x354 e_I2C_master_module.o
+                  0x00506c                  idle_i2c
+                  0x00509c                  e_i2c_init
+                  0x0050d6                  e_i2c_reset
+                  0x00511e                  e_i2c_enable
+                  0x00512a                  e_i2c_disable
+                  0x005136                  e_i2c_start
+                  0x00517a                  e_i2c_restart
+                  0x0051be                  e_i2c_stop
+                  0x0051f4                  e_i2c_ack
+                  0x00525a                  e_i2c_nack
+                  0x0052c0                  e_i2c_read
+                  0x00536c                  e_i2c_write
+                  0x0053a8                  _MI2CInterrupt
+ .text            0x0053c0        0x342 e_po6030k_registers.o
+                  0x0053c0                  e_po6030k_set_bank
+                  0x0053d4                  e_po6030k_write_register
+                  0x0053f0                  e_po6030k_read_register
+                  0x00540c                  e_po6030k_set_bayer_clkdiv
+                  0x00541c                  e_po6030k_set_pclkdiv
+                  0x005550                  e_po6030k_set_mode
+                  0x0055a8                  e_po6030k_set_wx
+                  0x0055fe                  e_po6030k_set_wy
+                  0x00560a                  e_po6030k_set_vsync
+                  0x00566a                  e_po6030k_set_sketch_mode
+                  0x0056c8                  e_po6030k_set_mirror
+ .text            0x005702        0x340 camera_helpers.o
+                  0x005702                  getColor
+                  0x00573e                  checkYellow
+                  0x0057bc                  checkGreen
+                  0x00583a                  checkRed
+                  0x00588a                  smoothColorLine
+                  0x00591c                  getPenaltyCameraLine
+                  0x00594c                  getGoalCameraLine
+                  0x005994                  goalInView
+                  0x0059cc                  getGoalMidpoint
+                  0x005a08                  inPenaltyBox
+ .text            0x005a42        0x338 e_motors.o
+                  0x005a42                  run_left_motor
+                  0x005b26                  run_right_motor
+                  0x005c0a                  e_init_motors
+                  0x005c1c                  e_set_speed_left
+                  0x005c96                  e_set_speed_right
+                  0x005d10                  e_set_speed
+                  0x005d52                  e_get_steps_left
+                  0x005d5a                  e_set_steps_left
+                  0x005d66                  e_get_steps_right
+                  0x005d6e                  e_set_steps_right
+ .text            0x005d7a        0x31c utility.o
+                  0x005d7a                  wait
+                  0x005d9c                  myWait
+                  0x005dd2                  getselector
+                  0x005e0a                  setLED
+                  0x005ed6                  setErrorPercent
+                  0x005ee2                  setSpeeds
+                  0x005f78                  moveForward
+                  0x005fae                  move
+                  0x006004                  turn
+                  0x00606a                  allRedLEDsOff
+                  0x006080                  allRedLEDsOn
+ .text            0x006096        0x2aa e_calc_po6030k.o
+                  0x006096                  e_po6030k_config_cam
+                  0x006308                  e_po6030k_get_bytes_per_pixel
+ .text            0x006340        0x274 e_calc_po3030k.o
+                  0x006340                  e_po3030k_config_cam
+                  0x00657c                  e_po3030k_get_bytes_per_pixel
+ .text            0x0065b4        0x248 additional_functions_seas.o
+                  0x0065b4                  manual_camera_calibration
+                  0x006608                  e_po6030k_exposure_control
+                  0x006660                  e_po6030k_manual_exposure_value
+                  0x006736                  e_po6030k_white_balance
+                  0x00676a                  e_po6030k_automatic_digital_gain
+                  0x00679e                  e_po6030k_mean_brightness
+                  0x0067bc                  wait_for_bluetooth
+ .text            0x0067fc        0x222 e_prox.o
+                  0x0067fc                  init_tmr1
+                  0x006820                  _T1Interrupt
+                  0x006990                  e_init_prox
+                  0x00699a                  e_stop_prox
+                  0x0069da                  e_get_prox
+                  0x0069fc                  e_get_ambient_light
+ .text            0x006a1e        0x216 e_agenda.o
+                  0x006a1e                  e_start_agendas_processing
+                  0x006a40                  e_end_agendas_processing
+                  0x006a48                  e_activate_agenda
+                  0x006aa8                  e_destroy_agenda
+                  0x006af8                  e_set_agenda_cycle
+                  0x006b2e                  e_reset_agenda
+                  0x006b62                  e_pause_agenda
+                  0x006b96                  e_restart_agenda
+                  0x006bca                  _T2Interrupt
+ .text            0x006c34        0x176 ir_comm.o
+                  0x006c84                  _T3Interrupt
+                  0x006cca                  comm_init
+                  0x006d26                  comm_rx
+                  0x006d7a                  comm_store_tx
+ .text            0x006daa        0x108 e_timers.o
+                  0x006daa                  _T5Interrupt
+                  0x006df4                  e_poxxxx_launch_capture
+                  0x006e0c                  e_poxxxx_apply_timer_config
+                  0x006eaa                  e_poxxxx_is_img_ready
+ .text            0x006eb2         0xf8 e_common.o
+                  0x006eb2                  e_poxxxx_config_cam
+                  0x006f0a                  e_poxxxx_set_mirror
+                  0x006f38                  e_poxxxx_write_cam_registers
+                  0x006f4a                  e_poxxxx_init_cam
+ .text            0x006faa         0xd2 btcom.o
+                  0x006faa                  btcomSendStringStatic
+                  0x006fbe                  btcomSendString
+                  0x006fd6                  btcomSendInt
+                  0x006ff4                  btcomSendFloat
+                  0x007012                  btcomSendChar
+                  0x007026                  btcomWaitForCommand
+                  0x007054                  btcomGetCharacter
+ .text            0x00707c         0x9c e_I2C_protocol.o
+                  0x00707c                  e_i2cp_init
+                  0x007084                  e_i2cp_enable
+                  0x00708c                  e_i2cp_disable
+                  0x007094                  e_i2cp_read
+                  0x0070dc                  e_i2cp_write
+ .text            0x007118         0x8a e_init_port.o
+                  0x007118                  e_init_port
+ .text            0x0071a2         0x76 e_ad_conv.o
+                  0x0071a2                  e_init_ad
+                  0x0071de                  e_read_ad
+ .text            0x007218         0x60 e_uart1_tx_char.o
+                  0x007218                  _U1TXInterrupt
+                  0x00725c                  e_send_uart1_char
+                  0x007274                  e_uart1_sending
+ .text            0x007278         0x60 e_uart2_tx_char.o
+                  0x007278                  _U2TXInterrupt
+                  0x0072bc                  e_send_uart2_char
+                  0x0072d4                  e_uart2_sending
+ .text            0x0072d8         0x3c e_uart1_rx_char.o
+                  0x0072d8                  _U1RXInterrupt
+                  0x0072f0                  e_ischar_uart1
+                  0x0072f8                  e_getchar_uart1
+ .text            0x007314         0x3c e_uart2_rx_char.o
+                  0x007314                  _U2RXInterrupt
+                  0x00732c                  e_ischar_uart2
+                  0x007334                  e_getchar_uart2
+ .text            0x007350         0x38 e_interrupt.o
+                  0x007350                  _T4Interrupt
+ .text            0x007388         0x2e e_init_uart1.o
+                  0x007388                  e_init_uart1
+ .text            0x0073b6         0x2e e_init_uart2.o
+                  0x0073b6                  e_init_uart2
+
+.isr              0x0073e4          0x4
+ .isr             0x0073e4          0x4 default_isr
+                  0x0073e4                  _DefaultInterrupt
+>>>>>>> 1327d371741702d8ea6c5cab7d76f2f3ae22550a
