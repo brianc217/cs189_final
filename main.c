@@ -32,55 +32,25 @@
 #include "camera/fast_2_timer/e_po6030k.h"
 #include "additional_functions_seas.h"
 #include "motor_led/advance_one_timer/e_agenda.h"
+
 #include "ir_comm.h"
-
-
-#define LINE_OF_INTEREST 290
-#define MORDOR 0 			// the goal will be green
-#define GONDOR 1			// the goal will be yellow
-
-// thresholds
-#define PENALTY_THRESH 50
-#define GOAL_THRESH 7
-#define DONE_THRESH 70
-
-// speeds
-#define HI_SPEED 800
-#define LO_SPEED 300
-
-// modes
-#define GOAL_MODE 0
-#define WALL_FOLLOW 1
+#include "camera_helpers.h"
 
 
 /* global vars */
-
-char msg[80]; 				//this is some data to store screen-bound debug messages
 double range = 0;
-
 unsigned char sel;					//the position of the selector switch
 
-unsigned int i, red, green, blue; 
-int byte1, byte2;
-int cam_width;
+// camera init
+#define LINE_OF_INTEREST 290
 
-// IR-related globals
-finalDataRegister data;
-unsigned int ir_range;
-float ir_bearing;
-unsigned char ir_sensor;
-unsigned int receivedID;
-union comm_value msg_data;
-unsigned int custom_msg;
+#define HI_SPEED 800
+#define LO_SPEED 300
 
-//Buffer for the camera image
-static unsigned char buffer[300];
-//Buffer for sending back messages over bluetooth
-static unsigned char print_buffer[100];
-
-//For storing pixel color values
-unsigned char pixelColors[80];
-unsigned char smoothedColors[80];
+// current state of the robot 
+unsigned int mode;
+// debug messages
+char msg[80]; 				
 
 /* PUT ROLES IN HERE */
 // Ox00 = FRODO, 0x01-0x03 allies; 0x04 = WITCH-KING, 0x05-0x07 allies
@@ -95,179 +65,58 @@ unsigned char id6 = 0x06;
 unsigned char id7 = 0x07;
 // TODO: decide what to do with this
 
+/* PUT ROBOT IDS HERE */
+int robot0 = 2046; 		// Artisan
+int robot1 = 2137; 		// Evaporation
+int robot2 = 2110; 		// Reverence
+int robot3 = 2180; 		// Flux
+
 /*** CHANGE TEAM HERE ***/
 unsigned int team = GONDOR;
 /************************/
 
-// current state of the robot 
-unsigned int mode;
-
-// stuff related to goal-finding
+// Camera
+unsigned char pixelColors[80];
+unsigned char smoothedColors[80];
+int cam_width;
+unsigned int i, red, green, blue; 
+int byte1, byte2;
+int cam_width;
 unsigned int goalLost;
 unsigned int spinMode;
+//Buffer for the camera image
+unsigned char buffer[300];
+
+// IR-related globals
+finalDataRegister data;
+unsigned int ir_range;
+float ir_bearing;
+unsigned char ir_sensor;
+unsigned int receivedID;
+union comm_value msg_data;
+unsigned int custom_msg;
+
+//Buffer for sending back messages over bluetooth
+static unsigned char print_buffer[100];
+
 
 //Eases the transmission of integers as ascii code
 #define uart_send_text(msg) do { e_send_uart1_char(msg,strlen(msg)); while(e_uart1_sending()); } while(0)
 
-// Extracts RGB values for a given pixel from the cam buffer
-void getColor(int pixel) {
-	byte1 = buffer[pixel];
-    byte2 = buffer[pixel + 1];
-
-    red = byte1 >> 3;
-    blue = byte2 & 31;
-    green = (byte1 & 7) | ((byte2 & (7 << 5)) >> 5);
-}
-
-// Given a pixel on [0,cam_width), return 1 if yellow, 0 otherwise
-int checkYellow(int robotID) {
-	int red_thresh, green_thresh, blue_thresh;
-
-	switch (robotID) {
-		case 2046:
-			red_thresh = 10;
-			green_thresh = 2;
-			blue_thresh = 2;
-			break;
-		case 2180:
-			red_thresh = 12;
-			green_thresh = 2;
-			blue_thresh = 1;
-			break;
-		case 2110:
-			red_thresh = 15;
-			green_thresh = 3;
-			blue_thresh = 2;
-		default:
-			red_thresh = 10;
-			green_thresh = 2;
-			blue_thresh = 2;
-			break;
-	}
-    return (red > red_thresh && green >= green_thresh && blue < blue_thresh);
-}
-
-// Given a pixel on [0,cam_width), return 1 if green, 0 otherwise
-int checkGreen(int robotID) {
-	int red_thresh, green_thresh, blue_thresh;
-
-	switch (robotID) {
-		case 2046:
-			red_thresh = 5;
-			green_thresh = 2;
-			blue_thresh = 2;
-			break;
-		case 2180:
-			red_thresh = 8;
-			green_thresh = 2;
-			blue_thresh = 1;
-			break;
-		case 2110: // shitty green guys
-			red_thresh = 3;
-			green_thresh = 2;
-			blue_thresh = 6;
-		default:
-			red_thresh = 5;
-			green_thresh = 2;
-			blue_thresh = 2;
-			break;
-	}
-    return (red < red_thresh && green >= green_thresh && blue < blue_thresh);
-}
-
-// Given a pixel on [0,cam_width), return 1 if  red, 0 otherwise
-int checkRed(int robotID) {
-	int red_thresh, green_thresh, blue_thresh;
-
-	switch (robotID) {
-		case 2046:
-			red_thresh = 13;
-			green_thresh = 1;
-			blue_thresh = 1;
-			break;
-		default:
-			red_thresh = 13;
-			green_thresh = 1;
-			blue_thresh = 1;
-			break;
-	}
-    return (red > red_thresh && green <= green_thresh && blue <= blue_thresh);
-}
 
 // for debugging
-int printRGB(int pixel) {
+void printRGB(int pixel) {
 	getColor(pixel);
 	
 	sprintf(msg, "red: %d; green: %d; blue: %d\r\n", red, green, blue);
 	btcomSendString(msg);
 }
 
-void smoothColorLine() {
-	// Smooth array of pixels
-	smoothedColors[0] = (pixelColors[1] + pixelColors[0]) > 1;
-	smoothedColors[cam_width - 1] = (pixelColors[79] + pixelColors[78]) > 1;
-	for (i = 1; i < cam_width + 1; i++) {
-		smoothedColors[i] = (pixelColors[i-1] + pixelColors[i] + pixelColors[i+1]) >= 2;
-	}
-}
-
-void getPenaltyCameraLine(int robotID) {
-	// Store array of which pixels are the penalty box color (red)
-	for (i = 0; i < cam_width; i++) {
-		getColor(i*2);
-		pixelColors[i] = checkRed(robotID);
-	}
-	smoothColorLine();		// puts values in smoothedColors (global)
-}
-
-int inPenaltyBox() {
-	int sum = 0;
-	// check to make sure most pixels are red
-	for (i = 0; i < cam_width; i++) {
-		sum += smoothedColors[i];
-	}
-	return (sum > PENALTY_THRESH);	
-}
-
-void getGoalCameraLine(int robotID) {
-	// Store array of which pixels are the goal color (yellow or green)
-	for (i = 0; i < cam_width; i++) {
-		getColor(i*2);
-		if (team == GONDOR) 
-	    	pixelColors[i] = checkYellow(robotID);
-		else
-			pixelColors[i] = checkGreen(robotID);
-	}
-	smoothColorLine();
-}
-
-int goalInView() {
-	int sum = 0;
-	// check to make sure the num. pixels of goal color exceeds threshold
-	for (i = 0; i < cam_width; i++) {
-		sum += smoothedColors[i];
-	}
-	return (sum > GOAL_THRESH);
-}
-
-// assumes goalInView has been called (to update smoothedColors)
-int getGoalMidpoint() {
-	int sum = 0;
-	int total = 0;
-	for (i = 0; i < cam_width; i++) {
-		if (smoothedColors[i]) {
-			sum += i;
-			total++;
-		}
-	}
-	return sum/total;
-}
-
 int atObstacle(int robotID) {
 	switch (robotID) {
 		case 2046:
 			switch (ir_sensor) {
-				case 0: return (ir_range > 30);
+				case 0: return (ir_range > 60);
 				case 1: return (ir_range > 1000);
 				case 2: return (ir_range > 300);
 				case 3: return (ir_range > 350);
@@ -307,15 +156,28 @@ int atObstacle(int robotID) {
 	}
 }
 
-// assumes goalInView has been called (to update smoothedColors)
+
+// this isn't really being used
 int atGoal(robotID) {
 	int sum = 0;
 	for (i = 0; i < cam_width; i++) {
 		sum += smoothedColors[i];
 	}
+	/*
 	return (sum > DONE_THRESH 
 			&& ((ir_bearing < 90 && ir_bearing > 70) || (ir_bearing > -90 && ir_bearing < -70))
 			&& atObstacle(robotID));
+	*/
+	return 0;
+}
+
+int nearGoal(robotID) {
+	int sum = 0;
+	for (i = 0; i < cam_width; i++) {
+		sum += smoothedColors[i];
+	}
+	return (sum > 60);
+
 }
 
 void robot_init() {
@@ -346,6 +208,7 @@ void robot_init() {
 	e_poxxxx_write_cam_registers(); //Initialization and changes to the setup of the camera.
 }
 
+// yeah not working
 void wallFollow(int robotID, int sendID) {
 	int delta;
 	if (receivedID == sendID) {
@@ -408,29 +271,38 @@ void receiveIR() {
 	msg_data = (union comm_value) (data).data;
 	receivedID = (unsigned int) msg_data.bits.ID;
 	custom_msg = (unsigned int) msg_data.bits.data;
-	//sprintf(msg, "sensor: %u, range: %u, bearing: %f, ID: %u\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing, receivedID);
-	//btcomSendString(msg);
+	sprintf(msg, "sensor: %u, range: %u, bearing: %f, ID: %u\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing, receivedID);
+	btcomSendString(msg);
+}
+
+
+void printCameraLine() {
+	// Debug print of camera line
+	sprintf(msg, "");
+	for (i = 0; i < cam_width; i++) {
+		sprintf(msg, "%s%d", msg, smoothedColors[i]);
+	}
+	sprintf(msg, "%s\r\n", msg);
+	btcomSendString(msg); 
 }
 
 void beelineToGoal(int robotID) {
 	if (goalLost >= 3) {
-		if (spinMode > 18) {
+		if (spinMode < 18) {
 			setSpeeds(HI_SPEED, HI_SPEED);
 		}
 		else { // spin
 			setSpeeds(LO_SPEED, -LO_SPEED);
 		}
-		spinMode = (spinMode + 1) % 30;
+		spinMode = (spinMode + 1) % 36;
 	}
-	getGoalCameraLine(robotID);
-	printCameraLine();
+	getGoalCameraLine(robotID, team);
+	//printCameraLine();
 
 	if (goalInView()) {
 		goalLost = 0;
-		if (atGoal(robotID)) {
+		if (atGoal(robotID)) {  // TODO: change this
 			setSpeeds(0,0);
-			//sprintf(msg, "DONE\r\n");
-			//btcomSendString(msg);
 			myWait(2000);
 		}
 		else {
@@ -444,7 +316,7 @@ void beelineToGoal(int robotID) {
 			float p;
 
 			// if roughly in center of view, move straight forward
-			if (abs(delta) < 15) {
+			if (abs(delta) < 12) {
             	setSpeeds(HI_SPEED, HI_SPEED);
             }
 
@@ -466,19 +338,10 @@ void beelineToGoal(int robotID) {
 		}
 	}
 	else {			
-		goalLost++;						
+		goalLost++;					
 	}
 }
 
-void printCameraLine() {
-	// Debug print of camera line
-	sprintf(msg, "");
-	for (i = 0; i < cam_width; i++) {
-		sprintf(msg, "%s%d", msg, smoothedColors[i]);
-	}
-	sprintf(msg, "%s\r\n", msg);
-	btcomSendString(msg); 
-}
 
 int main(void)
 {	
@@ -499,8 +362,8 @@ int main(void)
 
 	if (sel == 1)		// ARTISAN 2046
 	{
-		int robotID = 2180;
-		int sendID = id3;
+		int robotID = robot0;
+		int sendID = (team == GONDOR ) ? id0 : id4;
 		
 		goalLost = 0;
 		spinMode = 0;
@@ -518,6 +381,7 @@ int main(void)
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
 
 
+			/* testing stuff */
 			//printRGB(80);
 			//myWait(500);
 
@@ -536,60 +400,29 @@ int main(void)
 
 			/* IR */
 			receiveIR();
-			if (!avoidObstacle(robotID, sendID)) {
-				beelineToGoal(robotID);		
+			/*
+			if (!nearGoal(robotID)) {
+				if (!avoidObstacle(robotID, sendID)) {
+					beelineToGoal(robotID);		
+				}
 			}
-			
-			/*		
-			switch (mode) {
-				case 0:
-					//if (!avoidObstacle(robotID, sendID)) {
-						
-					//}
-					break;
-				case 1:
-					//wallFollow(robotID, sendID);
-					break;	
-				default:
-					//wallFollow(robotID, sendID);
-					break;			
-			}
-			*/
-			
+			else {
+				beelineToGoal(robotID);
+			} */
 		}
+	}
+	else if (sel == 3) {
+		int robotID = robot2;
+		int sendID = (team == GONDOR ) ? id1 : id5;
+
+		unsigned char seed = time(NULL);
+		comm_init(seed, sendID); 
+
+		receiveIR();
+
 	}
 	else
 	{
 		while(1) NOP();
 	}
-
-
-	
 }
-
-/*
-static void init_timer3(void)
-{
-    T3CON = 0x0;            // init config register
-    TMR3 = 0;               // clear timer counter
-    PR3 = 5760;             // period = 200 ms (* 28.8 KHz) -> 5760
-    T3CONbits.TCKPS = 0x3;  // prescaler = 256
-                            // @ clock 7.3728 MHz -> tick @ 28.8 KHz
-    T3CONbits.TCS = 0;      // internal clock source
-    IFS0bits.T3IF = 0;      // clear interrupt flag
-    IEC0bits.T3IE = 1;      // enable timer interrupt
-    T3CONbits.TON = 1;      // start timer
-
-}
-*/
-
-/* Every 200 ms send the value of tx_data over IR in all directions */
-/*void __attribute__((interrupt, auto_psv))
-_T3Interrupt(void) {
-    IFS0bits.T3IF = 0;
-
-    TMR3 = 0;
-
-    e_randb_send_all_data(tx_data.value);
-}
-*/
