@@ -29,6 +29,12 @@ int checkYellow(int robotID) {
 			red_thresh = 15;
 			green_thresh = 3;
 			blue_thresh = 2;
+			break;
+		case 2137: //eve
+			red_thresh = 13;
+			green_thresh = 2;
+			blue_thresh = 1;
+			break;
 		default:
 			red_thresh = 10;
 			green_thresh = 2;
@@ -57,6 +63,12 @@ int checkGreen(int robotID) {
 			red_thresh = 3;
 			green_thresh = 2;
 			blue_thresh = 6;
+			break;
+		case 2137: //evaporation
+			red_thresh= 3;
+			green_thresh= 2;
+			blue_thresh = 3;
+			break;
 		default:
 			red_thresh = 5;
 			green_thresh = 2;
