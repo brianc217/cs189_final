@@ -533,8 +533,10 @@ int main(void)
 		while(1)
 		{
 			receiveIR();
-
-			//if(
+			
+			int bestEnemy = bestEnemyIfExists();
+			//if(bestEnemy) {
+				
 
 		}
 		/*int robotID = 2180;
