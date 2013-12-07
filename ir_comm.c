@@ -85,8 +85,7 @@ void comm_rx(finalDataRegister *data)
 {
   finalDataRegister buff;
 	union comm_value rx;
-	int corrupted = TRUE;
-
+	int corrupted = TRUE;	
 	while (corrupted) {
 	
 		/* Block until receiving */
@@ -95,6 +94,9 @@ void comm_rx(finalDataRegister *data)
 		/* Check parity bit */
 		rx.value = buff.data;
 		corrupted = (parity(rx.value) != rx.bits.checksum);
+		char msg[80];
+		sprintf(msg,"%i\r\n",corrupted);
+		btcomSendString(msg);
 	}
 	// Copy result in output buffer
 	*data = buff;
