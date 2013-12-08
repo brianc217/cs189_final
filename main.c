@@ -1,7 +1,15 @@
 //////////////////////////////////////////////////////
 // NOTES:
-// 2180 has a fantastic camera
-// 2110 has pretty good IR							    
+// 2046 (artisan) -- average camera; pretty bad IR
+// 2137 (eve) -- IR readings (for bounce-back) very good, except sensor 7 is too strong...
+// 2180 (surrender) -- GREAT camera; good IR
+// 2110 (reverence) --  pretty good IR; bad green on camera
+// 2099 (surrender) -- great camera; lousy IR		
+// 2117 (cosmetic) -- decent camera but better yelllow than green; great IR
+// 2087 (bathtub) -- bad camera; IR is meh (can't sense from 11)
+//
+// 2151 (hayley) -- really bad camera; IR not tested
+// 2020 (ballast) -- bad camera; IR not tested				    
 //////////////////////////////////////////////////////
 
 // The camera is, by default, configured with the following settings:
@@ -24,7 +32,7 @@
 #include "a2d/e_prox.h"
 #include "uart/e_uart_char.h"
 #include "bluetooth/btcom.h"
-#include "e_randb.h"
+
 
 #include "I2C/e_I2C_master_module.h"
 #include "I2C/e_I2C_protocol.h"
@@ -33,20 +41,18 @@
 #include "additional_functions_seas.h"
 #include "motor_led/advance_one_timer/e_agenda.h"
 
-#include "ir_comm.h"
+//#include "ir_comm.h"
 #include "camera_helpers.h"
+#include "ir_helpers.h"
 
 
 /* global vars */
 double range = 0;
 unsigned char sel;					//the position of the selector switch
-extern int time_counter;
+int time_counter;
 
 // camera init
 #define LINE_OF_INTEREST 290
-#define HI_SPEED 800
-#define LO_SPEED 300
-#define HALF_SPEED 500
 
 
 unsigned int mode;		// current state of the robot 
@@ -93,11 +99,6 @@ unsigned char receivedID;
 union comm_value msg_data;
 unsigned int custom_msg;
 
-// Array for storing IR data
-typedef struct IR {
-	finalDataRegister data;
-	double time;
-} IR;
 
 IR robots[12];
 
@@ -129,73 +130,11 @@ void printRobots() {
 		
 }
 
-void receiveIR() {
-	comm_rx(&data);
-	ir_range = (data).range;
-	ir_bearing = 57.296*((data).bearing);
-	data.bearing = ir_bearing;
-	ir_sensor = (data).max_sensor;
-	msg_data = (union comm_value) (data).data;
-	receivedID = (unsigned char) msg_data.bits.ID;
-	custom_msg = (unsigned int) msg_data.bits.data;
-	
-	IR rData;
-	rData.data = data;
-	rData.time = time_counter / 2;
-	
-	if((int)receivedID >= 0 && (int)receivedID <= 12) {
-		robots[(int)receivedID] = rData;
-	}
-	
-	printRobots();
-	//sprintf(msg, "sensor: %u, range: %u, bearing: %f, ID: %u\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing, receivedID);
-	//btcomSendString(msg);
-}
 
-int atObstacle(int robotID) {
-	switch (robotID) {
-		case 2046:
-			switch (ir_sensor) {
-				case 0: return (ir_range > 60);
-				case 1: return (ir_range > 1000);
-				case 2: return (ir_range > 300);
-				case 3: return (ir_range > 350);
-				case 9: return (ir_range > 450);
-				case 10: return (ir_range > 100);
-				case 11: return (ir_range > 100); 
-				default: return 0;
-			}
-			break;
-		case 2180:
-			switch (ir_sensor) {
-				case 0: return (ir_range > 1100);
-				case 1: return (ir_range > 1500);
-				case 2: return (ir_range > 1400); // dummy value -- no sensor 2 readings
-				case 3: return (ir_range > 1300);
-				case 9: return (ir_range > 1400);
-				case 10: return (ir_range > 1400);
-				case 11: return (ir_range > 1300); 
-				default: return 0;
-			}
-			break;
-		case 2110:
-			switch (ir_sensor) {
-				case 0: return (ir_range > 600);
-				case 1: return (ir_range > 1000);
-				case 2: return (ir_range > 1500);
-				case 3: return (ir_range > 1700);
-				case 9: return (ir_range > 1700);
-				case 10: return (ir_range > 1500);
-				case 11: return (ir_range > 1000); 
-				default: return 0;
-			}
-			break;
-		default:
-			return 0;
-			break;
-	}
+void printReadings() {
+	sprintf(msg, "sensor: %u, range: %u, bearing: %f, ID: %u\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing, receivedID);
+	btcomSendString(msg);
 }
-
 
 // this isn't really being used
 int atGoal(robotID) {
@@ -246,6 +185,8 @@ void robot_init() {
 
 	manual_camera_calibration();
 	e_poxxxx_write_cam_registers(); //Initialization and changes to the setup of the camera.
+
+	time_counter = 0;
 }
 
 // yeah not working
@@ -273,35 +214,6 @@ void wallFollow(int robotID, int sendID) {
 	}
 }
 
-int avoidObstacle(int robotID, int sendID) {
-	if (receivedID == sendID) {
-		if (atObstacle(robotID)) {
-			sprintf(msg, "OBSTACLE: sensor %u, range %u, bearing %f\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing);
-			btcomSendString(msg);
-
-			// soft turn left
-			if (ir_bearing < -30) {
-				setSpeeds(HI_SPEED/2, HI_SPEED);
-				//setSpeeds(-LO_SPEED, LO_SPEED);
-			}
-			// soft turn right
-			else if (ir_bearing > 30) {
-				setSpeeds(HI_SPEED, HI_SPEED/2);
-				//setSpeeds(LO_SPEED, -LO_SPEED);
-			}
-			// hard turn based on sign of bearing
-			else {
-				// hard turn right
-				if (ir_bearing > 0) 
-					setSpeeds(HI_SPEED, -HI_SPEED);
-				else
-					setSpeeds(-HI_SPEED, HI_SPEED);
-			}
-			return 1;
-		}
-	}
-	return 0;
-}
 
 void orientToRobot(int id, double theta) {
 	double bearing = robots[id].data.bearing;
@@ -351,89 +263,6 @@ void avoidFriends() {
 		}			
 	}
 }
-
-
-int closeToRobot(int robotID) {
-	switch (robotID) {
-		case 2180:
-			switch (ir_sensor) {
-				case 0: return (ir_range > 890);
-				case 1: return (ir_range > 690);
-				case 2: return (ir_range > 1000); // dummy value -- no sensor 2 readings
-				case 3: return (ir_range > 500);
-				case 4: return (ir_range > 1070);			
-				case 5: return (ir_range > 1030);
-				case 6: return (ir_range > 880);
-				case 7: return (ir_range > 1000);
-				case 8: return (ir_range > 1200);
-				case 9: return (ir_range > 1150);
-				case 10: return (ir_range > 900);
-				case 11: return (ir_range > 1100); 
-				default: return 0;
-			}
-			break;
-		case 2110:
-			switch (ir_sensor) {
-				case 0: return (ir_range > 800);
-				case 1: return (ir_range > 800);
-				case 2: return (ir_range > 1100); // dummy value -- no sensor 2 readings
-				case 3: return (ir_range > 1100);
-				case 4: return (ir_range > 1170);			
-				case 5: return (ir_range > 900);
-				case 6: return (ir_range > 1000);
-				case 7: return (ir_range > 1100);
-				case 8: return (ir_range > 1150);
-				case 9: return (ir_range > 1100);
-				case 10: return (ir_range > 1000);
-				case 11: return (ir_range > 800); 
-				default: return 0;
-			}
-			break;
-		default:
-			switch (ir_sensor) {
-				case 0: return (ir_range > 890);
-				case 1: return (ir_range > 690);
-				case 2: return (ir_range > 1000); // dummy value -- no sensor 2 readings
-				case 3: return (ir_range > 500);
-				case 4: return (ir_range > 1070);			
-				case 5: return (ir_range > 1030);
-				case 6: return (ir_range > 880);
-				case 7: return (ir_range > 1000);
-				case 8: return (ir_range > 1200);
-				case 9: return (ir_range > 1150);
-				case 10: return (ir_range > 900);
-				case 11: return (ir_range > 1100); 
-				default: return 0;
-			}
-			break;
-	}
-}
-
-int avoidRobot(int robotID, int sendID, int killID) {
-	if (receivedID != sendID && receivedID != killID) {
-		if (closeToRobot(robotID)) {
-			// front
-			if (ir_bearing > -45 && ir_bearing < 45) {
-				setSpeeds(0, HI_SPEED);
-			}
-			// right
-			else if (ir_bearing < -45 && ir_bearing > -135) {
-				setSpeeds(0, HI_SPEED);
-			}
-			// left
-			else if (ir_bearing > 45 && ir_bearing < 135) {
-				setSpeeds(HI_SPEED, 0);
-			}
-			// back
-			else {
-				setSpeeds(HI_SPEED, HI_SPEED);
-			}
-		}
-		return 1;
-	}
-	return 0;
-}
-
 
 void printCameraLine() {
 	// Debug print of camera line
@@ -547,7 +376,7 @@ int main(void)
 		mode = 0;
 
 		unsigned char seed = time(NULL);
-		comm_init(seed, sendID); // need to factor out a way 
+		comm_init(seed, sendID); 
 		comm_store_tx(0);
 
 		while(1)
@@ -562,38 +391,6 @@ int main(void)
 								
 
 		}
-		/*int robotID = 2180;
-		unsigned char sendID = 0x01;
-		
-		goalLost = 0;
-		spinMode = 0;
-		mode = 0;
-
-		unsigned char seed = 'k';
-		comm_init(seed, sendID); 
-
-		while(1)
-		{
-			btcomSendString("started while loop");
-			/* CAMERA */
-			/*e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
-			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
-			
-			
-
-			/* IR */
-			/*btcomSendString("pre-receive");
-			receiveIR();
-			btcomSendString("received IR");
-			if (!nearGoal(robotID)) {
-				if (!avoidRobot(robotID, sendID) && !avoidObstacle(robotID, sendID)) {
-					beelineToGoal(robotID);		
-				}
-			}
-			else {
-				beelineToGoal(robotID);
-			} 
-		}*/
 	}
 	else if (sel == 2) {
 
@@ -637,7 +434,7 @@ int main(void)
 		mode = 0;
 
 		unsigned char seed = time(NULL);
-		comm_init(seed, sendID); // need to factor out a way 
+		comm_init(seed, sendID); 
 		comm_store_tx(0);
 
 		while(1)
@@ -657,35 +454,20 @@ int main(void)
 			} 
 		}
 	}
-	else if (sel == 4) {
-
-		int robotID = 2137;
-		unsigned char sendID = 0x04;
-		team = GONDOR;
-		
-		goalLost = 0;
-		spinMode = 0;
-		mode = 0;
-
-		unsigned char seed = time(NULL);
-		comm_init(seed, sendID); // need to factor out a way 
-		comm_store_tx(0);
-
+	else if (sel == 4) {		// for calibrating camera
+		/* calibration stuff save for later */
 		while(1)
 		{
 			/* CAMERA */
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
-			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
+			while(!e_poxxxx_is_img_ready());
+		
+			printRGB(80);
+			myWait(500);
 
-			receiveIR();
-			if (!nearGoal(robotID)) {
-				if (!avoidObstacle(robotID, sendID)) {
-					beelineToGoal(robotID);		
-				}
-			}
-			else {
-				beelineToGoal(robotID);
-			} 
+			//getGoalCameraLine(robotID);
+			//printCameraLine();
+			//myWait(500);
 		}
 	
 	} else if (sel == 5) {
@@ -810,14 +592,6 @@ int main(void)
 	}
 }
 
-
-/* calibration stuff save for later */
-//printRGB(80);
-//myWait(500);
-
-//getGoalCameraLine(robotID);
-//printCameraLine();
-//myWait(500);
 
 
 // if in penalty box, stop all movement 
