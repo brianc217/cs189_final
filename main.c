@@ -44,7 +44,6 @@ extern int time_counter;
 
 // camera init
 #define LINE_OF_INTEREST 290
-
 #define HI_SPEED 800
 #define LO_SPEED 300
 #define HALF_SPEED 500
@@ -72,9 +71,7 @@ int robot1 = 2137; 		// Evaporation
 int robot2 = 2110; 		// Reverence
 int robot3 = 2180; 		// Flux
 
-/*** CHANGE TEAM HERE ***/
-unsigned int team = GONDOR;
-/************************/
+unsigned int team;
 
 // Camera
 unsigned char pixelColors[80];
@@ -104,6 +101,7 @@ typedef struct IR {
 
 IR robots[12];
 
+
 //Buffer for sending back messages over bluetooth
 static unsigned char print_buffer[100];
 
@@ -132,11 +130,10 @@ void printRobots() {
 }
 
 void receiveIR() {
-	btcomSendString("started receive IR");
 	comm_rx(&data);
-	btcomSendString("received comm");
 	ir_range = (data).range;
 	ir_bearing = 57.296*((data).bearing);
+	data.bearing = ir_bearing;
 	ir_sensor = (data).max_sensor;
 	msg_data = (union comm_value) (data).data;
 	receivedID = (unsigned char) msg_data.bits.ID;
@@ -146,8 +143,8 @@ void receiveIR() {
 	rData.data = data;
 	rData.time = time_counter / 2;
 	
-	if(receivedID >= 0 && receivedID <= 12) {
-		robots[receivedID] = rData;
+	if((int)receivedID >= 0 && (int)receivedID <= 12) {
+		robots[(int)receivedID] = rData;
 	}
 	
 	printRobots();
@@ -311,7 +308,7 @@ void orientToRobot(int id, double theta) {
 	turn(bearing + theta, HALF_SPEED);
 }
 
-void kill(int id) {
+void kill(int robotID, int sendID, int killID) {
 	/*orientToRobot(id, 0);
 	while(time_counter/2 - robots[id].time < 15) {
 	setSpeeds(HI_SPEED, HI_SPEED);
@@ -319,12 +316,39 @@ void kill(int id) {
 	setSpeeds(0,0);*/
 	
 	//Opting for simpler idea - turn towards robot and go straight every 3 seconds
-	int i = 0;
-	for(i=0; i<5; i++){
-		orientToRobot(id, 0);
+	double prevBearing = 0.0;
+
+	while(time_counter/2 - robots[killID].time < 15) {
+		avoidRobot(robotID,sendID,killID);
+
+		if(prevBearing != robots[killID].data.bearing) {
+			orientToRobot(killID, 0);
+			prevBearing = robots[killID].data.bearing;
+		}		
 		setSpeeds(HI_SPEED, HI_SPEED);
-		myWait(300);
 		receiveIR();
+	}
+}
+
+void avoidFriends() {
+	int init = (team == GONDOR) ? 1 : 5;
+	int i = init;
+	
+	// get the your id
+	int id = getselector();
+
+	//if a friend is close turn 90 away from them and move until they are no longer close
+	for(;i < init + 4; i++){
+		if(time_counter/2 - robots[i].time < 8 && robots[i].time != 0.0 && robots[i].data.range > 1111 && i!= id) {
+			orientToRobot(i,90);
+			while(time_counter/2 - robots[i].time < 8 && robots[i].time != 0.0 && robots[i].data.range > 1111) {
+				setSpeeds(HI_SPEED, HI_SPEED);
+				receiveIR();
+				flow_led();
+			}
+			setSpeeds(0,0);
+			e_led_clear();
+		}			
 	}
 }
 
@@ -385,8 +409,8 @@ int closeToRobot(int robotID) {
 	}
 }
 
-int avoidRobot(int robotID, int sendID) {
-	if (receivedID != sendID) {
+int avoidRobot(int robotID, int sendID, int killID) {
+	if (receivedID != sendID && receivedID != killID) {
 		if (closeToRobot(robotID)) {
 			// front
 			if (ir_bearing > -45 && ir_bearing < 45) {
@@ -478,20 +502,15 @@ void beelineToGoal(int robotID) {
 }
 
 int bestEnemyIfExists(){
-	int init;
-	if(team == GONDOR){
-		init = 5;
-	} else {
-		init = 1;
-	}
 
+	int init = (team == GONDOR) ? 5 : 1;
 	int i = init;
+
 	for(;i < init + 4; i++){
-		if(robots[i].time != 0.0) {
+		if(time_counter/2 - robots[i].time < 30 && robots[i].time != 0.0) {
 			return i;
 		}			
 	}
-
 	return 0;
 }
 
@@ -521,6 +540,7 @@ int main(void)
 
 		int robotID = 2046;
 		unsigned char sendID = 0x01;
+		team = GONDOR;
 		
 		goalLost = 0;
 		spinMode = 0;
@@ -535,8 +555,11 @@ int main(void)
 			receiveIR();
 			
 			int bestEnemy = bestEnemyIfExists();
-			//if(bestEnemy) {
-				
+			if(bestEnemy) {
+				kill(robotID, sendID, bestEnemy);
+			}
+		
+								
 
 		}
 		/*int robotID = 2180;
@@ -576,6 +599,7 @@ int main(void)
 
 		int robotID = 2110;
 		unsigned char sendID = 0x02;
+		team = GONDOR;
 		
 		goalLost = 0;
 		spinMode = 0;
@@ -593,7 +617,7 @@ int main(void)
 
 			receiveIR();
 			if (!nearGoal(robotID)) {
-				if (!avoidRobot(robotID, sendID) && !avoidObstacle(robotID, sendID)) {
+				if (!avoidRobot(robotID, sendID,0) && !avoidObstacle(robotID, sendID)) {
 					beelineToGoal(robotID);		
 				}
 			}
@@ -606,6 +630,7 @@ int main(void)
 
 		int robotID = 2046;
 		unsigned char sendID = 0x03;
+		team = GONDOR;
 		
 		goalLost = 0;
 		spinMode = 0;
@@ -636,6 +661,7 @@ int main(void)
 
 		int robotID = 2137;
 		unsigned char sendID = 0x04;
+		team = GONDOR;
 		
 		goalLost = 0;
 		spinMode = 0;
@@ -661,9 +687,125 @@ int main(void)
 				beelineToGoal(robotID);
 			} 
 		}
-	}
-	else
-	{
+	
+	} else if (sel == 5) {
+
+		int robotID = 2046;
+		unsigned char sendID = 0x05;
+		team = MORDOR;
+		
+		goalLost = 0;
+		spinMode = 0;
+		mode = 0;
+
+		unsigned char seed = time(NULL);
+		comm_init(seed, sendID); // need to factor out a way 
+		comm_store_tx(0);
+
+		while(1)
+		{
+			receiveIR();
+			
+			int bestEnemy = bestEnemyIfExists();
+			if(bestEnemy) {
+				kill(robotID,sendID, bestEnemy);
+			}
+		}
+	
+	} else if (sel == 6) {
+
+		int robotID = 2110;
+		unsigned char sendID = 0x06;
+		team = MORDOR;
+		
+		goalLost = 0;
+		spinMode = 0;
+		mode = 0;
+
+		unsigned char seed = time(NULL);
+		comm_init(seed, sendID); // need to factor out a way 
+		comm_store_tx(0);
+
+		while(1)
+		{
+			/* CAMERA */
+			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
+			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
+
+			receiveIR();
+			if (!nearGoal(robotID)) {
+				if (!avoidRobot(robotID, sendID,0) && !avoidObstacle(robotID, sendID)) {
+					beelineToGoal(robotID);		
+				}
+			}
+			else {
+				beelineToGoal(robotID);
+			} 
+		}
+	
+	} else if (sel == 7) {
+
+		int robotID = 2046;
+		unsigned char sendID = 0x07;
+		team = MORDOR;
+		
+		goalLost = 0;
+		spinMode = 0;
+		mode = 0;
+
+		unsigned char seed = time(NULL);
+		comm_init(seed, sendID); // need to factor out a way 
+		comm_store_tx(0);
+
+		while(1)
+		{
+			/* CAMERA */
+			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
+			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
+
+			receiveIR();
+			if (!nearGoal(robotID)) {
+				if (!avoidObstacle(robotID, sendID)) {
+					beelineToGoal(robotID);		
+				}
+			}
+			else {
+				beelineToGoal(robotID);
+			} 
+		}
+	
+	} else if (sel == 8) {
+
+		int robotID = 2137;
+		unsigned char sendID = 0x08;
+		team = MORDOR;
+		
+		goalLost = 0;
+		spinMode = 0;
+		mode = 0;
+
+		unsigned char seed = time(NULL);
+		comm_init(seed, sendID); // need to factor out a way 
+		comm_store_tx(0);
+
+		while(1)
+		{
+			/* CAMERA */
+			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
+			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
+
+			receiveIR();
+			if (!nearGoal(robotID)) {
+				if (!avoidObstacle(robotID, sendID)) {
+					beelineToGoal(robotID);		
+				}
+			}
+			else {
+				beelineToGoal(robotID);
+			} 
+		}
+	
+	} else {
 		while(1) NOP();
 	}
 }

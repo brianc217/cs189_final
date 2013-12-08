@@ -34,10 +34,7 @@ int checkYellow(int robotID) {
 			red_thresh = 13;
 			green_thresh = 2;
 			blue_thresh = 1;
-<<<<<<< HEAD
-=======
 			break;
->>>>>>> 6f166644d1056234a1821d843e6c9efd44bec9a1
 		default:
 			red_thresh = 10;
 			green_thresh = 2;
@@ -71,10 +68,7 @@ int checkGreen(int robotID) {
 			red_thresh= 3;
 			green_thresh= 2;
 			blue_thresh = 3;
-<<<<<<< HEAD
-=======
 			break;
->>>>>>> 6f166644d1056234a1821d843e6c9efd44bec9a1
 		default:
 			red_thresh = 5;
 			green_thresh = 2;
