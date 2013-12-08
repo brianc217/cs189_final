@@ -1,0 +1,27 @@
+// IR-related globals
+finalDataRegister data;
+unsigned int ir_range;
+float ir_bearing;
+unsigned char ir_sensor;
+unsigned char receivedID;
+union comm_value msg_data;
+unsigned int custom_msg;
+
+// Array for storing IR data
+typedef struct IR {
+	finalDataRegister data;
+	double time;
+} IR;
+
+IR robots[12];
+
+void getColor(int pixel);
+int checkYellow(int robotID);
+int checkGreen(int robotID);
+int checkRed(int robotID);
+void smoothColorLine();
+void getPenaltyCameraLine(int robotID);
+void getGoalCameraLine(int robotID, int team);
+int goalInView();
+int getGoalMidpoint();
+int inPenaltyBox();

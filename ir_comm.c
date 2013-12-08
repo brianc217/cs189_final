@@ -17,7 +17,7 @@
 static int random_backoff[RANDOM_BACKOFF_SIZE];
 static int rand_ind = 0;
 
-int time_counter = 0;
+//int time_counter = 0;
 
 static union comm_value tx_buffer;
 
