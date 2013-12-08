@@ -155,6 +155,7 @@ void receiveIR() {
 	comm_rx(&data);
 	ir_range = data.range;
 	ir_bearing = 57.296*(data.bearing);
+	data.bearing = 57.296*(data.bearing);
 	ir_sensor = data.max_sensor;
 	msg_data = (union comm_value) data.data;
 	//btcomSendString("received comm");

@@ -239,6 +239,8 @@ void kill(int robotID, int sendID, int killID) {
 		}		
 		setSpeeds(HI_SPEED, HI_SPEED);
 		receiveIR();
+		sprintf(msg,"trying to kill: %i \r\n oriented: %f\r\n",killID,prevBearing);
+		btcomSendString(msg);
 	}
 }
 
