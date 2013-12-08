@@ -40,6 +40,7 @@
 /* global vars */
 double range = 0;
 unsigned char sel;					//the position of the selector switch
+extern int time_counter;
 
 // camera init
 #define LINE_OF_INTEREST 290
@@ -48,12 +49,11 @@ unsigned char sel;					//the position of the selector switch
 #define LO_SPEED 300
 #define HALF_SPEED 500
 
-// current state of the robot 
-unsigned int mode;
-// debug messages
-char msg[80]; 				
 
-/* PUT ROLES IN HERE */
+unsigned int mode;		// current state of the robot 
+char msg[80]; 			// debug messages				
+
+
 // Ox01 = FRODO, 0x02-0x04 allies; 0x04 = WITCH-KING, 0x05-0x07 allies
 unsigned char id1 = 0x01;
 unsigned char id2 = 0x02;
@@ -64,7 +64,7 @@ unsigned char id5 = 0x05;
 unsigned char id6 = 0x06;
 unsigned char id7 = 0x07;
 unsigned char id8 = 0x08;
-// TODO: decide what to do with this
+
 
 /* PUT ROBOT IDS HERE */
 int robot0 = 2046; 		// Artisan
@@ -85,8 +85,7 @@ int byte1, byte2;
 int cam_width;
 unsigned int goalLost;
 unsigned int spinMode;
-//Buffer for the camera image
-unsigned char buffer[300];
+unsigned char buffer[300];			//Buffer for the camera image
 
 // IR-related globals
 finalDataRegister data;
@@ -96,6 +95,14 @@ unsigned char ir_sensor;
 unsigned char receivedID;
 union comm_value msg_data;
 unsigned int custom_msg;
+
+// Array for storing IR data
+typedef struct IR {
+	finalDataRegister data;
+	double time;
+} IR;
+
+IR robots[12];
 
 //Buffer for sending back messages over bluetooth
 static unsigned char print_buffer[100];
@@ -113,16 +120,43 @@ void printRGB(int pixel) {
 	btcomSendString(msg);
 }
 
+void printRobots() {
+	int i = 0;
+	for(; i<12; i++) {
+		IR robot = robots[i];
+		char string[80];
+		sprintf(string, "Robot:%i, Range:%i, Bearing:%f, Time:%f\r\n", i, robot.data.range, robot.data.bearing, robot.time);
+		btcomSendString(string);
+	}
+		
+}
+
+void printReadings() {
+	sprintf(msg, "sensor: %u, range: %u, bearing: %f, ID: %u\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing, receivedID);
+	btcomSendString(msg);
+}
+
 void receiveIR() {
+	//btcomSendString("started receive IR");
 	comm_rx(&data);
 	ir_range = data.range;
 	ir_bearing = 57.296*(data.bearing);
 	ir_sensor = data.max_sensor;
 	msg_data = (union comm_value) data.data;
+	//btcomSendString("received comm");
 	receivedID = (unsigned char) msg_data.bits.ID;
 	custom_msg = (unsigned int) msg_data.bits.data;
-	sprintf(msg, "sensor: %u, range: %u, bearing: %f, ID: %u\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing, receivedID);
-	btcomSendString(msg);
+	
+	IR rData;
+	rData.data = data;
+	rData.time = time_counter / 2;
+	
+	if(receivedID >= 0 && receivedID <= 12) {
+		robots[receivedID] = rData;
+	}
+	
+	//printRobots();
+	printReadings();
 }
 
 int atObstacle(int robotID) {
@@ -249,8 +283,8 @@ void wallFollow(int robotID, int sendID) {
 int avoidObstacle(int robotID, int sendID) {
 	if (receivedID == sendID) {
 		if (atObstacle(robotID)) {
-			//sprintf(msg, "OBSTACLE: sensor %u, range %u, bearing %f\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing);
-			//btcomSendString(msg);
+			sprintf(msg, "OBSTACLE: sensor %u, range %u, bearing %f\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing);
+			btcomSendString(msg);
 
 			// soft turn left
 			if (ir_bearing < -30) {
@@ -275,13 +309,6 @@ int avoidObstacle(int robotID, int sendID) {
 	}
 	return 0;
 }
-
-typedef struct IR {
-	finalDataRegister data;
-	double time;
-} IR;
-
-IR robots[12];
 
 void orientToRobot(int id, double theta) {
 	double bearing = robots[id].data.bearing;
@@ -454,6 +481,24 @@ void beelineToGoal(int robotID) {
 	}
 }
 
+int bestEnemyIfExists(){
+	int init;
+	if(team == GONDOR){
+		init = 5;
+	} else {
+		init = 1;
+	}
+
+	int i = init;
+	for(;i < init + 4; i++){
+		if(robots[i].time != 0.0) {
+			return i;
+		}			
+	}
+
+	return 0;
+}
+
 
 int main(void)
 {	
@@ -471,10 +516,14 @@ int main(void)
 	}
 	
 	/* Each selector corresponds to a robot */
+	//wait to start
+	/*btcomWaitForCommand('s');
+	sprintf(msg,"link active\r\n");
+	btcomSendString(msg);*/
 
-	if (sel == 1)
-	{
-		int robotID = 2180;
+	if (sel == 1){
+
+		int robotID = 2046;
 		unsigned char sendID = 0x01;
 		
 		goalLost = 0;
@@ -483,15 +532,40 @@ int main(void)
 
 		unsigned char seed = time(NULL);
 		comm_init(seed, sendID); 
+		comm_store_tx(0);
 
 		while(1)
 		{
+			receiveIR();
+			
+			int bestEnemy = bestEnemyIfExists();
+			//if(bestEnemy) {
+				
+
+		}
+		/*int robotID = 2180;
+		unsigned char sendID = 0x01;
+		
+		goalLost = 0;
+		spinMode = 0;
+		mode = 0;
+
+		unsigned char seed = 'k';
+		comm_init(seed, sendID); 
+
+		while(1)
+		{
+			btcomSendString("started while loop");
 			/* CAMERA */
-			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
+			/*e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
+			
+			
 
 			/* IR */
+			/*btcomSendString("pre-receive");
 			receiveIR();
+			btcomSendString("received IR");
 			if (!nearGoal(robotID)) {
 				if (!avoidRobot(robotID, (int) sendID) && !avoidObstacle(robotID, (int) sendID)) {
 					beelineToGoal(robotID);		
@@ -500,9 +574,10 @@ int main(void)
 			else {
 				beelineToGoal(robotID);
 			} 
-		}
+		}*/
 	}
 	else if (sel == 2) {
+
 		int robotID = 2110;
 		unsigned char sendID = 0x02;
 		
@@ -512,6 +587,7 @@ int main(void)
 
 		unsigned char seed = time(NULL);
 		comm_init(seed, sendID); // need to factor out a way 
+		comm_store_tx(0);
 
 		while(1)
 		{
@@ -531,6 +607,7 @@ int main(void)
 		}
 	}
 	else if (sel == 3) {
+
 		int robotID = 2046;
 		unsigned char sendID = 0x03;
 		
@@ -539,7 +616,8 @@ int main(void)
 		mode = 0;
 
 		unsigned char seed = time(NULL);
-		comm_init(seed, sendID); // need to factor out a way 
+		comm_init(seed, sendID); 
+		comm_store_tx(0);
 
 		while(1)
 		{
@@ -560,7 +638,9 @@ int main(void)
 	}
 	else if (sel == 4) {
 		/* calibration stuff save for later */
-		while (1) {
+		while(1)
+		{
+			/* CAMERA */
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
 			while(!e_poxxxx_is_img_ready());
 		

@@ -17,6 +17,8 @@
 static int random_backoff[RANDOM_BACKOFF_SIZE];
 static int rand_ind = 0;
 
+int time_counter = 0;
+
 static union comm_value tx_buffer;
 
 // Calculates parity of the high-order 15 bits of @value.
@@ -53,6 +55,7 @@ _T3Interrupt(void) {
 
 	/* Clear timer value */
 	TMR3 = 0;
+	time_counter++;
 
 	e_randb_send_all_data(tx_buffer.value);
 }
@@ -82,8 +85,7 @@ void comm_rx(finalDataRegister *data)
 {
   finalDataRegister buff;
 	union comm_value rx;
-	int corrupted = TRUE;
-
+	int corrupted = TRUE;	
 	while (corrupted) {
 	
 		/* Block until receiving */
@@ -92,6 +94,9 @@ void comm_rx(finalDataRegister *data)
 		/* Check parity bit */
 		rx.value = buff.data;
 		corrupted = (parity(rx.value) != rx.bits.checksum);
+		char msg[80];
+		sprintf(msg,"%i\r\n",corrupted);
+		btcomSendString(msg);
 	}
 	// Copy result in output buffer
 	*data = buff;
