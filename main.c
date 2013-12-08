@@ -115,10 +115,10 @@ void printRGB(int pixel) {
 
 void receiveIR() {
 	comm_rx(&data);
-	ir_range = (data).range;
-	ir_bearing = 57.296*((data).bearing);
-	ir_sensor = (data).max_sensor;
-	msg_data = (union comm_value) (data).data;
+	ir_range = data.range;
+	ir_bearing = 57.296*(data.bearing);
+	ir_sensor = data.max_sensor;
+	msg_data = (union comm_value) data.data;
 	receivedID = (unsigned char) msg_data.bits.ID;
 	custom_msg = (unsigned int) msg_data.bits.data;
 	sprintf(msg, "sensor: %u, range: %u, bearing: %f, ID: %u\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing, receivedID);
@@ -493,7 +493,7 @@ int main(void)
 			/* IR */
 			receiveIR();
 			if (!nearGoal(robotID)) {
-				if (!avoidRobot(robotID, sendID) && !avoidObstacle(robotID, sendID)) {
+				if (!avoidRobot(robotID, (int) sendID) && !avoidObstacle(robotID, (int) sendID)) {
 					beelineToGoal(robotID);		
 				}
 			}
@@ -559,31 +559,13 @@ int main(void)
 		}
 	}
 	else if (sel == 4) {
-		int robotID = 2137;
-		unsigned char sendID = 0x04;
-		
-		goalLost = 0;
-		spinMode = 0;
-		mode = 0;
-
-		unsigned char seed = time(NULL);
-		comm_init(seed, sendID); // need to factor out a way 
-
-		while(1)
-		{
-			/* CAMERA */
+		/* calibration stuff save for later */
+		while (1) {
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
-			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
-
-			receiveIR();
-			if (!nearGoal(robotID)) {
-				if (!avoidObstacle(robotID, sendID)) {
-					beelineToGoal(robotID);		
-				}
-			}
-			else {
-				beelineToGoal(robotID);
-			} 
+			while(!e_poxxxx_is_img_ready());
+		
+			printRGB(80);
+			myWait(500);
 		}
 	}
 	else
