@@ -1,7 +1,15 @@
 //////////////////////////////////////////////////////
 // NOTES:
-// 2180 has a fantastic camera
-// 2110 has pretty good IR							    
+// 2046 (artisan) -- average camera; pretty bad IR
+// 2137 (eve) -- IR readings (for bounce-back) very good, except sensor 7 is too strong...
+// 2180 (surrender) -- GREAT camera; good IR
+// 2110 (reverence) --  pretty good IR; bad green on camera
+// 2099 (surrender) -- great camera; lousy IR		
+// 2117 (cosmetic) -- decent camera but better yelllow than green; great IR
+// 2087 (bathtub) -- bad camera; IR is meh (can't sense from 11)
+//
+// 2151 (hayley) -- really bad camera; IR not tested
+// 2020 (ballast) -- bad camera; IR not tested				    
 //////////////////////////////////////////////////////
 
 // The camera is, by default, configured with the following settings:
@@ -156,7 +164,6 @@ void receiveIR() {
 	}
 	
 	//printRobots();
-	printReadings();
 }
 
 int atObstacle(int robotID) {
@@ -194,6 +201,54 @@ int atObstacle(int robotID) {
 				case 9: return (ir_range > 1700);
 				case 10: return (ir_range > 1500);
 				case 11: return (ir_range > 1000); 
+				default: return 0;
+			}
+			break;
+		case 2099: 		// surrender
+			switch (ir_sensor) {
+				case 0: return (ir_range > 1);
+				case 1: return (ir_range > 20);
+				case 2: return (ir_range > 50);
+				case 3: return (ir_range > 180);
+				case 9: return (ir_range > 10);
+				case 10: return (ir_range > 1);
+				case 11: return (ir_range > 1); 
+				default: return 0;
+			}
+			break;
+		case 2117: 		// cosmetic
+			switch (ir_sensor) {
+				case 0: return (ir_range > 900);
+				case 1: return (ir_range > 900);
+				case 2: return (ir_range > 1000);
+				case 3: return (ir_range > 1400);
+				case 9: return (ir_range > 1100);
+				case 10: return (ir_range > 1000);
+				case 11: return (ir_range > 900); 
+				default: return 0;
+			}
+			break;
+		case 2087: 		// bathtub
+			switch (ir_sensor) {
+				case 0: return (ir_range > 40);
+				case 1: return (ir_range > 30);
+				case 2: return (ir_range > 140);
+				case 3: return (ir_range > 50);
+				case 9: return (ir_range > 300);
+				case 10: return (ir_range > 20);
+				case 11: return (ir_range > 10); // dummy value -- doesn't receive from sensor 11
+				default: return 0;
+			}
+			break;
+		case 2137: 		// eve
+			switch (ir_sensor) {
+				case 0: return (ir_range > 1300);
+				case 1: return (ir_range > 3200);
+				case 2: return (ir_range > 2600);
+				case 3: return (ir_range > 1000); // dummy value -- doesn't receive from 3
+				case 9: return (ir_range > 1400);
+				case 10: return (ir_range > 1400);
+				case 11: return (ir_range > 1400); 
 				default: return 0;
 			}
 			break;
@@ -636,7 +691,7 @@ int main(void)
 			} 
 		}
 	}
-	else if (sel == 4) {
+	else if (sel == 4) {		// for calibrating camera
 		/* calibration stuff save for later */
 		while(1)
 		{
@@ -646,7 +701,60 @@ int main(void)
 		
 			printRGB(80);
 			myWait(500);
+
+			//getGoalCameraLine(robotID);
+			//printCameraLine();
+			//myWait(500);
 		}
+	}
+	else if (sel == 5) {		// for calibrating IR
+		unsigned char sendID = 0x03;
+
+		unsigned char seed = time(NULL);
+		comm_init(seed, sendID); 
+		comm_store_tx(0);
+
+		while(1)
+		{
+			receiveIR();
+			printReadings();
+		}
+	}
+	else if (sel == 6) {		// for calibrating IR
+		int robotID = 2117;
+		unsigned char sendID = 0x07;
+		
+		goalLost = 0;
+		spinMode = 0;
+		mode = 0;
+
+		unsigned char seed = time(NULL);
+		comm_init(seed, sendID); 
+		comm_store_tx(0);
+
+		while(1)
+		{
+			/* CAMERA */
+			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
+			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
+
+			receiveIR();
+			if (!nearGoal(robotID)) {
+				if (!avoidRobot(robotID, sendID) && !avoidObstacle(robotID, sendID)) {
+					beelineToGoal(robotID);		
+				}
+			}
+			else {
+				beelineToGoal(robotID);
+			} 
+		}
+	}
+	else if (sel == 7) {		// sending IR only
+		unsigned char sendID = 0x09;
+		unsigned char seed = time(NULL);
+		comm_init(seed, sendID); 
+		comm_store_tx(0);
+		while (1) { receiveIR(); }
 	}
 	else
 	{

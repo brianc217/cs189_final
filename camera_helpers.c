@@ -15,12 +15,12 @@ int checkYellow(int robotID) {
 	int red_thresh, green_thresh, blue_thresh;
 
 	switch (robotID) {
-		case 2046:
+		case 2046:	// artisan
 			red_thresh = 11;
 			green_thresh = 2;
 			blue_thresh = 2;
 			break;
-		case 2180:
+		case 2180:	// flux
 			red_thresh = 12;
 			green_thresh = 2;
 			blue_thresh = 1;
@@ -34,6 +34,21 @@ int checkYellow(int robotID) {
 			red_thresh = 13;
 			green_thresh = 2;
 			blue_thresh = 1;
+			break;
+		case 2099: // surrender
+			red_thresh = 12;
+			green_thresh = 2;
+			blue_thresh = 1;
+			break;
+		case 2117: 	// cosmetic
+			red_thresh = 12;
+			green_thresh = 3;
+			blue_thresh = 1;
+			break;
+		case 2087: 	// bathtub
+			red_thresh = 12;
+			green_thresh = 2;
+			blue_thresh = 2;
 			break;
 		default:
 			red_thresh = 10;
@@ -49,17 +64,17 @@ int checkGreen(int robotID) {
 	int red_thresh, green_thresh, blue_thresh;
 
 	switch (robotID) {
-		case 2046:
+		case 2046:	// artisan
 			red_thresh = 5;
 			green_thresh = 2;
 			blue_thresh = 2;
 			break;
-		case 2180:
+		case 2180: // flux
 			red_thresh = 8;
 			green_thresh = 2;
 			blue_thresh = 1;
 			break;
-		case 2110: // shitty green guys
+		case 2110: // reverence. shitty green 
 			red_thresh = 3;
 			green_thresh = 2;
 			blue_thresh = 6;
@@ -68,6 +83,21 @@ int checkGreen(int robotID) {
 			red_thresh= 3;
 			green_thresh= 2;
 			blue_thresh = 3;
+			break;
+		case 2099: // surrender
+			red_thresh = 8;
+			green_thresh = 3;
+			blue_thresh = 1;
+			break;
+		case 2117: // cosmetic
+			red_thresh = 8;
+			green_thresh = 3;
+			blue_thresh = 1;
+			break;
+		case 2087: 	// bathtub
+			red_thresh = 8;
+			green_thresh = 2;
+			blue_thresh = 2;
 			break;
 		default:
 			red_thresh = 5;

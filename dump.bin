@@ -1,415 +1,2794 @@
-<<<<<<< HEAD
-red: 2; green: 1; blue: 1
-red: 7; green: 1; blue: 1
-red: 7; green: 1; blue: 1
-red: 7; green: 1; blue: 1
-red: 17; green: 3; blue: 0
-red: 17; green: 3; blue: 0
-red: 18; green: 3; blue: 0
-red: 24; green: 0; blue: 25
-red: 24; green: 4; blue: 0
-red: 21; green: 7; blue: 0
-red: 22; green: 7; blue: 0
-red: 18; green: 3; blue: 0
-red: 24; green: 0; blue: 25
-red: 20; green: 3; blue: 0
-red: 21; green: 7; blue: 0
-red: 22; green: 7; blue: 0
-red: 24; green: 7; blue: 10
-red: 24; green: 7; blue: 11
-red: 23; green: 7; blue: 0
-red: 24; green: 3; blue: 2
-red: 20; green: 7; blue: 0
-red: 24; green: 4; blue: 0
-red: 14; green: 1; blue: 0
-red: 21; green: 7; blue: 0
-red: 21; green: 7; blue: 0
-red: 20; green: 7; blue: 0
-red: 18; green: 3; blue: 0
-red: 13; green: 2; blue: 0
-red: 18; green: 3; blue: 0
-red: 2; green: 0; blue: 5
-red: 2; green: 1; blue: 4
-red: 1; green: 0; blue: 4
-red: 0; green: 2; blue: 0
-red: 0; green: 5; blue: 0
-red: 0; green: 7; blue: 0
-red: 0; green: 2; blue: 0
-red: 0; green: 3; blue: 0
-red: 0; green: 6; blue: 0
-red: 0; green: 7; blue: 0
-red: 0; green: 7; blue: 0
-red: 0; green: 7; blue: 0
-red: 0; green: 7; blue: 0
-red: 0; green: 6; blue: 0
-red: 0; green: 6; blue: 0
-red: 0; green: 7; blue: 0
-red: 0; green: 2; blue: 0
-red: 0; green: 5; blue: 0
-red: 18; green: 3; blue: 0
-red: 17; green: 3; blue: 0
-red: 2; green: 1; blue: 1
-red: 9; green: 1; blue: 0
-red: 1; green: 0; blue: 6
-red: 1; green: 3; blue: 4
-red: 0; green: 7; blue: 0
-red: 0; green: 6; blue: 0
-red: 0; green: 7; blue: 0
-red: 0; green: 7; blue: 0
-red: 0; green: 6; blue: 0
-red: 0; green: 2; blue: 0
-red: 0; green: 3; blue: 0
-red: 0; green: 6; blue: 0
-red: 0; green: 6; blue: 0
-red: 0; green: 6; blue: 0
-red: 0; green: 3; blue: 0
-red: 0; green: 3; blue: 0
-red: 0; green: 6; blue: 0
-red: 0; green: 6; blue: 0
-red: 0; green: 6; blue: 0
-red: 0; green: 7; blue: 0
-red: 0; green: 6; blue: 0
-red: 0; green: 7; blue: 0
-red: 0; green: 7; blue: 0
-red: 0; green: 7; blue: 0
-red: 0; green: 6; blue: 0
-red: 18; green: 3; blue: 0
-red: 19; green: 3; blue: 0
-red: 21; green: 7; blue: 0
-red: 17; green: 7; blue: 0
-red: 17; green: 7; blue: 0
-red: 16; green: 6; blue: 0
-red: 15; green: 7; blue: 0
-red: 13; green: 3; blue: 0
-red: 12; green: 7; blue: 0
-red: 11; green: 7; blue: 0
-red: 13; green: 2; blue: 0
-red: 15; green: 7; blue: 0
-red: 14; green: 6; blue: 0
-red: 14; green: 6; blue: 0
-red: 15; green: 7; blue: 0
-red: 18; green: 3; blue: 0
-red: 18; green: 3; blue: 0
-red: 17; green: 3; blue: 0
-red: 0; green: 3; blue: 2
-red: 1; green: 2; blue: 3
-red: 0; green: 3; blue: 3
-red: 0; green: 3; blue: 2
-red: 6; green: 5; blue: 0
-red: 2; green: 4; blue: 0
-red: 0; green: 4; blue: 2
-red: 1; green: 3; blue: 3
-red: 0; green: 3; blue: 3
-red: 0; green: 3; blue: 2
-red: 1; green: 3; blue: 3
-red: 0; green: 3; blue: 3
-red: 0; green: 3; blue: 3
-red: 0; green: 3; blue: 3
-red: 0; green: 3; blue: 3
-red: 17; green: 6; blue: 1
-red: 0; green: 4; blue: 2
-red: 0; green: 4; blue: 3
-red: 0; green: 3; blue: 3
-red: 0; green: 3; blue: 2
-red: 1; green: 3; blue: 3
-red: 1; green: 2; blue: 3
-red: 0; green: 1; blue: 0
-red: 2; green: 3; blue: 0
-red: 19; green: 7; blue: 0
-red: 19; green: 3; blue: 0
-red: 1; green: 2; blue: 4
-red: 7; green: 3; blue: 0
-red: 0; green: 6; blue: 1
-red: 0; green: 6; blue: 0
-red: 0; green: 6; blue: 0
-red: 0; green: 6; blue: 0
-red: 0; green: 6; blue: 0
-red: 3; green: 3; blue: 0
-red: 0; green: 7; blue: 0
-red: 0; green: 6; blue: 0
-red: 24; green: 3; blue: 6
-red: 18; green: 7; blue: 2
-red: 15; green: 7; blue: 0
-red: 23; green: 4; blue: 0
-red: 21; green: 7; blue: 0
-red: 24; green: 0; blue: 25
-red: 24; green: 0; blue: 25
-red: 4; green: 2; blue: 0
-red: 6; green: 2; blue: 0
-red: 8; green: 1; blue: 0
-red: 19; green: 3; blue: 0
-red: 13; green: 2; blue: 0
-red: 9; green: 3; blue: 0
-red: 10; green: 3; blue: 0
-red: 3; green: 2; blue: 2
-red: 16; green: 6; blue: 0
-red: 18; green: 3; blue: 0
-red: 19; green: 3; blue: 0
-red: 19; green: 3; blue: 0
-red: 19; green: 3; blue: 0
-red: 3; green: 2; blue: 2
-red: 3; green: 2; blue: 2
-red: 6; green: 6; blue: 0
-red: 11; green: 7; blue: 0
-red: 15; green: 7; blue: 0
-red: 16; green: 3; blue: 0
-red: 17; green: 3; blue: 0
-red: 16; green: 3; blue: 0
-red: 16; green: 3; blue: 0
-red: 17; green: 3; blue: 0
-red: 16; green: 3; blue: 0
-red: 13; green: 3; blue: 0
-red: 5; green: 3; blue: 1
-red: 11; green: 3; blue: 0
-red: 4; green: 2; blue: 0
-red: 4; green: 3; blue: 2
-red: 3; green: 1; blue: 3
-red: 3; green: 3; blue: 2
-red: 4; green: 1; blue: 3
-red: 4; green: 2; blue: 2
-red: 3; green: 2; blue: 3
-red: 4; green: 2; blue: 2
-red: 4; green: 2; blue: 2
-red: 4; green: 3; blue: 2
-red: 3; green: 2; blue: 2
-red: 4; green: 2; blue: 3
-red: 4; green: 3; blue: 2
-red: 3; green: 2; blue: 2
-red: 3; green: 2; blue: 2
-red: 13; green: 3; blue: 0
-red: 17; green: 6; blue: 0
-red: 6; green: 5; blue: 0
-red: 10; green: 5; blue: 0
-red: 11; green: 7; blue: 0
-red: 18; green: 3; blue: 3
-red: 5; green: 5; blue: 1
-red: 5; green: 5; blue: 1
-red: 5; green: 4; blue: 1
-red: 5; green: 4; blue: 1
-red: 5; green: 3; blue: 0
-red: 5; green: 4; blue: 0
-red: 5; green: 4; blue: 1
-red: 5; green: 4; blue: 0
-red: 13; green: 3; blue: 0
-red: 19; green: 7; blue: 0
-red: 15; green: 6; blue: 0
-red: 17; green: 3; blue: 0
-red: 2; green: 1; blue: 4
-red: 3; green: 2; blue: 3
-red: 3; green: 2; blue: 4
-red: 3; green: 2; blue: 3
-red: 3; green: 2; blue: 3
-red: 3; green: 2; blue: 3
-red: 3; green: 3; blue: 3
-red: 3; green: 2; blue: 4
-red: 3; green: 2; blue: 4
-red: 3; green: 2; blue: 3
-red: 4; green: 4; blue: 2
-red: 24; green: 3; blue: 10
-red: 4; green: 3; blue: 2
-red: 0; green: 7; blue: 0
-red: 13; green: 3; blue: 0
-red: 3; green: 2; blue: 2
-red: 2; green: 4; blue: 6
-red: 3; green: 2; blue: 6
-red: 3; green: 2; blue: 6
-red: 6; green: 6; blue: 5
-red: 5; green: 6; blue: 5
-red: 5; green: 6; blue: 5
-red: 5; green: 6; blue: 5
-red: 5; green: 6; blue: 5
-red: 5; green: 5; blue: 4
-red: 6; green: 5; blue: 4
-red: 9; green: 3; blue: 0
-red: 4; green: 3; blue: 0
-red: 6; green: 6; blue: 4
-red: 6; green: 5; blue: 5
-red: 5; green: 6; blue: 4
-red: 6; green: 6; blue: 4
-red: 6; green: 6; blue: 4
-red: 4; green: 2; blue: 5
-red: 4; green: 3; blue: 5
-red: 17; green: 6; blue: 0
-red: 18; green: 3; blue: 0
-red: 11; green: 3; blue: 0
-red: 9; green: 3; blue: 0
-red: 3; green: 2; blue: 5
-red: 13; green: 2; blue: 0
-red: 18; green: 3; blue: 0
-red: 2; green: 2; blue: 1
-red: 2; green: 1; blue: 1
-red: 2; green: 2; blue: 2
-red: 2; green: 2; blue: 2
-red: 2; green: 2; blue: 1
-red: 2; green: 2; blue: 1
-red: 2; green: 2; blue: 1
-red: 2; green: 2; blue: 1
-red: 2; green: 2; blue: 1
-red: 2; green: 2; blue: 1
-red: 2; green: 2; blue: 1
-red: 2; green: 2; blue: 1
-red: 2; green: 2; blue: 1
-red: 2; green: 2; blue: 1
-red: 2; green: 2; blue: 1
-red: 2; green: 2; blue: 1
-red: 2; green: 2; blue: 1
-red: 2; green: 2; blue: 1
-red: 2; green: 2; blue: 1
-red: 2; green: 2; blue: 1
-red: 5; green: 3; blue: 0
-red: 11; green: 5; blue: 0
-red: 17; green: 3; blue: 0
-red: 24; green: 7; blue: 0
-red: 23; green: 4; blue: 0
-red: 18; green: 3; blue: 0
-red: 19; green: 2; blue: 0
-red: 24; green: 3; blue: 6
-red: 17; green: 3; blue: 0
-red: 17; green: 3; blue: 0
-red: 17; green: 7; blue: 0
-red: 16; green: 6; blue: 0
-red: 16; green: 7; blue: 0
-red: 18; green: 3; blue: 0
-red: 20; green: 3; blue: 0
-red: 19; green: 3; blue: 0
-red: 18; green: 3; blue: 0
-red: 18; green: 3; blue: 0
-red: 18; green: 3; blue: 0
-red: 18; green: 3; blue: 0
-red: 18; green: 3; blue: 0
-red: 18; green: 3; blue: 0
-red: 18; green: 3; blue: 0
-red: 18; green: 3; blue: 0
-red: 18; green: 3; blue: 0
-red: 18; green: 3; blue: 0
-red: 6; green: 6; blue: 0
-red: 5; green: 4; blue: 0
-red: 29; green: 7; blue: 0
-red: 28; green: 7; blue: 0
-red: 29; green: 6; blue: 0
-red: 16; green: 6; blue: 0
-red: 7; green: 4; blue: 0
-red: 3; green: 3; blue: 0
-red: 24; green: 7; blue: 0
-red: 4; green: 5; blue: 2
-red: 4; green: 3; blue: 1
-red: 4; green: 2; blue: 2
-red: 4; green: 3; blue: 1
-red: 4; green: 3; blue: 1
-red: 4; green: 3; blue: 1
-red: 4; green: 4; blue: 1
-red: 4; green: 3; blue: 2
-red: 4; green: 3; blue: 1
-red: 4; green: 3; blue: 1
-red: 4; green: 4; blue: 1
-red: 3; green: 4; blue: 1
-red: 4; green: 5; blue: 1
-red: 4; green: 5; blue: 2
-red: 19; green: 3; blue: 0
-red: 5; green: 3; blue: 0
-red: 4; green: 3; blue: 0
-=======
-<<<<<<< HEAD
-sensor: 2, range: 35, bearing: 81.589500, ID: 0sensor: 2, range: 72, bearing: 97.953239, ID: 0sensor: 1, range: 600, bearing: 84.964233, ID: 0sensor: 1, range: 4008, bearing: 61.621849, ID: 0sensor: 1, range: 4004, bearing: 60.137882, ID: 0sensor: 1, range: 4023, bearing: 61.965622, ID: 0sensor: 1, range: 3994, bearing: 62.108864, ID: 0ÿsensor: 1, range: 36, bearing: 52.288330, ID: 0sensor: 1, range: 68, bearing: 53.411331, ID: 0sensor: 2, range: 69, bearing: 69.179192, ID: 0sensor: 0, range: 24, bearing: 63.936604, ID: 0sensor: 1, range: 72, bearing: 59.610760, ID: 0sensor: 1, range: 58, bearing: 50.999172, ID: 0sensor: 1, range: 92, bearing: 72.496628, ID: 0sensor: 0, range: 47, bearing: 57.702801, ID: 0sensor: 11, range: 37, bearing: 70.118843, ID: 0sensor: 1, range: 3353, bearing: 45.607616, ID: 0
-sensor: 1, range: 3358, bearing: 44.100731, ID: 0sensor: 1, range: 3379, bearing: 45.544590, ID: 0sensor: 1, range: 3381, bearing: 45.739395, ID: 0sensor: 1, range: 3385, bearing: 48.283340, ID: 0sensor: 1, range: 3380, bearing: 47.928104, ID: 0ÿsensor: 1, range: 34, bearing: 67.420204, ID: 0sensor: 1, range: 75, bearing: 55.829224, ID: 0sensor: 1, range: 61, bearing: 46.959801, ID: 0sensor: 1, range: 86, bearing: 53.967102, ID: 0sensor: 0, range: 101, bearing: 54.757786, ID: 0sensor: 1, range: 30, bearing: 63.867851, ID: 0ÿsensor: 1, range: 109, bearing: 64.045471, ID: 0sensor: 0, range: 1493, bearing: 52.993073, ID: 0sensor: 0, range: 1422, bearing: 45.332596, ID: 0sensor: 0, range: 1432, bearing: 45.349785, ID: 0ÿsensor: 0, range: 1429, bearing: 45.275299, ID: 0ÿsensor: 5, range: 302, bearing: 125.695969, ID: 0ÿsensor: 0, range: 58, bearing: 50.260052, ID: 0sensor: 0, range: 66, bearing: 44.897144, ID: 0sensor: 1, range: 62, bearing: 55.210426, ID: 0sensor: 0, range: 0, bearing: 0.000000, ID: 0sensor: 3, range: 36, bearing: 115.778030, ID: 0sensor: 4, range: 142, bearing: 119.112648, ID: 0ÿsensor: 2, range: 228, bearing: 85.863785, ID: 0sensor: 1, range: 83, bearing: 23.302282, ID: 0sensor: 10, range: 60, bearing: 13.796877, ID: 0sensor: 10, range: 36, bearing: 27.209869, ID: 0sensor: 4, range: 58, bearing: 143.560867, ID: 0sensor: 4, range: 58, bearing: 147.537201, ID: 0sensor: 3, range: 41, bearing: 134.869049, ID: 0sensor: 4, range: 32, bearing: 140.633026, ID: 0sensor: 6, range: 54, bearing: 135.356079, ID: 0sensor: 4, range: 78, bearing: 135.739944, ID: 0sensor: 4, range: 64, bearing: 134.771652, ID: 0sensor: 5, range: 10, bearing: 136.811386, ID: 0
-=======
-: 211, bearing: 112.431938, ID: 0
-sensor: 9, range: 1507, bearing: -85.657524, ID: 5
-sensor: 9, range: 1560, bearing: -86.167450, ID: 5
-sensor: 4, range: 184, bearing: 118.533966, ID: 0
-sensor: 9, range: 1532, bearing: -86.259125, ID: 5
-sensor: 4, range: 184, bearing: 118.619904, ID: 0
-sensor: 4, range: 183, bearing: 120.195549, ID: 0
-sensor: 4, range: 180, bearing: 120.991966, ID: 0
-sensor: 9, range: 1621, bearing: -87.639961, ID: 5
-sensor: 4, range: 181, bearing: 121.054985, ID: 0
-sensor: 9, range: 1551, bearing: -81.686905, ID: 5
-sensor: 4, range: 178, bearing: 121.026337, ID: 0
-sensor: 9, range: 1568, bearing: -86.803444, ID: 5
-sensor: 4, range: 175, bearing: 121.410225, ID: 0
-sensor: 4, range: 174, bearing: 121.862862, ID: 0
-sensor: 4, range: 174, bearing: 121.650864, ID: 0
-sensor: 9, range: 1565, bearing: -86.769066, ID: 5
-sensor: 4, range: 173, bearing: 121.587837, ID: 0
-sensor: 9, range: 1567, bearing: -86.889389, ID: 5
-sensor: 4, range: 175, bearing: 121.307091, ID: 0
-sensor: 9, range: 1607, bearing: -87.485260, ID: 5
-sensor: 4, range: 209, bearing: 101.643105, ID: 0
-sensor: 9, range: 1560, bearing: -86.339340, ID: 5
-sensor: 4, range: 211, bearing: 107.074760, ID: 0
-sensor: 9, range: 1562, bearing: -86.620094, ID: 5
-sensor: 9, range: 1525, bearing: -84.230850, ID: 5
-sensor: 4, range: 134, bearing: 127.563812, ID: 0
-sensor: 9, range: 1566, bearing: -84.517326, ID: 5
-sensor: 4, range: 192, bearing: 110.311989, ID: 0
-sensor: 9, range: 1573, bearing: -84.952782, ID: 5
-sensor: 4, range: 207, bearing: 109.784866, ID: 0
-sensor: 9, range: 1569, bearing: -84.511597, ID: 5
-sensor: 4, range: 132, bearing: 127.896126, ID: 0
-sensor: 9, range: 1571, bearing: -86.557068, ID: 5
-sensor: 4, range: 193, bearing: 111.154236, ID: 0
-sensor: 9, range: 1564, bearing: -86.482582, ID: 5
-sensor: 4, range: 125, bearing: 131.184921, ID: 0
-sensor: 9, range: 1577, bearing: -86.654465, ID: 5
-sensor: 4, range: 188, bearing: 114.202385, ID: 0
-sensor: 9, range: 1604, bearing: -87.462349, ID: 5
-sensor: 4, range: 193, bearing: 114.242493, ID: 0
-sensor: 4, range: 171, bearing: 121.662331, ID: 0
-sensor: 11, range: 186, bearing: -14.994364, ID: 5
-sensor: 4, range: 178, bearing: 120.928940, ID: 0
-sensor: 9, range: 1550, bearing: -86.912300, ID: 5
-sensor: 4, range: 174, bearing: 121.960258, ID: 0
-sensor: 4, range: 121, bearing: 132.995468, ID: 0
-sensor: 4, range: 174, bearing: 121.960258, ID: 0
-sensor: 9, range: 1556, bearing: -86.918030, ID: 5
-sensor: 4, range: 167, bearing: 123.043167, ID: 0
-sensor: 9, range: 1561, bearing: -86.963867, ID: 5
-sensor: 9, range: 1575, bearing: -82.821373, ID: 5
-sensor: 4, range: 195, bearing: 114.173744, ID: 0
-sensor: 9, range: 1574, bearing: -86.769066, ID: 5
-sensor: 4, range: 187, bearing: 109.022827, ID: 0
-sensor: 9, range: 1594, bearing: -86.557068, ID: 5
-sensor: 4, range: 346, bearing: 61.650497, ID: 0
-sensor: 4, range: 232, bearing: 103.482307, ID: 0
-sensor: 9, range: 1600, bearing: -86.190376, ID: 5
-sensor: 4, range: 193, bearing: 115.531647, ID: 0
-sensor: 4, range: 120, bearing: 132.995468, ID: 0
-sensor: 9, range: 1542, bearing: -85.737740, ID: 5
-sensor: 4, range: 179, bearing: 120.321594, ID: 0
-sensor: 4, range: 196, bearing: 117.084373, ID: 0
-sensor: 9, range: 1583, bearing: -86.482582, ID: 5
-sensor: 9, range: 1615, bearing: -86.425285, ID: 5
-sensor: 4, range: 183, bearing: 120.367439, ID: 0
-sensor: 9, range: 1594, bearing: -86.574257, ID: 5
-sensor: 4, range: 123, bearing: 132.995468, ID: 0
-sensor: 9, range: 1584, bearing: -86.545609, ID: 5
-sensor: 9, range: 1604, bearing: -84.694946, ID: 0
-sensor: 4, range: 221, bearing: 102.525467, ID: 0
-sensor: 4, range: 158, bearing: 112.563721, ID: 0
-sensor: 4, range: 217, bearing: 105.040756, ID: 0
-sensor: 4, range: 189, bearing: 117.422417, ID: 0
-sensor: 4, range: 166, bearing: 121.965996, ID: 0
-sensor: 4, range: 174, bearing: 120.275764, ID: 0
-sensor: 4, range: 181, bearing: 118.270401, ID: 0
-sensor: 4, range: 186, bearing: 118.321968, ID: 0
-sensor: 4, range: 176, bearing: 118.923576, ID: 0
-sensor: 9, range: 1569, bearing: -86.505501, ID: 5
-sensor: 4, range: 173, bearing: 120.768509, ID: 0
-sensor: 9, range: 1638, bearing: -87.513916, ID: 5
-sensor: 4, range: 187, bearing: 118.894928, ID: 0
-sensor: 9, range: 1559, bearing: -86.671661, ID: 5
-sensor: 4, range: 168, bearing: 112.431938, ID: 0
-sensor: 4, range: 291, bearing: 85.256447, ID: 0
-sensor: 4, range: 279, bearing: 79.824783, ID: 0
-sensor: 9, range: 1630, bearing: -83.205246, ID: 5
-sensor: 4, range: 414, bearing: 63.598564, ID: 0
-sensor: 4, range: 299, bearing: 75.561966, ID: 0
-sensor: 9, range: 1663, bearing: -83.027634, ID: 5
-sensor: 4, range: 400, bearing: 65.724243, ID: 0
-sensor: 4, range: 350, bearing: 72.891975, ID: 0
-sensor: 9, range: 1633, bearing: -83.084930, ID: 5
-sensor: 4, range: 354, bearing: 72.336197, ID: 0
-sensor: 5, range: 152, bearing: 158.996399, ID: 5
-sensor: 4, range: 359, bearing: 71.528328, ID: 0
->>>>>>> 6f166644d1056234a1821d843e6c9efd44bec9a1
->>>>>>> 1692856241caaa3e0eb75c740aed88dc2767425e
+0
+sensor: 0, range: 1390, bearing: -41.957859, ID: 3
+0
+sensor: 0, range: 1396, bearing: -42.101101, ID: 3
+0
+sensor: 0, range: 1398, bearing: -42.152664, ID: 3
+0
+sensor: 0, range: 1389, bearing: -42.032345, ID: 3
+0
+sensor: 0, range: 1389, bearing: -41.940674, ID: 3
+0
+sensor: 0, range: 1405, bearing: -42.507900, ID: 3
+0
+sensor: 0, range: 1394, bearing: -42.158398, ID: 3
+0
+sensor: 0, range: 1391, bearing: -41.883377, ID: 3
+0
+sensor: 0, range: 1398, bearing: -42.221420, ID: 3
+0
+sensor: 0, range: 1396, bearing: -42.175583, ID: 3
+0
+sensor: 0, range: 1378, bearing: -41.602623, ID: 3
+0
+sensor: 0, range: 1396, bearing: -42.215691, ID: 3
+0
+sensor: 0, range: 1401, bearing: -42.347473, ID: 3
+0
+sensor: 0, range: 1389, bearing: -41.894836, ID: 3
+0
+sensor: 0, range: 1396, bearing: -42.169857, ID: 3
+0
+sensor: 0, range: 1391, bearing: -42.313099, ID: 3
+0
+sensor: 0, range: 1406, bearing: -42.737087, ID: 3
+0
+sensor: 0, range: 4233, bearing: -42.238609, ID: 3
+0
+sensor: 0, range: 1433, bearing: -43.659550, ID: 3
+0
+sensor: 0, range: 1410, bearing: -43.086590, ID: 3
+0
+sensor: 0, range: 1436, bearing: -43.848629, ID: 3
+0
+sensor: 0, range: 1424, bearing: -43.716846, ID: 3
+0
+sensor: 0, range: 1409, bearing: -43.178268, ID: 3
+0
+sensor: 0, range: 1433, bearing: -43.779873, ID: 3
+0
+sensor: 0, range: 1422, bearing: -43.573605, ID: 3
+0
+sensor: 0, range: 10277, bearing: -45.487293, ID: 3
+0
+sensor: 0, range: 1401, bearing: -42.318825, ID: 3
+0
+sensor: 0, range: 1390, bearing: -41.654194, ID: 3
+0
+sensor: 0, range: 1377, bearing: -41.482304, ID: 3
+0
+sensor: 0, range: 1361, bearing: -40.731728, ID: 3
+0
+sensor: 0, range: 1446, bearing: -44.140839, ID: 3
+0
+sensor: 0, range: 1418, bearing: -42.570927, ID: 3
+0
+sensor: 0, range: 1390, bearing: -41.493763, ID: 3
+0
+sensor: 0, range: 1348, bearing: -40.130119, ID: 3
+0
+sensor: 0, range: 1362, bearing: -40.422329, ID: 3
+0
+sensor: 0, range: 1387, bearing: -41.488033, ID: 3
+0
+sensor: 0, range: 1349, bearing: -40.021255, ID: 3
+0
+sensor: 0, range: 1363, bearing: -40.307735, ID: 3
+0
+sensor: 0, range: 1337, bearing: -39.757694, ID: 3
+0
+sensor: 0, range: 1321, bearing: -38.451344, ID: 3
+0
+sensor: 0, range: 1408, bearing: -42.656872, ID: 3
+0
+sensor: 0, range: 4425, bearing: -47.819241, ID: 3
+0
+sensor: 7, range: 2747, bearing: -63.850666, ID: 3
+0
+sensor: 10, range: 2575, bearing: -79.744568, ID: 3
+0
+sensor: 9, range: 2612, bearing: -81.560852, ID: 3
+0
+sensor: 10, range: 2650, bearing: -79.257553, ID: 3
+0
+sensor: 7, range: 2450, bearing: -82.093704, ID: 3
+0
+sensor: 9, range: 2564, bearing: -83.921455, ID: 3
+0
+sensor: 10, range: 3367, bearing: -83.388603, ID: 3
+0
+sensor: 8, range: 3628, bearing: -84.167824, ID: 3
+0
+sensor: 8, range: 3473, bearing: -84.906944, ID: 3
+0
+sensor: 8, range: 3556, bearing: -85.869514, ID: 3
+0
+sensor: 8, range: 3732, bearing: -88.287407, ID: 3
+0
+sensor: 8, range: 3730, bearing: -90.275574, ID: 3
+0
+sensor: 8, range: 3744, bearing: -91.507439, ID: 3
+0
+sensor: 9, range: 3878, bearing: -86.625824, ID: 3
+0
+sensor: 9, range: 3827, bearing: -85.485634, ID: 3
+0
+sensor: 9, range: 3873, bearing: -86.087242, ID: 3
+0
+sensor: 9, range: 3879, bearing: -85.061638, ID: 3
+0
+sensor: 9, range: 3842, bearing: -83.944366, ID: 3
+0
+sensor: 9, range: 3755, bearing: -83.274010, ID: 3
+0
+sensor: 9, range: 3719, bearing: -83.027634, ID: 3
+0
+sensor: 9, range: 3863, bearing: -82.815643, ID: 3
+0
+sensor: 9, range: 3899, bearing: -82.758339, ID: 3
+0
+sensor: 9, range: 3873, bearing: -82.540611, ID: 3
+0
+sensor: 9, range: 3077, bearing: -81.944740, ID: 3
+0
+sensor: 10, range: 3619, bearing: -78.673134, ID: 3
+0
+sensor: 10, range: 3644, bearing: -79.005455, ID: 3
+0
+sensor: 10, range: 3131, bearing: -81.658264, ID: 3
+0
+sensor: 7, range: 1979, bearing: -71.173096, ID: 3
+0
+sensor: 7, range: 4545, bearing: -48.094265, ID: 3
+0
+sensor: 7, range: 8495, bearing: -39.230572, ID: 3
+0
+sensor: 7, range: 6632, bearing: -38.720634, ID: 3
+0
+sensor: 7, range: 8772, bearing: -39.276405, ID: 3
+0
+sensor: 7, range: 11159, bearing: -39.551430, ID: 3
+0
+sensor: 1, range: 4728, bearing: -37.437206, ID: 3
+0
+sensor: 1, range: 2952, bearing: -32.956657, ID: 3
+0
+sensor: 1, range: 2407, bearing: -29.278255, ID: 3
+0
+sensor: 1, range: 2258, bearing: -27.874504, ID: 3
+0
+sensor: 1, range: 2170, bearing: -26.671289, ID: 3
+0
+sensor: 1, range: 2101, bearing: -25.960817, ID: 3
+0
+sensor: 1, range: 2293, bearing: -28.195362, ID: 3
+0
+sensor: 1, range: 2456, bearing: -29.816839, ID: 3
+0
+sensor: 7, range: 4243, bearing: -36.789761, ID: 3
+0
+sensor: 7, range: 13471, bearing: -39.700401, ID: 3
+0
+sensor: 7, range: 17456, bearing: -40.175957, ID: 3
+0
+sensor: 7, range: 12192, bearing: -39.631641, ID: 3
+0
+sensor: 7, range: 14168, bearing: -39.723320, ID: 3
+0
+sensor: 7, range: 8414, bearing: -39.219112, ID: 3
+0
+sensor: 7, range: 12773, bearing: -39.666019, ID: 3
+0
+sensor: 7, range: 9721, bearing: -39.419647, ID: 3
+0
+sensor: 7, range: 7948, bearing: -39.133167, ID: 3
+0
+sensor: 7, range: 9874, bearing: -39.431107, ID: 3
+0
+sensor: 7, range: 18514, bearing: -39.837910, ID: 3
+0
+sensor: 7, range: 8274, bearing: -39.201923, ID: 3
+0
+sensor: 7, range: 9838, bearing: -39.431107, ID: 3
+0
+sensor: 7, range: 6875, bearing: -38.829498, ID: 3
+0
+sensor: 1, range: 2854, bearing: -32.544125, ID: 3
+0
+sensor: 1, range: 2259, bearing: -27.908880, ID: 3
+0
+sensor: 1, range: 2212, bearing: -27.290085, ID: 3
+0
+sensor: 1, range: 2134, bearing: -26.321783, ID: 3
+0
+sensor: 1, range: 2030, bearing: -24.969597, ID: 3
+0
+sensor: 1, range: 2053, bearing: -25.290455, ID: 3
+0
+sensor: 1, range: 2083, bearing: -25.674337, ID: 3
+0
+sensor: 1, range: 2249, bearing: -27.714075, ID: 3
+0
+sensor: 1, range: 2651, bearing: -31.283617, ID: 3
+0
+sensor: 7, range: 4532, bearing: -37.202293, ID: 3
+0
+sensor: 7, range: 7131, bearing: -41.132797, ID: 3
+0
+sensor: 7, range: 5674, bearing: -42.244339, ID: 3
+0
+sensor: 7, range: 5690, bearing: -42.719898, ID: 3
+0
+sensor: 7, range: 5716, bearing: -42.106831, ID: 3
+0
+sensor: 7, range: 5623, bearing: -42.427689, ID: 3
+0
+sensor: 7, range: 5681, bearing: -42.198502, ID: 3
+0
+sensor: 7, range: 5669, bearing: -42.496445, ID: 3
+0
+sensor: 7, range: 5659, bearing: -42.519363, ID: 3
+0
+sensor: 7, range: 13617, bearing: -40.290546, ID: 3
+0
+sensor: 7, range: 28701, bearing: -39.929585, ID: 3
+0
+sensor: 7, range: 9720, bearing: -40.588490, ID: 3
+0
+sensor: 7, range: 18290, bearing: -40.158764, ID: 3
+0
+sensor: 7, range: 11962, bearing: -40.382221, ID: 3
+0
+sensor: 7, range: 17047, bearing: -40.181683, ID: 3
+0
+sensor: 7, range: 10356, bearing: -39.482674, ID: 3
+0
+sensor: 7, range: 10067, bearing: -44.427319, ID: 3
+0
+sensor: 1, range: 3832, bearing: -36.044914, ID: 3
+0
+sensor: 7, range: 7222, bearing: -38.938362, ID: 3
+0
+sensor: 7, range: 9955, bearing: -40.548378, ID: 3
+0
+sensor: 7, range: 5215, bearing: -37.952873, ID: 3
+0
+sensor: 7, range: 4851, bearing: -37.603367, ID: 3
+0
+sensor: 7, range: 4473, bearing: -37.122078, ID: 3
+0
+sensor: 7, range: 4678, bearing: -37.397102, ID: 3
+0
+sensor: 7, range: 4772, bearing: -37.494503, ID: 3
+0
+sensor: 1, range: 4280, bearing: -36.858517, ID: 3
+0
+sensor: 1, range: 2827, bearing: -32.217541, ID: 3
+0
+sensor: 1, range: 2869, bearing: -32.360779, ID: 3
+0
+sensor: 1, range: 2568, bearing: -30.475742, ID: 3
+0
+sensor: 1, range: 2570, bearing: -30.670547, ID: 3
+0
+sensor: 1, range: 2972, bearing: -33.117088, ID: 3
+0
+sensor: 7, range: 1780, bearing: -81.469177, ID: 3
+0
+sensor: 7, range: 1946, bearing: -70.972549, ID: 3
+0
+sensor: 7, range: 2046, bearing: -67.254044, ID: 3
+0
+sensor: 7, range: 2262, bearing: -61.501530, ID: 3
+0
+sensor: 7, range: 2217, bearing: -62.727661, ID: 3
+0
+sensor: 7, range: 2182, bearing: -63.117271, ID: 3
+0
+sensor: 7, range: 2211, bearing: -63.002682, ID: 3
+0
+sensor: 7, range: 2202, bearing: -62.744846, ID: 3
+0
+sensor: 7, range: 2190, bearing: -63.082893, ID: 3
+0
+sensor: 7, range: 2175, bearing: -63.128731, ID: 3
+0
+sensor: 7, range: 2211, bearing: -62.550041, ID: 3
+0
+sensor: 7, range: 2230, bearing: -62.080219, ID: 3
+0
+sensor: 7, range: 2217, bearing: -62.441181, ID: 3
+0
+sensor: 7, range: 2195, bearing: -62.922466, ID: 3
+0
+sensor: 7, range: 2182, bearing: -63.134464, ID: 3
+0
+sensor: 7, range: 2198, bearing: -62.979767, ID: 3
+0
+sensor: 7, range: 2204, bearing: -63.088627, ID: 3
+0
+sensor: 7, range: 2196, bearing: -62.939659, ID: 3
+0
+sensor: 7, range: 2188, bearing: -63.151653, ID: 3
+0
+sensor: 7, range: 2180, bearing: -63.294891, ID: 3
+0
+sensor: 7, range: 2184, bearing: -63.254784, ID: 3
+0
+sensor: 7, range: 2181, bearing: -63.260513, ID: 3
+0
+sensor: 7, range: 2189, bearing: -63.231869, ID: 3
+0
+sensor: 7, range: 2189, bearing: -63.231869, ID: 3
+0
+sensor: 7, range: 2184, bearing: -63.260513, ID: 3
+0
+sensor: 7, range: 2191, bearing: -63.197487, ID: 3
+0
+sensor: 7, range: 2225, bearing: -62.635986, ID: 3
+0
+sensor: 7, range: 2178, bearing: -63.329266, ID: 3
+0
+sensor: 7, range: 2195, bearing: -63.111542, ID: 3
+0
+sensor: 7, range: 1958, bearing: -51.829960, ID: 3
+0
+sensor: 7, range: 2197, bearing: -63.306351, ID: 3
+0
+sensor: 7, range: 2196, bearing: -63.191761, ID: 3
+0
+sensor: 7, range: 2215, bearing: -62.922466, ID: 3
+0
+sensor: 7, range: 2188, bearing: -63.357914, ID: 3
+0
+sensor: 7, range: 2205, bearing: -62.819336, ID: 3
+0
+sensor: 7, range: 2185, bearing: -63.266247, ID: 3
+0
+sensor: 7, range: 2199, bearing: -62.916737, ID: 3
+0
+sensor: 7, range: 2204, bearing: -63.054249, ID: 3
+0
+sensor: 7, range: 2196, bearing: -62.945389, ID: 3
+0
+sensor: 7, range: 2186, bearing: -63.312084, ID: 3
+0
+sensor: 7, range: 2191, bearing: -63.002682, ID: 3
+0
+sensor: 7, range: 2184, bearing: -63.186031, ID: 3
+0
+sensor: 7, range: 2206, bearing: -62.893822, ID: 3
+0
+sensor: 7, range: 2213, bearing: -62.704739, ID: 3
+0
+sensor: 7, range: 2209, bearing: -62.928196, ID: 3
+0
+sensor: 7, range: 2189, bearing: -62.945389, ID: 3
+0
+sensor: 7, range: 2257, bearing: -61.650497, ID: 3
+0
+sensor: 7, range: 2124, bearing: -65.162743, ID: 3
+0
+sensor: 7, range: 2025, bearing: -68.079109, ID: 3
+0
+sensor: 7, range: 2039, bearing: -67.895760, ID: 3
+0
+sensor: 7, range: 2005, bearing: -68.950012, ID: 3
+0
+sensor: 7, range: 1982, bearing: -70.262085, ID: 3
+0
+sensor: 7, range: 1979, bearing: -70.497002, ID: 3
+0
+sensor: 7, range: 1976, bearing: -70.244896, ID: 3
+0
+sensor: 7, range: 1982, bearing: -70.783478, ID: 3
+0
+sensor: 7, range: 1964, bearing: -70.519913, ID: 3
+0
+sensor: 7, range: 1985, bearing: -70.428246, ID: 3
+0
+sensor: 1, range: 2672, bearing: -31.438314, ID: 3
+0
+sensor: 1, range: 2671, bearing: -31.358101, ID: 3
+0
+sensor: 1, range: 2840, bearing: -32.309216, ID: 3
+0
+sensor: 1, range: 2948, bearing: -32.824879, ID: 3
+0
+sensor: 1, range: 2936, bearing: -32.738934, ID: 3
+0
+sensor: 1, range: 2897, bearing: -32.584232, ID: 3
+0
+sensor: 1, range: 2552, bearing: -30.452824, ID: 3
+0
+sensor: 1, range: 2551, bearing: -30.538769, ID: 3
+0
+sensor: 1, range: 3029, bearing: -33.357731, ID: 3
+0
+sensor: 1, range: 2974, bearing: -33.214493, ID: 3
+0
+sensor: 1, range: 2841, bearing: -32.452454, ID: 3
+0
+sensor: 1, range: 3138, bearing: -33.833290, ID: 3
+0
+sensor: 1, range: 3208, bearing: -34.148415, ID: 3
+0
+sensor: 1, range: 3177, bearing: -33.947880, ID: 3
+0
+sensor: 1, range: 3365, bearing: -34.675541, ID: 3
+0
+sensor: 1, range: 3512, bearing: -35.168285, ID: 3
+0
+sensor: 1, range: 3156, bearing: -33.970798, ID: 3
+0
+sensor: 1, range: 3176, bearing: -34.028091, ID: 3
+0
+sensor: 1, range: 3425, bearing: -34.893265, ID: 3
+0
+sensor: 1, range: 3289, bearing: -34.446354, ID: 3
+0
+sensor: 1, range: 3007, bearing: -33.288975, ID: 3
+0
+sensor: 1, range: 3227, bearing: -34.251549, ID: 3
+0
+sensor: 1, range: 3284, bearing: -34.457813, ID: 3
+0
+sensor: 1, range: 3325, bearing: -34.612514, ID: 3
+0
+sensor: 1, range: 3423, bearing: -34.950562, ID: 3
+0
+sensor: 1, range: 3342, bearing: -34.629704, ID: 3
+0
+sensor: 1, range: 3327, bearing: -34.612514, ID: 3
+0
+sensor: 1, range: 3284, bearing: -34.452087, ID: 3
+0
+sensor: 1, range: 3368, bearing: -34.744297, ID: 3
+0
+sensor: 1, range: 3465, bearing: -35.030777, ID: 3
+0
+sensor: 1, range: 3398, bearing: -34.858887, ID: 3
+0
+sensor: 1, range: 3423, bearing: -34.876076, ID: 3
+0
+sensor: 1, range: 3831, bearing: -35.981888, ID: 3
+0
+sensor: 1, range: 3464, bearing: -35.007858, ID: 3
+0
+sensor: 1, range: 3373, bearing: -34.784405, ID: 3
+0
+sensor: 1, range: 3617, bearing: -35.460495, ID: 3
+0
+sensor: 1, range: 3494, bearing: -35.122448, ID: 3
+0
+sensor: 1, range: 3486, bearing: -35.128178, ID: 3
+0
+sensor: 1, range: 3585, bearing: -35.391739, ID: 3
+0
+sensor: 1, range: 3646, bearing: -35.540710, ID: 3
+0
+sensor: 1, range: 3339, bearing: -34.652622, ID: 3
+0
+sensor: 1, range: 3696, bearing: -35.666759, ID: 3
+0
+sensor: 1, range: 3558, bearing: -35.334442, ID: 3
+0
+sensor: 1, range: 3291, bearing: -34.469273, ID: 3
+0
+sensor: 1, range: 3227, bearing: -34.228630, ID: 3
+0
+sensor: 1, range: 3480, bearing: -35.053692, ID: 3
+0
+sensor: 1, range: 3339, bearing: -34.612514, ID: 3
+0
+sensor: 1, range: 3095, bearing: -33.661400, ID: 3
+0
+sensor: 1, range: 2813, bearing: -32.395161, ID: 3
+0
+sensor: 1, range: 3806, bearing: -35.947510, ID: 3
+0
+sensor: 1, range: 4506, bearing: -37.150726, ID: 3
+0
+sensor: 1, range: 4659, bearing: -37.351261, ID: 3
+0
+sensor: 1, range: 6080, bearing: -38.468536, ID: 3
+0
+sensor: 1, range: 6017, bearing: -38.434155, ID: 3
+0
+sensor: 1, range: 4988, bearing: -37.712227, ID: 3
+0
+sensor: 1, range: 5089, bearing: -37.809631, ID: 3
+0
+sensor: 1, range: 5419, bearing: -38.056004, ID: 3
+0
+sensor: 1, range: 61740, bearing: -39.998337, ID: 3
+0
+sensor: 1, range: 5718, bearing: -38.273727, ID: 3
+0
+sensor: 1, range: 5750, bearing: -42.124020, ID: 3
+0
+sensor: 1, range: 3626, bearing: -35.380280, ID: 3
+0
+sensor: 1, range: 3459, bearing: -34.910450, ID: 3
+0
+sensor: 1, range: 2819, bearing: -32.148788, ID: 3
+0
+sensor: 1, range: 2873, bearing: -32.423805, ID: 3
+0
+sensor: 1, range: 2766, bearing: -31.868034, ID: 3
+0
+sensor: 7, range: 6344, bearing: -41.545330, ID: 3
+0
+sensor: 1, range: 5190, bearing: -37.849739, ID: 3
+0
+sensor: 1, range: 5081, bearing: -37.746605, ID: 3
+0
+sensor: 1, range: 5747, bearing: -38.256538, ID: 3
+0
+sensor: 1, range: 4486, bearing: -37.087704, ID: 3
+0
+sensor: 7, range: 15671, bearing: -40.227520, ID: 3
+0
+sensor: 7, range: 6786, bearing: -41.298958, ID: 3
+0
+sensor: 7, range: 7255, bearing: -41.115608, ID: 3
+0
+sensor: 7, range: 7966, bearing: -40.897884, ID: 3
+0
+sensor: 7, range: 6095, bearing: -43.241291, ID: 3
+0
+sensor: 1, range: 13787, bearing: -45.315407, ID: 3
+0
+sensor: 4, range: 16216, bearing: -136.633759, ID: 3
+0
+sensor: 7, range: 1661, bearing: -113.016357, ID: 3
+0
+sensor: 7, range: 2009, bearing: -94.057114, ID: 3
+0
+sensor: 7, range: 2686, bearing: -76.346924, ID: 3
+0
+sensor: 11, range: 2817, bearing: -74.192589, ID: 3
+0
+sensor: 11, range: 2917, bearing: -74.244156, ID: 3
+0
+sensor: 11, range: 2959, bearing: -79.968025, ID: 3
+0
+sensor: 11, range: 2944, bearing: -81.669724, ID: 3
+0
+sensor: 7, range: 2688, bearing: -75.940117, ID: 3
+0
+sensor: 7, range: 2171, bearing: -87.725906, ID: 3
+0
+sensor: 7, range: 2125, bearing: -89.525002, ID: 3
+0
+sensor: 7, range: 2115, bearing: -89.456245, ID: 3
+0
+sensor: 7, range: 2085, bearing: -88.808800, ID: 3
+0
+sensor: 7, range: 2032, bearing: -90.573517, ID: 3
+0
+sensor: 7, range: 1989, bearing: -92.217911, ID: 3
+0
+sensor: 7, range: 1992, bearing: -92.166344, ID: 3
+0
+sensor: 7, range: 1976, bearing: -92.498657, ID: 3
+0
+sensor: 7, range: 1989, bearing: -94.045654, ID: 3
+0
+sensor: 7, range: 2050, bearing: -91.782463, ID: 3
+0
+sensor: 7, range: 2033, bearing: -90.447464, ID: 3
+0
+sensor: 7, range: 2005, bearing: -90.688103, ID: 3
+0
+sensor: 7, range: 2001, bearing: -89.290085, ID: 3
+0
+sensor: 7, range: 1607, bearing: -101.110252, ID: 3
+0
+sensor: 2, range: 2965, bearing: -51.709641, ID: 3
+0
+sensor: 2, range: 2657, bearing: -24.264856, ID: 3
+0
+sensor: 2, range: 5503, bearing: -16.896591, ID: 3
+0
+sensor: 2, range: 6029, bearing: -13.430182, ID: 3
+0
+sensor: 2, range: 18775, bearing: -15.160521, ID: 3
+0
+sensor: 2, range: 6321, bearing: -16.426762, ID: 3
+0
+sensor: 2, range: 4105, bearing: -18.455042, ID: 3
+0
+sensor: 2, range: 2909, bearing: -22.356899, ID: 3
+0
+sensor: 2, range: 2786, bearing: -23.296555, ID: 3
+0
+sensor: 2, range: 2771, bearing: -23.285095, ID: 3
+0
+sensor: 2, range: 2683, bearing: -24.201832, ID: 3
+0
+sensor: 2, range: 2655, bearing: -24.471123, ID: 3
+0
+sensor: 2, range: 2873, bearing: -22.551706, ID: 3
+0
+sensor: 2, range: 2704, bearing: -23.984106, ID: 3
+0
+sensor: 2, range: 2702, bearing: -24.001293, ID: 3
+0
+sensor: 2, range: 3564, bearing: -19.629610, ID: 3
+0
+sensor: 2, range: 2761, bearing: -23.353849, ID: 3
+0
+sensor: 2, range: 2801, bearing: -23.090288, ID: 3
+0
+sensor: 2, range: 2851, bearing: -22.694944, ID: 3
+0
+sensor: 2, range: 2747, bearing: -23.525738, ID: 3
+0
+sensor: 2, range: 2703, bearing: -23.978374, ID: 3
+0
+sensor: 2, range: 2713, bearing: -23.875242, ID: 3
+0
+sensor: 2, range: 3036, bearing: -21.560484, ID: 3
+0
+sensor: 2, range: 2986, bearing: -21.950098, ID: 3
+0
+sensor: 2, range: 2702, bearing: -23.961187, ID: 3
+0
+sensor: 2, range: 3073, bearing: -33.787453, ID: 3
+0
+sensor: 2, range: 2848, bearing: -32.658722, ID: 3
+0
+sensor: 2, range: 3191, bearing: -34.377598, ID: 3
+0
+sensor: 2, range: 3140, bearing: -34.096851, ID: 3
+0
+sensor: 2, range: 3129, bearing: -34.102581, ID: 3
+0
+sensor: 2, range: 3138, bearing: -34.154144, ID: 3
+0
+sensor: 2, range: 3225, bearing: -34.446354, ID: 3
+0
+sensor: 2, range: 3238, bearing: -34.475006, ID: 3
+0
+sensor: 2, range: 2758, bearing: -32.022736, ID: 3
+0
+sensor: 2, range: 3561, bearing: -35.643841, ID: 3
+0
+sensor: 2, range: 2526, bearing: -28.430275, ID: 3
+0
+sensor: 2, range: 2521, bearing: -27.324463, ID: 3
+0
+sensor: 2, range: 5032, bearing: -42.341743, ID: 3
+0
+sensor: 7, range: 1678, bearing: -82.666664, ID: 3
+0
+sensor: 7, range: 1751, bearing: -104.828766, ID: 3
+0
+sensor: 7, range: 1772, bearing: -103.253120, ID: 3
+0
+sensor: 7, range: 1903, bearing: -96.732841, ID: 3
+0
+sensor: 7, range: 1894, bearing: -101.236305, ID: 3
+0
+sensor: 7, range: 1797, bearing: -104.238609, ID: 3
+0
+sensor: 7, range: 1815, bearing: -92.097588, ID: 3
+0
+sensor: 2, range: 2107, bearing: -77.693375, ID: 3
+0
+sensor: 2, range: 2362, bearing: -74.765549, ID: 3
+0
+sensor: 2, range: 2581, bearing: -69.333885, ID: 3
+0
+sensor: 2, range: 2568, bearing: -69.843826, ID: 3
+0
+sensor: 2, range: 2608, bearing: -70.285004, ID: 3
+0
+sensor: 2, range: 2246, bearing: -73.470665, ID: 3
+0
+sensor: 2, range: 2441, bearing: -109.532768, ID: 3
+0
+sensor: 2, range: 2727, bearing: -158.303116, ID: 3
+0
+sensor: 2, range: 1974, bearing: 124.349510, ID: 3
+0
+sensor: 2, range: 1792, bearing: 114.311249, ID: 3
+0
+sensor: 2, range: 1790, bearing: 114.632111, ID: 3
+0
+sensor: 2, range: 1785, bearing: 114.271141, ID: 3
+0
+sensor: 2, range: 1798, bearing: 111.962112, ID: 3
+0
+sensor: 2, range: 1966, bearing: 113.113762, ID: 3
+0
+sensor: 2, range: 2207, bearing: 77.934013, ID: 3
+0
+sensor: 2, range: 2117, bearing: 89.530731, ID: 3
+0
+sensor: 2, range: 1893, bearing: 125.501152, ID: 3
+0
+sensor: 2, range: 1864, bearing: 124.635986, ID: 3
+0
+sensor: 2, range: 1946, bearing: 128.199799, ID: 3
+0
+sensor: 2, range: 2252, bearing: 137.252563, ID: 3
+0
+sensor: 2, range: 4926, bearing: -143.136871, ID: 3
+0
+sensor: 4, range: 3851, bearing: -147.743469, ID: 3
+0
+sensor: 4, range: 2329, bearing: 143.474915, ID: 3
+0
+sensor: 4, range: 2097, bearing: 137.968765, ID: 3
+0
+sensor: 4, range: 2188, bearing: 140.231964, ID: 3
+0
+sensor: 4, range: 6028, bearing: 168.392944, ID: 3
+0
+sensor: 2, range: 3379, bearing: 150.894745, ID: 3
+0
+sensor: 2, range: 3611, bearing: 152.350067, ID: 3
+0
+sensor: 4, range: 4549, bearing: 159.099533, ID: 3
+0
+sensor: 4, range: 1992, bearing: 134.032532, ID: 3
+0
+sensor: 4, range: 1980, bearing: 133.453842, ID: 3
+0
+sensor: 4, range: 1999, bearing: 134.072632, ID: 3
+0
+sensor: 4, range: 2004, bearing: 134.267456, ID: 3
+0
+sensor: 4, range: 2014, bearing: 134.324738, ID: 3
+0
+sensor: 4, range: 2007, bearing: 134.284637, ID: 3
+0
+sensor: 4, range: 2009, bearing: 134.336197, ID: 3
+0
+sensor: 4, range: 1994, bearing: 133.969498, ID: 3
+0
+sensor: 4, range: 2020, bearing: 134.267456, ID: 3
+0
+sensor: 4, range: 2044, bearing: 135.424835, ID: 3
+0
+sensor: 4, range: 2010, bearing: 133.465302, ID: 3
+0
+sensor: 4, range: 1916, bearing: 128.085205, ID: 3
+0
+sensor: 4, range: 1894, bearing: 126.354866, ID: 3
+0
+sensor: 2, range: 1849, bearing: 120.934662, ID: 3
+0
+sensor: 2, range: 1863, bearing: 123.438499, ID: 3
+0
+sensor: 2, range: 1950, bearing: 128.526382, ID: 3
+0
+sensor: 2, range: 1932, bearing: 125.925148, ID: 3
+0
+sensor: 8, range: 2960, bearing: -111.933464, ID: 3
+0
+sensor: 8, range: 3009, bearing: -142.758713, ID: 3
+0
+sensor: 2, range: 4265, bearing: 102.949448, ID: 3
+0
+sensor: 2, range: 4335, bearing: 95.781723, ID: 3
+0
+sensor: 2, range: 4099, bearing: 93.816467, ID: 3
+0
+sensor: 2, range: 4111, bearing: 94.228996, ID: 3
+0
+sensor: 2, range: 4108, bearing: 94.108681, ID: 3
+0
+sensor: 2, range: 4113, bearing: 93.776360, ID: 3
+0
+sensor: 2, range: 4165, bearing: 92.641899, ID: 3
+0
+sensor: 2, range: 4170, bearing: 93.031509, ID: 3
+0
+sensor: 2, range: 4155, bearing: 93.736252, ID: 3
+0
+sensor: 2, range: 4156, bearing: 95.048332, ID: 3
+0
+sensor: 2, range: 4138, bearing: 98.170967, ID: 3
+0
+sensor: 2, range: 4117, bearing: 97.804268, ID: 3
+0
+sensor: 2, range: 4113, bearing: 98.027725, ID: 3
+0
+sensor: 2, range: 4091, bearing: 97.804268, ID: 3
+0
+sensor: 2, range: 4080, bearing: 98.136589, ID: 3
+0
+sensor: 4, range: 4039, bearing: 105.573608, ID: 3
+0
+sensor: 4, range: 4019, bearing: 105.143890, ID: 3
+0
+sensor: 4, range: 4029, bearing: 105.504852, ID: 3
+0
+sensor: 4, range: 4035, bearing: 105.470474, ID: 3
+0
+sensor: 4, range: 4012, bearing: 106.123650, ID: 3
+0
+sensor: 4, range: 4012, bearing: 105.986145, ID: 3
+0
+sensor: 4, range: 4006, bearing: 105.808525, ID: 3
+0
+sensor: 4, range: 3987, bearing: 105.825714, ID: 3
+0
+sensor: 4, range: 3984, bearing: 105.894470, ID: 3
+0
+sensor: 4, range: 3999, bearing: 105.837166, ID: 3
+0
+sensor: 4, range: 3985, bearing: 105.894470, ID: 3
+0
+sensor: 4, range: 3994, bearing: 105.693932, ID: 3
+0
+sensor: 4, range: 3996, bearing: 105.946037, ID: 3
+0
+sensor: 4, range: 4096, bearing: 105.206917, ID: 3
+0
+sensor: 2, range: 4078, bearing: 99.912766, ID: 3
+0
+sensor: 7, range: 1529, bearing: -114.299789, ID: 3
+0
+sensor: 7, range: 1232, bearing: -138.971451, ID: 3
+0
+sensor: 7, range: 1308, bearing: -131.454208, ID: 3
+0
+sensor: 8, range: 2243, bearing: -127.025238, ID: 3
+0
+sensor: 2, range: 4709, bearing: 161.225220, ID: 3
+0
+sensor: 2, range: 5852, bearing: 142.947800, ID: 3
+0
+sensor: 1, range: 1568, bearing: -174.512161, ID: 3
+0
+sensor: 0, range: 1313, bearing: 42.181316, ID: 3
+0
+sensor: 0, range: 1372, bearing: 34.217171, ID: 3
+0
+sensor: 7, range: 2409, bearing: -150.757233, ID: 3
+0
+sensor: 4, range: 1712, bearing: 166.605316, ID: 3
+0
+sensor: 0, range: 1631, bearing: 28.309954, ID: 3
+0
+sensor: 4, range: 1517, bearing: 101.310783, ID: 3
+0
+sensor: 4, range: 2320, bearing: 156.767593, ID: 3
+0
+sensor: 4, range: 3198, bearing: -113.010628, ID: 3
+0
+sensor: 4, range: 3372, bearing: -115.543114, ID: 3
+0
+sensor: 4, range: 2002, bearing: 149.273270, ID: 3
+0
+sensor: 4, range: 2025, bearing: 155.272171, ID: 3
+0
+sensor: 1, range: 2472, bearing: 172.380753, ID: 3
+0
+sensor: 4, range: 3389, bearing: -149.084198, ID: 3
+0
+sensor: 4, range: 3000, bearing: -154.573151, ID: 3
+0
+sensor: 4, range: 9344, bearing: -135.195633, ID: 3
+0
+sensor: 4, range: 4428, bearing: -128.159698, ID: 3
+0
+sensor: 4, range: 5235, bearing: -129.013397, ID: 3
+0
+sensor: 4, range: 7229, bearing: -133.247574, ID: 3
+0
+sensor: 4, range: 44713, bearing: -137.092133, ID: 3
+0
+sensor: 4, range: 6076, bearing: -131.534424, ID: 3
+0
+sensor: 5, range: 5036, bearing: -119.061081, ID: 3
+0
+sensor: 5, range: 6446, bearing: -115.394142, ID: 3
+0
+sensor: 4, range: 4831, bearing: -118.711578, ID: 3
+0
+sensor: 4, range: 4841, bearing: -118.774605, ID: 3
+0
+sensor: 4, range: 5893, bearing: -116.104607, ID: 3
+0
+sensor: 4, range: 2379, bearing: -116.654663, ID: 3
+0
+sensor: 4, range: 1598, bearing: -106.857040, ID: 3
+0
+sensor: 7, range: 1590, bearing: -86.488312, ID: 3
+0
+sensor: 7, range: 1483, bearing: -83.617783, ID: 3
+0
+sensor: 7, range: 1480, bearing: -83.193794, ID: 3
+0
+sensor: 7, range: 1490, bearing: -83.228172, ID: 3
+0
+sensor: 7, range: 1471, bearing: -82.821373, ID: 3
+0
+sensor: 7, range: 1486, bearing: -83.245354, ID: 3
+0
+sensor: 7, range: 1449, bearing: -81.893173, ID: 3
+0
+sensor: 7, range: 1427, bearing: -80.993629, ID: 3
+0
+sensor: 7, range: 1386, bearing: -79.314857, ID: 3
+0
+sensor: 7, range: 1375, bearing: -78.667404, ID: 3
+0
+sensor: 7, range: 1369, bearing: -78.547081, ID: 3
+0
+sensor: 7, range: 1378, bearing: -78.466873, ID: 3
+0
+sensor: 7, range: 1366, bearing: -78.386658, ID: 3
+0
+sensor: 7, range: 1367, bearing: -78.123100, ID: 3
+0
+sensor: 7, range: 1380, bearing: -78.661682, ID: 3
+0
+sensor: 7, range: 1372, bearing: -78.587189, ID: 3
+0
+sensor: 7, range: 1373, bearing: -78.484062, ID: 3
+0
+sensor: 7, range: 1372, bearing: -78.392387, ID: 3
+0
+sensor: 7, range: 1372, bearing: -78.398117, ID: 3
+0
+sensor: 7, range: 1371, bearing: -78.403847, ID: 3
+0
+sensor: 7, range: 1385, bearing: -78.845024, ID: 3
+0
+sensor: 7, range: 1368, bearing: -78.879402, ID: 3
+0
+sensor: 7, range: 1375, bearing: -78.827843, ID: 3
+0
+sensor: 7, range: 1383, bearing: -79.377876, ID: 3
+0
+sensor: 7, range: 1425, bearing: -81.050926, ID: 3
+0
+sensor: 7, range: 1409, bearing: -80.059700, ID: 3
+0
+sensor: 7, range: 1468, bearing: -82.552078, ID: 3
+0
+sensor: 7, range: 1462, bearing: -99.334076, ID: 3
+0
+sensor: 4, range: 2529, bearing: -107.384163, ID: 3
+0
+sensor: 9, range: 2563, bearing: -109.515572, ID: 3
+0
+sensor: 9, range: 2763, bearing: -104.330284, ID: 3
+0
+sensor: 9, range: 3052, bearing: -98.904358, ID: 3
+0
+sensor: 11, range: 2297, bearing: -91.157936, ID: 3
+0
+sensor: 11, range: 1712, bearing: -81.555122, ID: 3
+0
+sensor: 11, range: 1599, bearing: -73.682655, ID: 3
+0
+sensor: 11, range: 1568, bearing: -71.408005, ID: 3
+0
+sensor: 11, range: 1557, bearing: -70.915260, ID: 3
+0
+sensor: 11, range: 1557, bearing: -70.726181, ID: 3
+0
+sensor: 11, range: 1555, bearing: -70.531372, ID: 3
+0
+sensor: 11, range: 1560, bearing: -70.794937, ID: 3
+0
+sensor: 11, range: 1548, bearing: -70.399590, ID: 3
+0
+sensor: 11, range: 1555, bearing: -70.605858, ID: 3
+0
+sensor: 11, range: 1558, bearing: -69.574532, ID: 3
+0
+sensor: 11, range: 1593, bearing: -68.984383, ID: 3
+0
+sensor: 11, range: 1474, bearing: -68.445801, ID: 3
+0
+sensor: 10, range: 1483, bearing: -68.382774, ID: 3
+0
+sensor: 10, range: 1465, bearing: -69.488594, ID: 3
+0
+sensor: 10, range: 1468, bearing: -69.242218, ID: 3
+0
+sensor: 10, range: 1463, bearing: -69.144814, ID: 3
+0
+sensor: 10, range: 1463, bearing: -70.439697, ID: 3
+0
+sensor: 10, range: 1453, bearing: -71.310600, ID: 3
+0
+sensor: 11, range: 1445, bearing: -68.955734, ID: 3
+0
+sensor: 11, range: 803, bearing: -67.511879, ID: 3
+0
+sensor: 11, range: 1510, bearing: -73.086777, ID: 3
+0
+sensor: 11, range: 1506, bearing: -72.765923, ID: 3
+0
+sensor: 11, range: 1510, bearing: -72.765923, ID: 3
+0
+sensor: 11, range: 1505, bearing: -72.668518, ID: 3
+0
+sensor: 11, range: 1503, bearing: -72.691437, ID: 3
+0
+sensor: 11, range: 1509, bearing: -72.851868, ID: 3
+0
+sensor: 11, range: 1507, bearing: -73.052399, ID: 3
+0
+sensor: 11, range: 1505, bearing: -72.863327, ID: 3
+0
+sensor: 11, range: 1551, bearing: -75.527588, ID: 3
+0
+sensor: 11, range: 1742, bearing: -74.971817, ID: 3
+0
+sensor: 11, range: 1740, bearing: -76.123466, ID: 3
+0
+sensor: 11, range: 1721, bearing: -77.664726, ID: 3
+0
+sensor: 11, range: 1697, bearing: -78.300713, ID: 3
+0
+sensor: 11, range: 1727, bearing: -79.641441, ID: 3
+0
+sensor: 11, range: 1504, bearing: -76.112007, ID: 3
+0
+sensor: 11, range: 1490, bearing: -75.298401, ID: 3
+0
+sensor: 11, range: 1489, bearing: -75.097862, ID: 3
+0
+sensor: 11, range: 1492, bearing: -75.223915, ID: 3
+0
+sensor: 11, range: 1475, bearing: -75.023384, ID: 3
+0
+sensor: 11, range: 1483, bearing: -75.011925, ID: 3
+0
+sensor: 11, range: 1547, bearing: -77.670456, ID: 3
+0
+sensor: 11, range: 1588, bearing: -79.108589, ID: 3
+0
+sensor: 11, range: 1813, bearing: -79.910728, ID: 3
+0
+sensor: 7, range: 1978, bearing: -83.159409, ID: 3
+0
+sensor: 7, range: 1946, bearing: -84.162094, ID: 3
+0
+sensor: 7, range: 2020, bearing: -84.677757, ID: 3
+0
+sensor: 7, range: 1555, bearing: -81.211349, ID: 3
+0
+sensor: 11, range: 1461, bearing: -77.510033, ID: 3
+0
+sensor: 11, range: 1471, bearing: -77.355324, ID: 3
+0
+sensor: 11, range: 1468, bearing: -77.664726, ID: 3
+0
+sensor: 11, range: 1464, bearing: -77.515755, ID: 3
+0
+sensor: 11, range: 1460, bearing: -77.343872, ID: 3
+0
+sensor: 11, range: 1452, bearing: -76.914146, ID: 3
+0
+sensor: 11, range: 1459, bearing: -76.902687, ID: 3
+0
+sensor: 11, range: 1452, bearing: -76.518806, ID: 3
+0
+sensor: 11, range: 1455, bearing: -76.856850, ID: 3
+0
+sensor: 11, range: 1450, bearing: -76.604752, ID: 3
+0
+sensor: 11, range: 1450, bearing: -76.702156, ID: 3
+0
+sensor: 11, range: 1457, bearing: -76.702156, ID: 3
+0
+sensor: 11, range: 1461, bearing: -76.616211, ID: 3
+0
+sensor: 11, range: 1467, bearing: -77.097504, ID: 3
+0
+sensor: 7, range: 1477, bearing: -77.624619, ID: 3
+0
+sensor: 7, range: 1489, bearing: -78.037155, ID: 3
+0
+sensor: 7, range: 1489, bearing: -78.146011, ID: 3
+0
+sensor: 7, range: 1492, bearing: -78.294991, ID: 3
+0
+sensor: 7, range: 1488, bearing: -78.186119, ID: 3
+0
+sensor: 7, range: 1496, bearing: -78.191849, ID: 3
+0
+sensor: 7, range: 1486, bearing: -78.501251, ID: 3
+0
+sensor: 7, range: 1476, bearing: -78.243416, ID: 3
+0
+sensor: 7, range: 1463, bearing: -77.538681, ID: 3
+0
+sensor: 7, range: 1483, bearing: -78.019958, ID: 3
+0
+sensor: 7, range: 1493, bearing: -78.392387, ID: 3
+0
+sensor: 7, range: 1499, bearing: -78.718971, ID: 3
+0
+sensor: 7, range: 1491, bearing: -78.478333, ID: 3
+0
+sensor: 7, range: 1649, bearing: -83.589134, ID: 3
+0
+sensor: 7, range: 2002, bearing: -89.387489, ID: 3
+0
+sensor: 4, range: 1802, bearing: -92.005913, ID: 3
+0
+sensor: 7, range: 1797, bearing: -90.384445, ID: 3
+0
+sensor: 7, range: 1772, bearing: -89.118202, ID: 3
+0
+sensor: 7, range: 1647, bearing: -82.517700, ID: 3
+0
+sensor: 11, range: 1498, bearing: -77.326683, ID: 3
+0
+sensor: 11, range: 1509, bearing: -77.246468, ID: 3
+0
+sensor: 11, range: 1505, bearing: -77.000092, ID: 3
+0
+sensor: 11, range: 1491, bearing: -76.959984, ID: 3
+0
+sensor: 11, range: 1491, bearing: -76.931343, ID: 3
+0
+sensor: 11, range: 1487, bearing: -76.650589, ID: 3
+0
+sensor: 11, range: 1500, bearing: -76.925613, ID: 3
+0
+sensor: 11, range: 1497, bearing: -76.879776, ID: 3
+0
+sensor: 11, range: 1489, bearing: -76.702156, ID: 3
+0
+sensor: 11, range: 1492, bearing: -76.759453, ID: 3
+0
+sensor: 11, range: 1502, bearing: -76.845398, ID: 3
+0
+sensor: 11, range: 1488, bearing: -76.696426, ID: 3
+0
+sensor: 11, range: 1500, bearing: -76.707886, ID: 3
+0
+sensor: 11, range: 1487, bearing: -76.610481, ID: 3
+0
+sensor: 11, range: 1498, bearing: -76.833939, ID: 3
+0
+sensor: 11, range: 1489, bearing: -76.765182, ID: 3
+0
+sensor: 11, range: 1493, bearing: -76.885506, ID: 3
+0
+sensor: 11, range: 1492, bearing: -76.713615, ID: 3
+0
+sensor: 11, range: 1490, bearing: -76.874046, ID: 3
+0
+sensor: 11, range: 1502, bearing: -76.879776, ID: 3
+0
+sensor: 11, range: 1498, bearing: -76.816742, ID: 3
+0
+sensor: 11, range: 1490, bearing: -76.564644, ID: 3
+0
+sensor: 11, range: 1491, bearing: -76.696426, ID: 3
+0
+sensor: 11, range: 1470, bearing: -76.868309, ID: 3
+0
+sensor: 7, range: 798, bearing: -78.123100, ID: 3
+0
+sensor: 11, range: 1464, bearing: -76.066170, ID: 3
+0
+sensor: 11, range: 1473, bearing: -76.232330, ID: 3
+0
+sensor: 11, range: 1467, bearing: -76.129196, ID: 3
+0
+sensor: 11, range: 1469, bearing: -76.140656, ID: 3
+0
+sensor: 11, range: 1466, bearing: -75.974495, ID: 3
+0
+sensor: 11, range: 1468, bearing: -76.123466, ID: 3
+0
+sensor: 11, range: 1478, bearing: -76.421402, ID: 3
+0
+sensor: 11, range: 1477, bearing: -76.381294, ID: 3
+0
+sensor: 11, range: 1478, bearing: -76.621941, ID: 3
+0
+sensor: 11, range: 1487, bearing: -77.051666, ID: 3
+0
+sensor: 11, range: 1483, bearing: -76.765182, ID: 3
+0
+sensor: 11, range: 1478, bearing: -75.865639, ID: 3
+0
+sensor: 11, range: 1463, bearing: -75.229645, ID: 3
+0
+sensor: 11, range: 1455, bearing: -74.788467, ID: 3
+0
+sensor: 11, range: 1451, bearing: -74.605118, ID: 3
+0
+sensor: 11, range: 1459, bearing: -74.857224, ID: 3
+0
+sensor: 11, range: 1457, bearing: -75.470291, ID: 3
+0
+sensor: 11, range: 1467, bearing: -75.544777, ID: 3
+0
+sensor: 11, range: 1476, bearing: -76.140656, ID: 3
+0
+sensor: 11, range: 1479, bearing: -76.392761, ID: 3
+0
+sensor: 11, range: 1491, bearing: -76.879776, ID: 3
+0
+sensor: 11, range: 1475, bearing: -75.928658, ID: 3
+0
+sensor: 11, range: 1487, bearing: -76.369835, ID: 3
+0
+sensor: 11, range: 1474, bearing: -76.123466, ID: 3
+0
+sensor: 11, range: 1459, bearing: -75.189537, ID: 3
+0
+sensor: 11, range: 1466, bearing: -75.487480, ID: 3
+0
+sensor: 11, range: 1464, bearing: -75.527588, ID: 3
+0
+sensor: 11, range: 1476, bearing: -75.762497, ID: 3
+0
+sensor: 11, range: 1471, bearing: -75.808334, ID: 3
+0
+sensor: 11, range: 1483, bearing: -76.083359, ID: 3
+0
+sensor: 11, range: 1480, bearing: -76.203674, ID: 3
+0
+sensor: 11, range: 1475, bearing: -75.928658, ID: 3
+0
+sensor: 11, range: 1483, bearing: -76.152115, ID: 3
+0
+sensor: 11, range: 1481, bearing: -76.100548, ID: 3
+0
+sensor: 11, range: 1484, bearing: -76.186493, ID: 3
+0
+sensor: 11, range: 1484, bearing: -75.928658, ID: 3
+0
+sensor: 11, range: 1480, bearing: -76.089088, ID: 3
+0
+sensor: 11, range: 1487, bearing: -76.180763, ID: 3
+0
+sensor: 11, range: 1486, bearing: -76.524544, ID: 3
+0
+sensor: 11, range: 1477, bearing: -76.077629, ID: 3
+0
+sensor: 11, range: 1465, bearing: -75.630714, ID: 3
+0
+sensor: 11, range: 1464, bearing: -75.504669, ID: 3
+0
+sensor: 11, range: 1503, bearing: -77.739212, ID: 3
+0
+sensor: 11, range: 1505, bearing: -78.031425, ID: 3
+0
+sensor: 11, range: 1481, bearing: -76.914146, ID: 3
+0
+sensor: 11, range: 1497, bearing: -77.573051, ID: 3
+0
+sensor: 11, range: 1500, bearing: -77.710564, ID: 3
+0
+sensor: 11, range: 1481, bearing: -76.988632, ID: 3
+0
+sensor: 11, range: 1496, bearing: -77.624619, ID: 3
+0
+sensor: 11, range: 1482, bearing: -76.971451, ID: 3
+0
+sensor: 11, range: 1490, bearing: -77.538681, ID: 3
+0
+sensor: 11, range: 1484, bearing: -77.189171, ID: 3
+0
+sensor: 11, range: 1482, bearing: -77.011559, ID: 3
+0
+sensor: 11, range: 1485, bearing: -77.343872, ID: 3
+0
+sensor: 11, range: 1491, bearing: -77.412628, ID: 3
+0
+sensor: 11, range: 1481, bearing: -77.068848, ID: 3
+0
+sensor: 11, range: 1491, bearing: -77.469925, ID: 3
+0
+sensor: 11, range: 1495, bearing: -77.590248, ID: 3
+0
+sensor: 11, range: 1484, bearing: -77.189171, ID: 3
+0
+sensor: 11, range: 1462, bearing: -75.504669, ID: 3
+0
+sensor: 11, range: 1441, bearing: -74.089462, ID: 3
+0
+sensor: 11, range: 1448, bearing: -74.433228, ID: 3
+0
+sensor: 11, range: 1459, bearing: -74.857224, ID: 3
+0
+sensor: 11, range: 1510, bearing: -77.842346, ID: 3
+0
+sensor: 11, range: 1530, bearing: -79.309120, ID: 3
+0
+sensor: 11, range: 1551, bearing: -79.784676, ID: 3
+0
+sensor: 7, range: 1849, bearing: -87.450882, ID: 3
+0
+sensor: 7, range: 2161, bearing: -91.501717, ID: 3
+0
+sensor: 7, range: 1719, bearing: -84.494415, ID: 3
+0
+sensor: 7, range: 2347, bearing: -93.054436, ID: 3
+0
+sensor: 7, range: 2071, bearing: -115.617599, ID: 3
+0
+sensor: 7, range: 7231, bearing: -103.711487, ID: 3
+0
+sensor: 7, range: 19232, bearing: -105.178268, ID: 3
+0
+sensor: 7, range: 1764, bearing: -109.802055, ID: 3
+0
+sensor: 7, range: 1733, bearing: -109.074394, ID: 3
+0
+sensor: 7, range: 4870, bearing: -107.894096, ID: 3
+0
+sensor: 7, range: 6894, bearing: -103.591171, ID: 3
+0
+sensor: 7, range: 2032, bearing: -117.170311, ID: 3
+0
+sensor: 8, range: 2674, bearing: -118.969421, ID: 3
+0
+sensor: 8, range: 3119, bearing: -120.138245, ID: 3
+0
+sensor: 8, range: 3081, bearing: -120.745590, ID: 3
+0
+sensor: 8, range: 3138, bearing: -120.596626, ID: 3
+0
+sensor: 8, range: 3162, bearing: -122.126427, ID: 3
+0
+sensor: 8, range: 3471, bearing: -124.509941, ID: 3
+0
+sensor: 7, range: 2595, bearing: -124.406807, ID: 3
+0
+sensor: 4, range: 1391, bearing: -92.968491, ID: 3
+0
+sensor: 7, range: 1279, bearing: -87.261810, ID: 3
+0
+sensor: 7, range: 1278, bearing: -86.803444, ID: 3
+0
+sensor: 7, range: 1281, bearing: -86.895119, ID: 3
+0
+sensor: 7, range: 1276, bearing: -87.112839, ID: 3
+0
+sensor: 7, range: 1276, bearing: -86.963867, ID: 3
+0
+sensor: 7, range: 1288, bearing: -87.141487, ID: 3
+0
+sensor: 7, range: 1285, bearing: -87.198784, ID: 3
+0
+sensor: 7, range: 1293, bearing: -86.408096, ID: 3
+0
+sensor: 7, range: 1288, bearing: -85.944000, ID: 3
+0
+sensor: 7, range: 1299, bearing: -86.052864, ID: 3
+0
+sensor: 7, range: 1302, bearing: -86.505501, ID: 3
+0
+sensor: 7, range: 1292, bearing: -86.070053, ID: 3
+0
+sensor: 7, range: 1292, bearing: -86.058594, ID: 3
+0
+sensor: 7, range: 1291, bearing: -86.167450, ID: 3
+0
+sensor: 7, range: 1297, bearing: -86.350800, ID: 3
+0
+sensor: 7, range: 1294, bearing: -86.327881, ID: 3
+0
+sensor: 7, range: 1286, bearing: -86.092972, ID: 3
+0
+sensor: 7, range: 1294, bearing: -86.110161, ID: 3
+0
+sensor: 7, range: 1303, bearing: -86.379448, ID: 3
+0
+sensor: 7, range: 1275, bearing: -86.431015, ID: 3
+0
+sensor: 7, range: 1279, bearing: -86.379448, ID: 3
+0
+sensor: 7, range: 1276, bearing: -86.236214, ID: 3
+0
+sensor: 7, range: 1280, bearing: -86.579987, ID: 3
+0
+sensor: 7, range: 1271, bearing: -86.207558, ID: 3
+0
+sensor: 7, range: 1275, bearing: -86.350800, ID: 3
+0
+sensor: 7, range: 1279, bearing: -86.683121, ID: 3
+0
+sensor: 7, range: 1275, bearing: -86.442474, ID: 3
+0
+sensor: 7, range: 1282, bearing: -86.070053, ID: 3
+0
+sensor: 7, range: 1290, bearing: -86.087242, ID: 3
+0
+sensor: 7, range: 1270, bearing: -85.548653, ID: 3
+0
+sensor: 7, range: 1265, bearing: -85.428337, ID: 3
+0
+sensor: 7, range: 1270, bearing: -85.491364, ID: 3
+0
+sensor: 7, range: 1266, bearing: -84.408470, ID: 3
+0
+sensor: 7, range: 1284, bearing: -84.637650, ID: 3
+0
+sensor: 7, range: 1290, bearing: -85.050179, ID: 3
+0
+sensor: 7, range: 1280, bearing: -84.368362, ID: 3
+0
+sensor: 7, range: 1267, bearing: -84.849648, ID: 3
+0
+sensor: 7, range: 1278, bearing: -84.775162, ID: 3
+0
+sensor: 7, range: 1269, bearing: -84.677757, ID: 3
+0
+sensor: 7, range: 1262, bearing: -84.591820, ID: 3
+0
+sensor: 7, range: 1258, bearing: -84.540253, ID: 3
+0
+sensor: 7, range: 1274, bearing: -84.368362, ID: 3
+0
+sensor: 7, range: 1273, bearing: -84.362633, ID: 3
+0
+sensor: 7, range: 1262, bearing: -84.299606, ID: 3
+0
+sensor: 7, range: 1267, bearing: -84.637650, ID: 3
+0
+sensor: 7, range: 1276, bearing: -84.557434, ID: 3
+0
+sensor: 7, range: 1268, bearing: -84.528786, ID: 3
+0
+sensor: 7, range: 1272, bearing: -84.379822, ID: 3
+0
+sensor: 7, range: 1274, bearing: -84.557434, ID: 3
+0
+sensor: 7, range: 1273, bearing: -84.293877, ID: 3
+0
+sensor: 7, range: 1273, bearing: -84.586090, ID: 3
+0
+sensor: 7, range: 1270, bearing: -84.477219, ID: 3
+0
+sensor: 7, range: 1268, bearing: -84.672035, ID: 3
+0
+sensor: 7, range: 1267, bearing: -84.471489, ID: 3
+0
+sensor: 7, range: 1264, bearing: -84.282417, ID: 3
+0
+sensor: 7, range: 1267, bearing: -84.391273, ID: 3
+0
+sensor: 7, range: 1258, bearing: -84.379822, ID: 3
+0
+sensor: 7, range: 1263, bearing: -84.540253, ID: 3
+0
+sensor: 7, range: 1253, bearing: -84.431381, ID: 3
+0
+sensor: 7, range: 1307, bearing: -88.837448, ID: 3
+0
+sensor: 7, range: 1303, bearing: -87.725906, ID: 3
+0
+sensor: 7, range: 1290, bearing: -87.599854, ID: 3
+0
+sensor: 7, range: 1291, bearing: -86.379448, ID: 3
+0
+sensor: 7, range: 1291, bearing: -85.972649, ID: 3
+0
+sensor: 7, range: 1294, bearing: -87.422241, ID: 3
+0
+sensor: 7, range: 1319, bearing: -88.402000, ID: 3
+0
+sensor: 7, range: 1348, bearing: -90.350067, ID: 3
+0
+sensor: 7, range: 1346, bearing: -90.436012, ID: 3
+0
+sensor: 7, range: 1351, bearing: -90.699570, ID: 3
+0
+sensor: 7, range: 1397, bearing: -89.284363, ID: 3
+0
+sensor: 7, range: 1395, bearing: -88.550964, ID: 3
+0
+sensor: 7, range: 1449, bearing: -86.912300, ID: 3
+0
+sensor: 7, range: 1460, bearing: -86.115891, ID: 3
+0
+sensor: 7, range: 1429, bearing: -86.923759, ID: 3
+0
+sensor: 7, range: 1431, bearing: -86.425285, ID: 3
+0
+sensor: 7, range: 1431, bearing: -86.064323, ID: 3
+0
+sensor: 7, range: 1446, bearing: -85.978378, ID: 3
+0
+sensor: 7, range: 1446, bearing: -85.995560, ID: 3
+0
+sensor: 7, range: 1448, bearing: -86.316429, ID: 3
+0
+sensor: 7, range: 1434, bearing: -86.167450, ID: 3
+0
+sensor: 7, range: 1437, bearing: -86.201828, ID: 3
+0
+sensor: 7, range: 1444, bearing: -86.098701, ID: 3
+0
+sensor: 7, range: 1436, bearing: -86.070053, ID: 3
+0
+sensor: 7, range: 1445, bearing: -86.161720, ID: 3
+0
+sensor: 7, range: 1445, bearing: -86.196106, ID: 3
+0
+sensor: 7, range: 1611, bearing: -93.174759, ID: 3
+0
+sensor: 8, range: 2145, bearing: -94.440994, ID: 3
+0
+sensor: 8, range: 2111, bearing: -84.803810, ID: 3
+0
+sensor: 10, range: 3809, bearing: -55.388042, ID: 3
+0
+sensor: 11, range: 4322, bearing: -50.861660, ID: 3
+0
+sensor: 11, range: 3146, bearing: -63.426674, ID: 3
+0
+sensor: 11, range: 2729, bearing: -71.041313, ID: 3
+0
+sensor: 11, range: 2149, bearing: -57.542374, ID: 3
+0
+sensor: 11, range: 2099, bearing: -55.537014, ID: 3
+0
+sensor: 11, range: 2103, bearing: -55.714630, ID: 3
+0
+sensor: 11, range: 2165, bearing: -57.989281, ID: 3
+0
+sensor: 11, range: 2185, bearing: -58.980503, ID: 3
+0
+sensor: 11, range: 2194, bearing: -58.928936, ID: 3
+0
+sensor: 11, range: 2172, bearing: -59.645138, ID: 3
+0
+sensor: 11, range: 2178, bearing: -59.295628, ID: 3
+0
+sensor: 11, range: 2173, bearing: -59.175308, ID: 3
+0
+sensor: 11, range: 2199, bearing: -58.940395, ID: 3
+0
+sensor: 11, range: 2181, bearing: -59.089363, ID: 3
+0
+sensor: 11, range: 2189, bearing: -59.140930, ID: 3
+0
+sensor: 11, range: 2192, bearing: -59.112286, ID: 3
+0
+sensor: 11, range: 2193, bearing: -59.272713, ID: 3
+0
+sensor: 11, range: 2185, bearing: -59.198231, ID: 3
+0
+sensor: 11, range: 2192, bearing: -59.221146, ID: 3
+0
+sensor: 11, range: 2187, bearing: -59.238338, ID: 3
+0
+sensor: 11, range: 2194, bearing: -59.272713, ID: 3
+0
+sensor: 11, range: 2200, bearing: -59.370113, ID: 3
+0
+sensor: 11, range: 2185, bearing: -59.410221, ID: 3
+0
+sensor: 11, range: 2125, bearing: -58.774239, ID: 3
+0
+sensor: 11, range: 2025, bearing: -56.574070, ID: 3
+0
+sensor: 11, range: 2006, bearing: -56.682930, ID: 3
+0
+sensor: 11, range: 1984, bearing: -56.596989, ID: 3
+0
+sensor: 11, range: 1972, bearing: -56.459476, ID: 3
+0
+sensor: 11, range: 1982, bearing: -56.631367, ID: 3
+0
+sensor: 11, range: 1977, bearing: -56.516773, ID: 3
+0
+sensor: 11, range: 1984, bearing: -56.556881, ID: 3
+0
+sensor: 11, range: 1994, bearing: -56.579800, ID: 3
+0
+sensor: 11, range: 2000, bearing: -56.723038, ID: 3
+0
+sensor: 11, range: 1992, bearing: -56.637096, ID: 3
+0
+sensor: 11, range: 1996, bearing: -56.516773, ID: 3
+0
+sensor: 11, range: 1995, bearing: -56.665745, ID: 3
+0
+sensor: 11, range: 2000, bearing: -56.700123, ID: 3
+0
+sensor: 11, range: 1999, bearing: -56.562611, ID: 3
+0
+sensor: 11, range: 2013, bearing: -56.786064, ID: 3
+0
+sensor: 11, range: 1999, bearing: -56.591259, ID: 3
+0
+sensor: 11, range: 2004, bearing: -56.682930, ID: 3
+0
+sensor: 11, range: 2008, bearing: -56.797527, ID: 3
+0
+sensor: 11, range: 2003, bearing: -56.808983, ID: 3
+0
+sensor: 11, range: 2005, bearing: -56.740231, ID: 3
+0
+sensor: 11, range: 2006, bearing: -56.682930, ID: 3
+0
+sensor: 11, range: 1997, bearing: -56.677204, ID: 3
+0
+sensor: 11, range: 1999, bearing: -56.619907, ID: 3
+0
+sensor: 11, range: 2012, bearing: -56.757420, ID: 3
+0
+sensor: 11, range: 2004, bearing: -56.671474, ID: 3
+0
+sensor: 11, range: 2009, bearing: -56.808983, ID: 3
+0
+sensor: 11, range: 2001, bearing: -56.694393, ID: 3
+0
+sensor: 11, range: 2005, bearing: -56.791794, ID: 3
+0
+sensor: 11, range: 2007, bearing: -56.740231, ID: 3
+0
+sensor: 11, range: 2009, bearing: -56.768875, ID: 3
+0
+sensor: 11, range: 2000, bearing: -56.614178, ID: 3
+0
+sensor: 11, range: 1999, bearing: -56.677204, ID: 3
+0
+sensor: 11, range: 2001, bearing: -56.637096, ID: 3
+0
+sensor: 11, range: 1996, bearing: -56.591259, ID: 3
+0
+sensor: 11, range: 1996, bearing: -56.625637, ID: 3
+0
+sensor: 11, range: 1998, bearing: -56.631367, ID: 3
+0
+sensor: 11, range: 1999, bearing: -56.671474, ID: 3
+0
+sensor: 11, range: 2007, bearing: -56.768875, ID: 3
+0
+sensor: 11, range: 2003, bearing: -56.614178, ID: 3
+0
+sensor: 11, range: 1995, bearing: -56.608448, ID: 3
+0
+sensor: 11, range: 1999, bearing: -56.585529, ID: 3
+0
+sensor: 11, range: 1996, bearing: -56.660011, ID: 3
+0
+sensor: 11, range: 2003, bearing: -56.717312, ID: 3
+0
+sensor: 11, range: 1992, bearing: -56.596989, ID: 3
+0
+sensor: 11, range: 1997, bearing: -56.453751, ID: 3
+0
+sensor: 11, range: 2000, bearing: -56.642826, ID: 3
+0
+sensor: 11, range: 1996, bearing: -56.579800, ID: 3
+0
+sensor: 11, range: 2006, bearing: -56.665745, ID: 3
+0
+sensor: 11, range: 1996, bearing: -56.596989, ID: 3
+0
+sensor: 11, range: 2006, bearing: -56.585529, ID: 3
+0
+sensor: 11, range: 2007, bearing: -56.596989, ID: 3
+0
+sensor: 11, range: 1998, bearing: -56.660011, ID: 3
+0
+sensor: 11, range: 2008, bearing: -56.820446, ID: 3
+0
+sensor: 11, range: 2012, bearing: -56.768875, ID: 3
+0
+sensor: 11, range: 2005, bearing: -56.665745, ID: 3
+0
+sensor: 11, range: 2003, bearing: -56.688663, ID: 3
+0
+sensor: 11, range: 1998, bearing: -56.619907, ID: 3
+0
+sensor: 11, range: 2001, bearing: -56.625637, ID: 3
+0
+sensor: 11, range: 2005, bearing: -56.820446, ID: 3
+0
+sensor: 11, range: 2002, bearing: -56.631367, ID: 3
+0
+sensor: 11, range: 1998, bearing: -56.619907, ID: 3
+0
+sensor: 11, range: 2005, bearing: -56.768875, ID: 3
+0
+sensor: 11, range: 2005, bearing: -56.723038, ID: 3
+0
+sensor: 11, range: 1993, bearing: -56.602718, ID: 3
+0
+sensor: 11, range: 1987, bearing: -56.470940, ID: 3
+0
+sensor: 11, range: 1997, bearing: -56.614178, ID: 3
+0
+sensor: 11, range: 1993, bearing: -56.511047, ID: 3
+0
+sensor: 11, range: 2011, bearing: -56.596989, ID: 3
+0
+sensor: 11, range: 2029, bearing: -56.734501, ID: 3
+0
+sensor: 11, range: 2005, bearing: -56.516773, ID: 3
+0
+sensor: 11, range: 2023, bearing: -56.768875, ID: 3
+0
+sensor: 11, range: 2017, bearing: -56.648556, ID: 3
+0
+sensor: 11, range: 2011, bearing: -56.705849, ID: 3
+0
+sensor: 11, range: 2001, bearing: -56.579800, ID: 3
+0
+sensor: 11, range: 2020, bearing: -56.734501, ID: 3
+0
+sensor: 11, range: 2023, bearing: -56.768875, ID: 3
+0
+sensor: 11, range: 2010, bearing: -56.585529, ID: 3
+0
+sensor: 11, range: 2009, bearing: -56.614178, ID: 3
+0
+sensor: 11, range: 2003, bearing: -56.602718, ID: 3
+0
+sensor: 11, range: 2012, bearing: -56.665745, ID: 3
+0
+sensor: 11, range: 2030, bearing: -56.774605, ID: 3
+0
+sensor: 11, range: 2011, bearing: -56.545422, ID: 3
+0
+sensor: 11, range: 2009, bearing: -56.551151, ID: 3
+0
+sensor: 11, range: 2042, bearing: -56.854820, ID: 3
+0
+sensor: 11, range: 2049, bearing: -57.061085, ID: 3
+0
+sensor: 11, range: 2038, bearing: -56.843365, ID: 3
+0
+sensor: 11, range: 2037, bearing: -56.883469, ID: 3
+0
+sensor: 11, range: 2033, bearing: -56.757420, ID: 3
+0
+sensor: 11, range: 2037, bearing: -56.837631, ID: 3
+0
+sensor: 11, range: 2043, bearing: -56.889198, ID: 3
+0
+sensor: 11, range: 2047, bearing: -57.015247, ID: 3
+0
+sensor: 11, range: 2052, bearing: -57.061085, ID: 3
+0
+sensor: 11, range: 2046, bearing: -56.998062, ID: 3
+0
+sensor: 11, range: 2061, bearing: -57.112652, ID: 3
+0
+sensor: 11, range: 2059, bearing: -57.175678, ID: 3
+0
+sensor: 11, range: 2066, bearing: -57.055355, ID: 3
+0
+sensor: 11, range: 2057, bearing: -57.015247, ID: 3
+0
+sensor: 11, range: 2037, bearing: -56.826172, ID: 3
+0
+sensor: 11, range: 2042, bearing: -56.883469, ID: 3
+0
+sensor: 11, range: 2102, bearing: -57.691341, ID: 3
+0
+sensor: 11, range: 2747, bearing: -70.823586, ID: 3
+0
+sensor: 11, range: 3428, bearing: -79.188805, ID: 3
+0
+sensor: 7, range: 2715, bearing: -135.974869, ID: 3
+0
+sensor: 4, range: 2247, bearing: -168.816940, ID: 3
+0
+sensor: 4, range: 2340, bearing: -168.169479, ID: 3
+0
+sensor: 4, range: 2327, bearing: -168.513260, ID: 3
+0
+sensor: 4, range: 2362, bearing: -172.953705, ID: 3
+0
+sensor: 4, range: 2533, bearing: -171.624435, ID: 3
+0
+sensor: 7, range: 2683, bearing: -164.072830, ID: 3
+0
+sensor: 7, range: 2297, bearing: -158.658356, ID: 3
+0
+sensor: 7, range: 2317, bearing: -158.331757, ID: 3
+0
+sensor: 7, range: 2370, bearing: -158.721390, ID: 3
+0
+sensor: 7, range: 2406, bearing: -160.268372, ID: 3
+0
+sensor: 7, range: 2210, bearing: -162.560211, ID: 3
+0
+sensor: 7, range: 2220, bearing: -159.202667, ID: 3
+0
+sensor: 7, range: 2521, bearing: -139.309494, ID: 3
+0
+sensor: 7, range: 2745, bearing: -125.604294, ID: 3
+0
+sensor: 7, range: 2515, bearing: -133.791885, ID: 3
+0
+sensor: 7, range: 2609, bearing: -125.186035, ID: 3
+0
+sensor: 7, range: 2426, bearing: -111.973572, ID: 3
+0
+sensor: 7, range: 2713, bearing: -115.760841, ID: 3
+0
+sensor: 10, range: 1750, bearing: -87.330566, ID: 3
+0
+sensor: 10, range: 1615, bearing: -84.339714, ID: 3
+0
+sensor: 10, range: 1469, bearing: -82.552078, ID: 3
+0
+sensor: 10, range: 1444, bearing: -82.156738, ID: 3
+0
+sensor: 10, range: 1436, bearing: -82.002029, ID: 3
+0
+sensor: 10, range: 1453, bearing: -82.317162, ID: 3
+0
+sensor: 10, range: 1508, bearing: -83.749565, ID: 3
+0
+sensor: 10, range: 1632, bearing: -83.417244, ID: 3
+0
+sensor: 9, range: 1784, bearing: -80.816010, ID: 3
+0
+sensor: 9, range: 1752, bearing: -81.967659, ID: 3
+0
+sensor: 9, range: 1747, bearing: -82.414566, ID: 3
+0
+sensor: 10, range: 1652, bearing: -83.331299, ID: 3
+0
+sensor: 10, range: 1511, bearing: -84.448578, ID: 3
+0
+sensor: 10, range: 1438, bearing: -83.451622, ID: 3
+0
+sensor: 10, range: 1432, bearing: -83.365677, ID: 3
+0
+sensor: 10, range: 1436, bearing: -83.612053, ID: 3
+0
+sensor: 10, range: 1434, bearing: -83.331299, ID: 3
+0
+sensor: 10, range: 1433, bearing: -83.445892, ID: 3
+0
+sensor: 10, range: 1421, bearing: -83.783943, ID: 3
+0
+sensor: 10, range: 1432, bearing: -84.024582, ID: 3
+0
+sensor: 10, range: 1396, bearing: -85.021530, ID: 3
+0
+sensor: 10, range: 1455, bearing: -85.686165, ID: 3
+0
+sensor: 10, range: 1422, bearing: -86.494041, ID: 3
+0
+sensor: 10, range: 1421, bearing: -86.660194, ID: 3
+0
+sensor: 10, range: 1420, bearing: -86.178917, ID: 3
+0
+sensor: 10, range: 1428, bearing: -86.453934, ID: 3
+0
+sensor: 10, range: 1421, bearing: -86.373718, ID: 3
+0
+sensor: 10, range: 1419, bearing: -86.127342, ID: 3
+0
+sensor: 10, range: 1463, bearing: -86.442474, ID: 3
+0
+sensor: 10, range: 1451, bearing: -85.055908, ID: 3
+0
+sensor: 10, range: 1473, bearing: -83.199516, ID: 3
+0
+sensor: 10, range: 1434, bearing: -84.007401, ID: 3
+0
+sensor: 10, range: 1449, bearing: -84.591820, ID: 3
+0
+sensor: 10, range: 1485, bearing: -85.313744, ID: 3
+0
+sensor: 10, range: 1485, bearing: -84.230850, ID: 3
+0
+sensor: 7, range: 1800, bearing: -97.156822, ID: 3
+0
+sensor: 7, range: 3752, bearing: -122.286858, ID: 3
+0
+sensor: 7, range: 2503, bearing: -131.729233, ID: 3
+0
+sensor: 7, range: 2486, bearing: -128.612335, ID: 3
+0
+sensor: 7, range: 2259, bearing: -124.951118, ID: 3
+0
+sensor: 7, range: 2193, bearing: -125.701691, ID: 3
+0
+sensor: 7, range: 2141, bearing: -124.515663, ID: 3
+0
+sensor: 7, range: 2067, bearing: -123.066071, ID: 3
+0
+sensor: 7, range: 2178, bearing: -132.863693, ID: 3
+0
+sensor: 7, range: 2318, bearing: -137.011932, ID: 3
+0
+sensor: 7, range: 3254, bearing: -132.697540, ID: 3
+0
+sensor: 7, range: 3289, bearing: -133.356430, ID: 3
+0
+sensor: 7, range: 3208, bearing: -136.393127, ID: 3
+0
+sensor: 7, range: 3173, bearing: -136.719711, ID: 3
+0
+sensor: 7, range: 3224, bearing: -135.321701, ID: 3
+0
+sensor: 7, range: 3409, bearing: -132.886612, ID: 3
+0
+sensor: 7, range: 3384, bearing: -133.310608, ID: 3
+0
+sensor: 7, range: 3677, bearing: -128.824326, ID: 3
+0
+sensor: 7, range: 3632, bearing: -128.704010, ID: 3
+0
+sensor: 7, range: 1953, bearing: -106.089272, ID: 3
+0
+sensor: 9, range: 1399, bearing: -94.097221, ID: 3
+0
+sensor: 9, range: 1381, bearing: -94.314941, ID: 3
+0
+sensor: 9, range: 1378, bearing: -94.280571, ID: 3
+0
+sensor: 9, range: 1379, bearing: -94.057114, ID: 3
+0
+sensor: 9, range: 1385, bearing: -94.280571, ID: 3
+0
+sensor: 9, range: 1377, bearing: -94.160248, ID: 3
+0
+sensor: 9, range: 1374, bearing: -94.143051, ID: 3
+0
+sensor: 9, range: 1411, bearing: -94.039925, ID: 3
+0
+sensor: 9, range: 1389, bearing: -94.062843, ID: 3
+0
+sensor: 9, range: 1382, bearing: -94.051384, ID: 3
+0
+sensor: 9, range: 1386, bearing: -94.034195, ID: 3
+0
+sensor: 9, range: 1385, bearing: -94.091492, ID: 3
+0
+sensor: 9, range: 1383, bearing: -93.885231, ID: 3
+0
+sensor: 9, range: 1391, bearing: -94.045654, ID: 3
+0
+sensor: 9, range: 1385, bearing: -94.171707, ID: 3
+0
+sensor: 9, range: 1389, bearing: -94.045654, ID: 3
+0
+sensor: 9, range: 1389, bearing: -94.154518, ID: 3
+0
+sensor: 9, range: 1392, bearing: -94.085762, ID: 3
+0
+sensor: 9, range: 1406, bearing: -93.776360, ID: 3
+0
+sensor: 9, range: 1398, bearing: -94.200356, ID: 3
+0
+sensor: 9, range: 1391, bearing: -94.194626, ID: 3
+0
+sensor: 9, range: 1389, bearing: -94.091492, ID: 3
+0
+sensor: 9, range: 1391, bearing: -94.074303, ID: 3
+0
+sensor: 9, range: 1394, bearing: -94.206085, ID: 3
+0
+sensor: 9, range: 1389, bearing: -94.120140, ID: 3
+0
+sensor: 9, range: 1384, bearing: -94.246193, ID: 3
+0
+sensor: 9, range: 1405, bearing: -94.085762, ID: 3
+0
+sensor: 9, range: 1414, bearing: -94.051384, ID: 3
+0
+sensor: 9, range: 1388, bearing: -94.039925, ID: 3
+0
+sensor: 9, range: 1393, bearing: -94.211815, ID: 3
+0
+sensor: 9, range: 1388, bearing: -94.080032, ID: 3
+0
+sensor: 9, range: 1379, bearing: -94.022736, ID: 3
+0
+sensor: 9, range: 1388, bearing: -94.143051, ID: 3
+0
+sensor: 9, range: 1390, bearing: -94.091492, ID: 3
+0
+sensor: 9, range: 1401, bearing: -94.125870, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.988358, ID: 3
+0
+sensor: 9, range: 1395, bearing: -94.108681, ID: 3
+0
+sensor: 9, range: 1382, bearing: -93.994087, ID: 3
+0
+sensor: 9, range: 1379, bearing: -93.936790, ID: 3
+0
+sensor: 9, range: 1394, bearing: -94.045654, ID: 3
+0
+sensor: 9, range: 1381, bearing: -94.062843, ID: 3
+0
+sensor: 9, range: 1388, bearing: -94.188889, ID: 3
+0
+sensor: 9, range: 1395, bearing: -93.948250, ID: 3
+0
+sensor: 9, range: 1378, bearing: -94.125870, ID: 3
+0
+sensor: 9, range: 1384, bearing: -94.017006, ID: 3
+0
+sensor: 9, range: 1384, bearing: -94.034195, ID: 3
+0
+sensor: 9, range: 1390, bearing: -93.982628, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.873764, ID: 3
+0
+sensor: 9, range: 1383, bearing: -93.896683, ID: 3
+0
+sensor: 9, range: 1381, bearing: -93.850853, ID: 3
+0
+sensor: 9, range: 1380, bearing: -94.011276, ID: 3
+0
+sensor: 9, range: 1375, bearing: -93.896683, ID: 3
+0
+sensor: 9, range: 1397, bearing: -94.068573, ID: 3
+0
+sensor: 9, range: 1375, bearing: -93.913872, ID: 3
+0
+sensor: 9, range: 1380, bearing: -93.896683, ID: 3
+0
+sensor: 9, range: 1378, bearing: -93.902412, ID: 3
+0
+sensor: 9, range: 1374, bearing: -93.896683, ID: 3
+0
+sensor: 9, range: 1374, bearing: -93.816467, ID: 3
+0
+sensor: 9, range: 1387, bearing: -94.097221, ID: 3
+0
+sensor: 9, range: 845, bearing: -97.643837, ID: 3
+0
+sensor: 9, range: 1383, bearing: -94.039925, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.999817, ID: 3
+0
+sensor: 9, range: 1376, bearing: -93.959709, ID: 3
+0
+sensor: 9, range: 1375, bearing: -93.845123, ID: 3
+0
+sensor: 9, range: 1377, bearing: -93.919601, ID: 3
+0
+sensor: 9, range: 1376, bearing: -94.017006, ID: 3
+0
+sensor: 9, range: 1380, bearing: -93.942520, ID: 3
+0
+sensor: 9, range: 1387, bearing: -93.816467, ID: 3
+0
+sensor: 9, range: 1382, bearing: -93.764908, ID: 3
+0
+sensor: 9, range: 1388, bearing: -93.971169, ID: 3
+0
+sensor: 9, range: 1378, bearing: -93.862305, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.994087, ID: 3
+0
+sensor: 9, range: 1375, bearing: -93.971169, ID: 3
+0
+sensor: 9, range: 1378, bearing: -93.919601, ID: 3
+0
+sensor: 9, range: 1376, bearing: -93.931068, ID: 3
+0
+sensor: 9, range: 1380, bearing: -94.011276, ID: 3
+0
+sensor: 9, range: 1395, bearing: -93.690414, ID: 3
+0
+sensor: 9, range: 1383, bearing: -93.948250, ID: 3
+0
+sensor: 9, range: 1404, bearing: -93.696144, ID: 3
+0
+sensor: 9, range: 1378, bearing: -93.896683, ID: 3
+0
+sensor: 9, range: 1387, bearing: -94.177437, ID: 3
+0
+sensor: 9, range: 1389, bearing: -93.999817, ID: 3
+0
+sensor: 9, range: 1415, bearing: -94.011276, ID: 3
+0
+sensor: 9, range: 1385, bearing: -94.160248, ID: 3
+0
+sensor: 9, range: 1394, bearing: -94.011276, ID: 3
+0
+sensor: 9, range: 1398, bearing: -93.913872, ID: 3
+0
+sensor: 9, range: 1380, bearing: -93.908142, ID: 3
+0
+sensor: 9, range: 1387, bearing: -94.005547, ID: 3
+0
+sensor: 9, range: 1408, bearing: -94.074303, ID: 3
+0
+sensor: 9, range: 1386, bearing: -94.051384, ID: 3
+0
+sensor: 9, range: 1386, bearing: -94.011276, ID: 3
+0
+sensor: 9, range: 1382, bearing: -93.868034, ID: 3
+0
+sensor: 9, range: 1386, bearing: -93.719070, ID: 3
+0
+sensor: 9, range: 1395, bearing: -94.097221, ID: 3
+0
+sensor: 9, range: 1391, bearing: -93.959709, ID: 3
+0
+sensor: 9, range: 1382, bearing: -93.942520, ID: 3
+0
+sensor: 9, range: 1388, bearing: -93.908142, ID: 3
+0
+sensor: 9, range: 1388, bearing: -93.965439, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.931068, ID: 3
+0
+sensor: 9, range: 1380, bearing: -93.850853, ID: 3
+0
+sensor: 9, range: 1387, bearing: -94.045654, ID: 3
+0
+sensor: 9, range: 1386, bearing: -93.896683, ID: 3
+0
+sensor: 9, range: 1386, bearing: -93.730522, ID: 3
+0
+sensor: 9, range: 1391, bearing: -93.925331, ID: 3
+0
+sensor: 9, range: 1395, bearing: -93.707611, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.879494, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.782089, ID: 3
+0
+sensor: 9, range: 1393, bearing: -94.051384, ID: 3
+0
+sensor: 9, range: 1398, bearing: -94.137329, ID: 3
+0
+sensor: 9, range: 1391, bearing: -94.028465, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.816467, ID: 3
+0
+sensor: 9, range: 1406, bearing: -93.793549, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.982628, ID: 3
+0
+sensor: 9, range: 1383, bearing: -93.999817, ID: 3
+0
+sensor: 9, range: 1391, bearing: -94.091492, ID: 3
+0
+sensor: 9, range: 1383, bearing: -93.913872, ID: 3
+0
+sensor: 9, range: 1383, bearing: -93.839394, ID: 3
+0
+sensor: 9, range: 1388, bearing: -93.959709, ID: 3
+0
+sensor: 9, range: 1387, bearing: -93.988358, ID: 3
+0
+sensor: 9, range: 1381, bearing: -93.879494, ID: 3
+0
+sensor: 9, range: 1384, bearing: -93.931068, ID: 3
+0
+sensor: 9, range: 1397, bearing: -93.953979, ID: 3
+0
+sensor: 9, range: 1388, bearing: -93.988358, ID: 3
+0
+sensor: 9, range: 1381, bearing: -93.810745, ID: 3
+0
+sensor: 9, range: 1381, bearing: -93.839394, ID: 3
+0
+sensor: 9, range: 1390, bearing: -93.976898, ID: 3
+0
+sensor: 9, range: 1394, bearing: -94.005547, ID: 3
+0
+sensor: 9, range: 1391, bearing: -93.942520, ID: 3
+0
+sensor: 9, range: 1383, bearing: -93.959709, ID: 3
+0
+sensor: 9, range: 1381, bearing: -94.309212, ID: 3
+0
+sensor: 9, range: 1380, bearing: -95.054062, ID: 3
+0
+sensor: 9, range: 1388, bearing: -94.372246, ID: 3
+0
+sensor: 9, range: 1391, bearing: -94.062843, ID: 3
+0
+sensor: 9, range: 1394, bearing: -93.931068, ID: 3
+0
+sensor: 9, range: 1433, bearing: -92.945572, ID: 3
+0
+sensor: 9, range: 1413, bearing: -93.381020, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.948250, ID: 3
+0
+sensor: 9, range: 1374, bearing: -93.908142, ID: 3
+0
+sensor: 9, range: 1371, bearing: -93.994087, ID: 3
+0
+sensor: 9, range: 1368, bearing: -93.885231, ID: 3
+0
+sensor: 9, range: 1383, bearing: -93.770638, ID: 3
+0
+sensor: 9, range: 1389, bearing: -93.478424, ID: 3
+0
+sensor: 9, range: 1405, bearing: -93.415398, ID: 3
+0
+sensor: 9, range: 1378, bearing: -93.432587, ID: 3
+0
+sensor: 9, range: 1377, bearing: -93.415398, ID: 3
+0
+sensor: 9, range: 1382, bearing: -93.392479, ID: 3
+0
+sensor: 9, range: 1376, bearing: -93.444046, ID: 3
+0
+sensor: 9, range: 1386, bearing: -93.415398, ID: 3
+0
+sensor: 9, range: 1377, bearing: -93.300804, ID: 3
+0
+sensor: 9, range: 1381, bearing: -93.638855, ID: 3
+0
+sensor: 9, range: 1382, bearing: -93.501343, ID: 3
+0
+sensor: 9, range: 1384, bearing: -93.547180, ID: 3
+0
+sensor: 9, range: 1374, bearing: -93.421127, ID: 3
+0
+sensor: 9, range: 1370, bearing: -93.512802, ID: 3
+0
+sensor: 9, range: 1380, bearing: -93.524254, ID: 3
+0
+sensor: 9, range: 1387, bearing: -93.696144, ID: 3
+0
+sensor: 9, range: 1376, bearing: -93.392479, ID: 3
+0
+sensor: 9, range: 1379, bearing: -93.415398, ID: 3
+0
+sensor: 9, range: 1381, bearing: -93.570091, ID: 3
+0
+sensor: 9, range: 1376, bearing: -93.272163, ID: 3
+0
+sensor: 9, range: 1404, bearing: -93.512802, ID: 3
+0
+sensor: 9, range: 1388, bearing: -93.249237, ID: 3
+0
+sensor: 9, range: 1388, bearing: -93.352379, ID: 3
+0
+sensor: 9, range: 1375, bearing: -93.358109, ID: 3
+0
+sensor: 9, range: 1383, bearing: -93.134651, ID: 3
+0
+sensor: 9, range: 1400, bearing: -93.220596, ID: 3
+0
+sensor: 9, range: 1383, bearing: -93.254967, ID: 3
+0
+sensor: 9, range: 1394, bearing: -93.151840, ID: 3
+0
+sensor: 9, range: 1392, bearing: -93.369560, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.398216, ID: 3
+0
+sensor: 9, range: 1380, bearing: -93.352379, ID: 3
+0
+sensor: 9, range: 1387, bearing: -93.524254, ID: 3
+0
+sensor: 9, range: 1380, bearing: -93.214859, ID: 3
+0
+sensor: 9, range: 1389, bearing: -93.237778, ID: 3
+0
+sensor: 9, range: 1402, bearing: -93.272163, ID: 3
+0
+sensor: 9, range: 1380, bearing: -93.478424, ID: 3
+0
+sensor: 9, range: 1384, bearing: -93.432587, ID: 3
+0
+sensor: 9, range: 1378, bearing: -93.489883, ID: 3
+0
+sensor: 9, range: 1388, bearing: -93.283615, ID: 3
+0
+sensor: 9, range: 1388, bearing: -93.174759, ID: 3
+0
+sensor: 9, range: 1388, bearing: -93.220596, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.277885, ID: 3
+0
+sensor: 9, range: 1393, bearing: -93.318001, ID: 3
+0
+sensor: 9, range: 1394, bearing: -93.444046, ID: 3
+0
+sensor: 9, range: 1397, bearing: -93.335182, ID: 3
+0
+sensor: 9, range: 1377, bearing: -93.140381, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.346642, ID: 3
+0
+sensor: 9, range: 1387, bearing: -93.426857, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.381020, ID: 3
+0
+sensor: 9, range: 1378, bearing: -93.432587, ID: 3
+0
+sensor: 9, range: 1386, bearing: -93.461235, ID: 3
+0
+sensor: 9, range: 1378, bearing: -93.369560, ID: 3
+0
+sensor: 9, range: 1379, bearing: -93.312271, ID: 3
+0
+sensor: 9, range: 1394, bearing: -93.403938, ID: 3
+0
+sensor: 9, range: 1386, bearing: -93.306534, ID: 3
+0
+sensor: 9, range: 1400, bearing: -93.140381, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.329453, ID: 3
+0
+sensor: 9, range: 1382, bearing: -93.403938, ID: 3
+0
+sensor: 9, range: 1375, bearing: -93.466965, ID: 3
+0
+sensor: 9, range: 1387, bearing: -93.403938, ID: 3
+0
+sensor: 9, range: 1381, bearing: -93.358109, ID: 3
+0
+sensor: 9, range: 1393, bearing: -93.421127, ID: 3
+0
+sensor: 9, range: 1391, bearing: -93.243507, ID: 3
+0
+sensor: 9, range: 1381, bearing: -93.111732, ID: 3
+0
+sensor: 9, range: 1398, bearing: -93.237778, ID: 3
+0
+sensor: 9, range: 1384, bearing: -93.375290, ID: 3
+0
+sensor: 9, range: 1389, bearing: -93.277885, ID: 3
+0
+sensor: 9, range: 1387, bearing: -93.529991, ID: 3
+0
+sensor: 9, range: 1390, bearing: -93.375290, ID: 3
+0
+sensor: 9, range: 1388, bearing: -93.432587, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.501343, ID: 3
+0
+sensor: 9, range: 1382, bearing: -93.375290, ID: 3
+0
+sensor: 9, range: 1384, bearing: -93.398216, ID: 3
+0
+sensor: 9, range: 1397, bearing: -93.375290, ID: 3
+0
+sensor: 9, range: 1383, bearing: -93.346642, ID: 3
+0
+sensor: 9, range: 1383, bearing: -93.381020, ID: 3
+0
+sensor: 9, range: 1390, bearing: -93.300804, ID: 3
+0
+sensor: 9, range: 1381, bearing: -93.340912, ID: 3
+0
+sensor: 9, range: 1380, bearing: -93.151840, ID: 3
+0
+sensor: 9, range: 1388, bearing: -93.323723, ID: 3
+0
+sensor: 9, range: 1393, bearing: -93.375290, ID: 3
+0
+sensor: 9, range: 1382, bearing: -93.306534, ID: 3
+0
+sensor: 9, range: 1409, bearing: -93.197670, ID: 3
+0
+sensor: 9, range: 1380, bearing: -93.191948, ID: 3
+0
+sensor: 9, range: 1382, bearing: -93.260696, ID: 3
+0
+sensor: 9, range: 1380, bearing: -93.386749, ID: 3
+0
+sensor: 9, range: 1381, bearing: -93.226326, ID: 3
+0
+sensor: 9, range: 1386, bearing: -93.117455, ID: 3
+0
+sensor: 9, range: 1389, bearing: -93.226326, ID: 3
+0
+sensor: 9, range: 1386, bearing: -93.151840, ID: 3
+0
+sensor: 9, range: 1390, bearing: -93.220596, ID: 3
+0
+sensor: 9, range: 1383, bearing: -93.214859, ID: 3
+0
+sensor: 9, range: 1400, bearing: -93.363831, ID: 3
+0
+sensor: 9, range: 1384, bearing: -93.403938, ID: 3
+0
+sensor: 9, range: 1380, bearing: -93.409668, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.306534, ID: 3
+0
+sensor: 9, range: 1384, bearing: -93.472694, ID: 3
+0
+sensor: 9, range: 1388, bearing: -93.449776, ID: 3
+0
+sensor: 9, range: 1388, bearing: -93.329453, ID: 3
+0
+sensor: 9, range: 1384, bearing: -93.466965, ID: 3
+0
+sensor: 9, range: 1391, bearing: -93.289345, ID: 3
+0
+sensor: 9, range: 1390, bearing: -93.300804, ID: 3
+0
+sensor: 9, range: 1381, bearing: -93.197670, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.071617, ID: 3
+0
+sensor: 9, range: 1394, bearing: -93.203400, ID: 3
+0
+sensor: 9, range: 1414, bearing: -93.071617, ID: 3
+0
+sensor: 9, range: 1390, bearing: -93.237778, ID: 3
+0
+sensor: 9, range: 1383, bearing: -93.254967, ID: 3
+0
+sensor: 9, range: 1391, bearing: -93.306534, ID: 3
+0
+sensor: 9, range: 1383, bearing: -93.157562, ID: 3
+0
+sensor: 9, range: 1387, bearing: -93.346642, ID: 3
+0
+sensor: 9, range: 1383, bearing: -93.140381, ID: 3
+0
+sensor: 9, range: 1385, bearing: -93.163292, ID: 3
+0
+sensor: 9, range: 1386, bearing: -93.191948, ID: 3
+0
+sensor: 9, range: 1393, bearing: -93.283615, ID: 3
+0
+sensor: 9, range: 1394, bearing: -93.277885, ID: 3
+0
+sensor: 9, range: 1378, bearing: -93.581558, ID: 3
+0
+sensor: 9, range: 1388, bearing: -94.085762, ID: 3
+0
+sensor: 9, range: 1399, bearing: -93.375290, ID: 3
+0
+sensor: 9, range: 1425, bearing: -93.335182, ID: 3
+0
+sensor: 9, range: 1428, bearing: -93.392479, ID: 3
+0
+sensor: 9, range: 1413, bearing: -93.295074, ID: 3
+0
+sensor: 9, range: 1384, bearing: -93.541451, ID: 3
+0
+sensor: 9, range: 1394, bearing: -93.667503, ID: 3
+0
+sensor: 9, range: 1429, bearing: -93.638855, ID: 3
+0
+sensor: 9, range: 1559, bearing: -95.449409, ID: 3
+0
+sensor: 7, range: 1871, bearing: -98.738197, ID: 3
+0
+sensor: 7, range: 2182, bearing: -105.665283, ID: 3
+0
+sensor: 7, range: 2475, bearing: -99.173645, ID: 3
+0
+sensor: 7, range: 2716, bearing: -103.883377, ID: 3
+0
+sensor: 7, range: 2654, bearing: -101.224838, ID: 3
+0
+sensor: 7, range: 2767, bearing: -107.716484, ID: 3
+0
+sensor: 7, range: 2848, bearing: -107.000282, ID: 3
+0
+sensor: 7, range: 3059, bearing: -111.927734, ID: 3
+0
+sensor: 7, range: 2560, bearing: -110.094261, ID: 3
+0
+sensor: 7, range: 2266, bearing: -109.297852, ID: 3
+0
+sensor: 7, range: 2991, bearing: -110.598473, ID: 3
+0
+sensor: 7, range: 3058, bearing: -113.721100, ID: 3
+0
+sensor: 7, range: 2804, bearing: -109.578598, ID: 3
+0
+sensor: 7, range: 2500, bearing: -102.330658, ID: 3
+0
+sensor: 7, range: 2544, bearing: -99.007484, ID: 3
+0
+sensor: 7, range: 2547, bearing: -94.796234, ID: 3
+0
+sensor: 7, range: 2445, bearing: -90.384445, ID: 3
+0
+sensor: 7, range: 3018, bearing: -78.787735, ID: 3
+0
+sensor: 7, range: 2927, bearing: -75.728127, ID: 3
+0
+sensor: 7, range: 2939, bearing: -75.544777, ID: 3
+0
+sensor: 7, range: 2902, bearing: -75.269753, ID: 3
+0
+sensor: 11, range: 2500, bearing: -58.487759, ID: 3
+0
+sensor: 11, range: 3077, bearing: -53.674892, ID: 3
+0
+sensor: 11, range: 2005, bearing: -44.988819, ID: 3
+0
+sensor: 11, range: 1986, bearing: -44.415859, ID: 3
+0
+sensor: 11, range: 2025, bearing: -45.040386, ID: 3
+0
+sensor: 11, range: 2029, bearing: -45.429996, ID: 3
+0
+sensor: 11, range: 1830, bearing: -41.195824, ID: 3
+0
+sensor: 11, range: 1839, bearing: -41.551060, ID: 3
+0
+sensor: 11, range: 1867, bearing: -41.934940, ID: 3
+0
+sensor: 11, range: 1834, bearing: -41.562519, ID: 3
+0
+sensor: 11, range: 1830, bearing: -41.551060, ID: 3
+0
+sensor: 11, range: 1842, bearing: -41.585438, ID: 3
+0
+sensor: 11, range: 1804, bearing: -41.127068, ID: 3
+0
+sensor: 11, range: 1821, bearing: -41.482304, ID: 3
+0
+sensor: 11, range: 1827, bearing: -41.659920, ID: 3
+0
+sensor: 11, range: 1815, bearing: -41.447926, ID: 3
+0
+sensor: 11, range: 1805, bearing: -41.304687, ID: 3
+0
+sensor: 11, range: 1807, bearing: -41.339066, ID: 3
+0
+sensor: 11, range: 1821, bearing: -41.694302, ID: 3
+0
+sensor: 11, range: 1808, bearing: -41.281769, ID: 3
+0
+sensor: 11, range: 1858, bearing: -42.089642, ID: 3
+0
+sensor: 11, range: 1832, bearing: -41.745865, ID: 3
+0
+sensor: 11, range: 1827, bearing: -41.722946, ID: 3
+0
+sensor: 11, range: 1827, bearing: -41.745865, ID: 3
+0
+sensor: 11, range: 1845, bearing: -42.135479, ID: 3
+0
+sensor: 11, range: 1846, bearing: -42.164127, ID: 3
+0
+sensor: 11, range: 1841, bearing: -42.055264, ID: 3
+0
+sensor: 11, range: 1836, bearing: -41.837540, ID: 3
+0
+sensor: 11, range: 1840, bearing: -41.957859, ID: 3
+0
+sensor: 11, range: 1844, bearing: -42.146938, ID: 3
+0
+sensor: 11, range: 1872, bearing: -42.204235, ID: 3
+0
+sensor: 11, range: 1839, bearing: -41.980782, ID: 3
+0
+sensor: 11, range: 1814, bearing: -41.562519, ID: 3
+0
+sensor: 11, range: 1842, bearing: -41.992237, ID: 3
+0
+sensor: 11, range: 1825, bearing: -41.677113, ID: 3
+0
+sensor: 11, range: 1828, bearing: -41.940674, ID: 3
+0
+sensor: 11, range: 1840, bearing: -42.072453, ID: 3
+0
+sensor: 11, range: 1835, bearing: -42.015156, ID: 3
+0
+sensor: 11, range: 1837, bearing: -41.952129, ID: 3
+0
+sensor: 11, range: 1851, bearing: -42.261528, ID: 3
+0
+sensor: 11, range: 1845, bearing: -42.158398, ID: 3
+0
+sensor: 11, range: 1829, bearing: -41.826080, ID: 3
+0
+sensor: 11, range: 1855, bearing: -42.181316, ID: 3
+0
+sensor: 11, range: 1834, bearing: -41.768784, ID: 3
+0
+sensor: 11, range: 1834, bearing: -41.843269, ID: 3
+0
+sensor: 11, range: 1842, bearing: -41.992237, ID: 3
+0
+sensor: 11, range: 1834, bearing: -41.934940, ID: 3
+0
+sensor: 11, range: 1833, bearing: -41.831810, ID: 3
+0
+sensor: 11, range: 1823, bearing: -41.447926, ID: 3
+0
+sensor: 11, range: 1830, bearing: -41.757324, ID: 3
+0
+sensor: 11, range: 1829, bearing: -41.717220, ID: 3
+0
+sensor: 11, range: 1857, bearing: -41.763054, ID: 3
+0
+sensor: 11, range: 1822, bearing: -41.476574, ID: 3
+0
+sensor: 11, range: 1820, bearing: -41.505222, ID: 3
+0
+sensor: 11, range: 1823, bearing: -41.499493, ID: 3
+0
+sensor: 11, range: 1833, bearing: -41.579704, ID: 3
+0
+sensor: 11, range: 1827, bearing: -41.453655, ID: 3
+0
+sensor: 11, range: 1816, bearing: -41.258850, ID: 3
+0
+sensor: 11, range: 1840, bearing: -41.854729, ID: 3
+0
+sensor: 11, range: 1819, bearing: -41.516682, ID: 3
+0
+sensor: 11, range: 1848, bearing: -41.860458, ID: 3
+0
+sensor: 11, range: 1812, bearing: -41.407822, ID: 3
+0
+sensor: 11, range: 1828, bearing: -41.705757, ID: 3
+0
+sensor: 11, range: 1808, bearing: -41.436466, ID: 3
+0
+sensor: 11, range: 1821, bearing: -41.688568, ID: 3
+0
+sensor: 11, range: 1823, bearing: -41.608356, ID: 3
+0
+sensor: 11, range: 1820, bearing: -41.677113, ID: 3
+0
+sensor: 11, range: 1834, bearing: -41.837540, ID: 3
+0
+sensor: 11, range: 1832, bearing: -41.975048, ID: 3
+0
+sensor: 11, range: 1827, bearing: -41.848999, ID: 3
+0
+sensor: 11, range: 1813, bearing: -41.465115, ID: 3
+0
+sensor: 11, range: 1835, bearing: -42.009426, ID: 3
+0
+sensor: 11, range: 1818, bearing: -42.341743, ID: 3
+0
+sensor: 11, range: 1797, bearing: -42.187046, ID: 3
+0
+sensor: 11, range: 1815, bearing: -42.502174, ID: 3
+0
+sensor: 11, range: 1825, bearing: -43.000648, ID: 3
+0
+sensor: 11, range: 1825, bearing: -42.811569, ID: 3
+0
+sensor: 11, range: 1924, bearing: -45.114872, ID: 3
+0
+sensor: 11, range: 2239, bearing: -51.136681, ID: 3
+0
+sensor: 11, range: 2448, bearing: -71.064224, ID: 3
+0
+sensor: 7, range: 4549, bearing: -83.262550, ID: 3
+0
+sensor: 0, range: 3536, bearing: -56.906387, ID: 3
+0
+sensor: 0, range: 2686, bearing: -30.544498, ID: 3
+0
+sensor: 0, range: 3164, bearing: -34.858887, ID: 3
+0
+sensor: 0, range: 4399, bearing: -50.884579, ID: 3
+0
+sensor: 7, range: 1402, bearing: -79.927917, ID: 3
+0
+sensor: 7, range: 1076, bearing: -89.364571, ID: 3
+0
+sensor: 7, range: 1080, bearing: -90.017746, ID: 3
+0
+sensor: 7, range: 1077, bearing: -90.172447, ID: 3
+0
+sensor: 7, range: 1461, bearing: -88.780151, ID: 3
+0
+sensor: 7, range: 3379, bearing: -62.561504, ID: 3
+0
+sensor: 7, range: 3782, bearing: -63.438133, ID: 3
+0
+sensor: 7, range: 4276, bearing: -54.202015, ID: 3
+0
+sensor: 7, range: 1630, bearing: -102.794754, ID: 3
+0
+sensor: 7, range: 1480, bearing: -117.628693, ID: 3
+0
+sensor: 7, range: 1481, bearing: -109.114502, ID: 3
+0
+sensor: 7, range: 1799, bearing: -93.805016, ID: 3
+0
+sensor: 7, range: 2276, bearing: -82.305702, ID: 3
+0
+sensor: 7, range: 2529, bearing: -79.664360, ID: 3
+0
+sensor: 7, range: 2665, bearing: -77.916832, ID: 3
+0
+sensor: 7, range: 2710, bearing: -79.532578, ID: 3
+0
+sensor: 7, range: 2367, bearing: -79.778946, ID: 3
+0
+sensor: 8, range: 1970, bearing: -75.223915, ID: 3
+0
+sensor: 9, range: 1926, bearing: -74.307182, ID: 3
+0
+sensor: 8, range: 1876, bearing: -75.951576, ID: 3
+0
+sensor: 0, range: 4354, bearing: -68.749466, ID: 3
+0
+sensor: 9, range: 1428, bearing: -89.313004, ID: 3
+0
+sensor: 9, range: 1427, bearing: -89.754181, ID: 3
+0
+sensor: 9, range: 1394, bearing: -89.542191, ID: 3
+0
+sensor: 9, range: 1391, bearing: -89.582291, ID: 3
+0
+sensor: 9, range: 1394, bearing: -89.553650, ID: 3
+0
+sensor: 9, range: 1394, bearing: -89.576561, ID: 3
+0
+sensor: 9, range: 1395, bearing: -89.582291, ID: 3
+0
+sensor: 9, range: 1396, bearing: -89.748451, ID: 3
+0
+sensor: 9, range: 1393, bearing: -89.731270, ID: 3
+0
+sensor: 9, range: 1409, bearing: -89.668236, ID: 3
+0
+sensor: 9, range: 1398, bearing: -89.633865, ID: 3
+0
+sensor: 9, range: 1404, bearing: -89.960449, ID: 3
+0
+sensor: 9, range: 1407, bearing: -90.504761, ID: 3
+0
+sensor: 9, range: 1421, bearing: -90.814156, ID: 3
+0
+sensor: 9, range: 1440, bearing: -91.381393, ID: 3
+0
+sensor: 9, range: 1443, bearing: -91.100639, ID: 3
+0
+sensor: 9, range: 1477, bearing: -91.129288, ID: 3
+0
+sensor: 9, range: 1461, bearing: -90.991776, ID: 3
+0
+sensor: 9, range: 1443, bearing: -90.968864, ID: 3
+0
+sensor: 9, range: 1452, bearing: -91.060532, ID: 3
+0
+sensor: 9, range: 1442, bearing: -90.779778, ID: 3
+0
+sensor: 9, range: 1436, bearing: -90.837082, ID: 3
+0
+sensor: 9, range: 1472, bearing: -91.008972, ID: 3
+0
+sensor: 9, range: 2066, bearing: -88.402000, ID: 3
+0
+sensor: 9, range: 1479, bearing: -98.772575, ID: 3
+0
+sensor: 5, range: 1706, bearing: -178.826553, ID: 3
+0
+sensor: 5, range: 1608, bearing: 161.649216, ID: 3
+0
+sensor: 1, range: 2971, bearing: 91.455879, ID: 3
+0
+sensor: 1, range: 2691, bearing: 102.439522, ID: 3
+0
+sensor: 2, range: 3318, bearing: 124.045837, ID: 3
+0
+sensor: 2, range: 1861, bearing: 71.132988, ID: 3
+0
+sensor: 2, range: 1859, bearing: 70.084465, ID: 3
+0
+sensor: 2, range: 1709, bearing: 65.025230, ID: 3
+0
+sensor: 2, range: 1714, bearing: 63.879311, ID: 3
+0
+sensor: 1, range: 1658, bearing: 62.750576, ID: 3
+0
+sensor: 1, range: 1599, bearing: 62.693287, ID: 3
+0
+sensor: 1, range: 1629, bearing: 62.635986, ID: 3
+0
+sensor: 1, range: 1677, bearing: 64.423622, ID: 3
+0
+sensor: 1, range: 1767, bearing: 62.332317, ID: 3
+0
+sensor: 1, range: 2587, bearing: 64.205902, ID: 3
+0
+sensor: 1, range: 2784, bearing: 68.291107, ID: 3
