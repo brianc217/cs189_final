@@ -7,6 +7,8 @@ union comm_value {
 	unsigned int value;
 };
 
+extern int time_counter; 
+
 /* Initiazlie IR ring and protocol state */ 
 void comm_init(unsigned char seed, unsigned char ID);
 
