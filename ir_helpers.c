@@ -129,6 +129,91 @@ int closeToRobot(int robotID) {
 				default: return 0;
 			}
 			break;
+		case 2099:
+			switch (ir_sensor) {
+				case 0: return (ir_range > 1200);
+				case 1: return (ir_range > 1300);
+				case 2: return (ir_range > 1400); 
+				case 3: return (ir_range > 1400);
+				case 4: return (ir_range > 1400);			
+				case 5: return (ir_range > 1300);
+				case 6: return (ir_range > 1200);
+				case 7: return (ir_range > 1200);
+				case 8: return (ir_range > 1000); // dummy value
+				case 9: return (ir_range > 1300);
+				case 10: return (ir_range > 1300);
+				case 11: return (ir_range > 1100); 
+				default: return 0;
+			}
+			break;
+		case 2137:
+			switch (ir_sensor) {
+				case 0: return (ir_range > 1100);
+				case 1: return (ir_range > 1150);
+				case 2: return (ir_range > 1400); 
+				case 3: return (ir_range > 1000); // dummy value
+				case 4: return (ir_range > 1100);			
+				case 5: return (ir_range > 1100);
+				case 6: return (ir_range > 1200);
+				case 7: return (ir_range > 1100);
+				case 8: return (ir_range > 1100);
+				case 9: return (ir_range > 1200);
+				case 10: return (ir_range > 1100);
+				case 11: return (ir_range > 1300); 
+				default: return 0;
+			}
+			break;
+		case 2117:
+			switch (ir_sensor) {
+				case 0: return (ir_range > 700);
+				case 1: return (ir_range > 900);
+				case 2: return (ir_range > 900); 
+				case 3: return (ir_range > 900);
+				case 4: return (ir_range > 900);			
+				case 5: return (ir_range > 700);
+				case 6: return (ir_range > 700);
+				case 7: return (ir_range > 1000);
+				case 8: return (ir_range > 1000);
+				case 9: return (ir_range > 1000);
+				case 10: return (ir_range > 900);
+				case 11: return (ir_range > 800); 
+				default: return 0;
+			}
+			break;
+		case 2046:
+			switch (ir_sensor) {
+				case 0: return (ir_range > 700);
+				case 1: return (ir_range > 700);
+				case 2: return (ir_range > 1000); 
+				case 3: return (ir_range > 850);
+				case 4: return (ir_range > 900);			
+				case 5: return (ir_range > 800);
+				case 6: return (ir_range > 850);
+				case 7: return (ir_range > 900); // dummy value
+				case 8: return (ir_range > 900);
+				case 9: return (ir_range > 1000);
+				case 10: return (ir_range > 750);
+				case 11: return (ir_range > 300); 
+				default: return 0;
+			}
+			break;
+		case 2087:
+			switch (ir_sensor) {
+				case 0: return (ir_range > 300);
+				case 1: return (ir_range >650);
+				case 2: return (ir_range > 500); 
+				case 3: return (ir_range > 700);
+				case 4: return (ir_range > 750);			
+				case 5: return (ir_range > 700); // dummy value
+				case 6: return (ir_range > 600);
+				case 7: return (ir_range > 400); 
+				case 8: return (ir_range > 700); // dummy value
+				case 9: return (ir_range > 650);
+				case 10: return (ir_range > 600);
+				case 11: return (ir_range > 700); // dummy value 
+				default: return 0;
+			}
+			break;
 		default:
 			switch (ir_sensor) {
 				case 0: return (ir_range > 890);
@@ -175,8 +260,8 @@ void receiveIR() {
 int avoidObstacle(int robotID, int sendID) {
 	if (receivedID == sendID) {
 		if (atObstacle(robotID)) {
-			sprintf(msg, "OBSTACLE: sensor %u, range %u, bearing %f\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing);
-			btcomSendString(msg);
+			//sprintf(msg, "OBSTACLE: sensor %u, range %u, bearing %f\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing);
+			//btcomSendString(msg);
 
 			// soft turn left
 			if (ir_bearing < -30) {

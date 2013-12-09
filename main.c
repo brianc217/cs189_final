@@ -1,12 +1,12 @@
 //////////////////////////////////////////////////////
 // NOTES:
-// 2046 (artisan) -- average camera; pretty bad IR
-// 2137 (eve) -- IR readings (for bounce-back) very good, except sensor 7 is too strong...
-// 2180 (surrender) -- GREAT camera; good IR
-// 2110 (reverence) --  pretty good IR; bad green on camera
-// 2099 (surrender) -- great camera; lousy IR		
-// 2117 (cosmetic) -- decent camera but better yelllow than green; great IR
-// 2087 (bathtub) -- bad camera; IR is meh (can't sense from 11)
+// *2046 (artisan) -- average camera; pretty bad IR
+// *2137 (eve) -- IR readings (for bounce-back) very good, except sensor 7 is too strong...
+// *2180 (flux) -- GREAT camera; good IR
+// *2110 (reverence) --  pretty good IR; bad green on camera
+// *2099 (surrender) -- great camera; lousy IR		
+// *2117 (cosmetic) -- decent camera but better yelllow than green; great IR
+// *2087 (bathtub) -- bad camera; IR is meh (can't sense from 11)
 //
 // 2151 (hayley) -- really bad camera; IR not tested
 // 2020 (ballast) -- bad camera; IR not tested				    
@@ -433,7 +433,7 @@ int main(void)
 			} 
 		}
 	}
-	else if (sel == 4) {		// for calibrating camera
+	else if (sel == 9) {		// test: for calibrating camera
 		/* calibration stuff save for later */
 		while(1)
 		{
@@ -449,7 +449,7 @@ int main(void)
 			//myWait(500);
 		}
 	}
-	else if (sel == 5) {		// for calibrating IR
+	else if (sel == 10) {		// test: for calibrating IR
 		unsigned char sendID = 0x03;
 
 		unsigned char seed = time(NULL);
@@ -462,13 +462,8 @@ int main(void)
 			printReadings();
 		}
 	}
-	else if (sel == 6) {		// for calibrating IR
-		int robotID = 2137;
-		unsigned char sendID = 0x07;
-		
-		goalLost = 0;
-		spinMode = 0;
-		mode = 0;
+	else if (sel == 11) {		// test: for sending IR only
+		unsigned char sendID = 0x09;
 
 		unsigned char seed = time(NULL);
 		comm_init(seed, sendID); 
@@ -481,22 +476,8 @@ int main(void)
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
 
 			receiveIR();
-			if (!nearGoal(robotID)) {
-				if (!avoidRobot(robotID, sendID, 42) && !avoidObstacle(robotID, sendID)) {
-					beelineToGoal(robotID);		
-				}
-			}
-			else {
-				beelineToGoal(robotID);
-			} 
+			setSpeeds(0,0);
 		}
-	}
-	else if (sel == 7) {		// sending IR only
-		unsigned char sendID = 0x09;
-		unsigned char seed = time(NULL);
-		comm_init(seed, sendID); 
-		comm_store_tx(0);
-		while (1) { receiveIR(); }
 	}
 	else
 	{
