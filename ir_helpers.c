@@ -240,6 +240,7 @@ void receiveIR() {
 	comm_rx(&data);
 	ir_range = data.range;
 	ir_bearing = 57.296*(data.bearing);
+	data.bearing = 57.296*(data.bearing);
 	ir_sensor = data.max_sensor;
 	msg_data = (union comm_value) data.data;
 	//btcomSendString("received comm");
@@ -275,10 +276,11 @@ int avoidObstacle(int robotID, int sendID) {
 			}
 			// hard turn based on sign of bearing
 			else {
+				move(-20, MAX_SPEED);
 				// hard turn right
 				if (ir_bearing > 0) 
 					setSpeeds(HI_SPEED, -HI_SPEED);
-				else
+				else 
 					setSpeeds(-HI_SPEED, HI_SPEED);
 			}
 			return 1;
@@ -292,7 +294,12 @@ int avoidRobot(int robotID, int sendID, int excludeID) {
 		if (closeToRobot(robotID)) {
 			// front
 			if (ir_bearing > -45 && ir_bearing < 45) {
-				setSpeeds(0, HI_SPEED);
+				move(-20, MAX_SPEED);
+				// hard turn right
+				if (ir_bearing > 0) 
+					setSpeeds(HI_SPEED, -HI_SPEED);
+				else 
+					setSpeeds(-HI_SPEED, HI_SPEED);
 			}
 			// right
 			else if (ir_bearing < -45 && ir_bearing > -135) {

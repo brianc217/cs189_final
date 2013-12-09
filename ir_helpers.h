@@ -7,6 +7,7 @@ extern unsigned int ir_range;
 #define HI_SPEED 800
 #define LO_SPEED 300
 #define HALF_SPEED 500
+#define MAX_SPEED 1000
 
 extern float ir_bearing;
 extern unsigned char ir_sensor;

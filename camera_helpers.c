@@ -35,6 +35,7 @@ int checkYellow(int robotID) {
 			green_thresh = 2;
 			blue_thresh = 1;
 			break;
+
 		case 2099: // surrender
 			red_thresh = 12;
 			green_thresh = 2;
