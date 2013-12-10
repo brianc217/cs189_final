@@ -420,6 +420,14 @@ int main(void)
 		unsigned char sendID = 0x02;
 		team = GONDOR;
 		
+		int death_count = 0;
+		int start_time = time_counter/2;
+		int death_flag = 0;
+		int in_box = 0;
+
+		int left_box = 0;
+		int move_flag = 1;
+		
 		goalLost = 0;
 		spinMode = 0;
 		mode = 0;
@@ -430,21 +438,58 @@ int main(void)
 
 		while(1)
 		{
+
 			/* CAMERA */
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
-
 			receiveIR();
-			if (!nearGoal(robotID)) {
-				if (!avoidObstacle(robotID, sendID)) {
-					//beelineToGoal(robotID);
-					setSpeeds(HI_SPEED, HI_SPEED);		
-				}
+
+						
+			sprintf(msg,"deathcount: %i\r\n",death_count);
+			btcomSendString(msg);
+
+			if(stopIfInPenaltyBox(robotID)){
+				in_box++;
 			}
 			else {
-				//beelineToGoal(robotID);
-				setSpeeds(HI_SPEED, HI_SPEED);	
-			} 
+				if (in_box > 10) {
+					left_box++;
+				}
+				if (left_box > 10) {
+					death_count++;
+					in_box = 0;
+					left_box = 0;
+					//move back into position
+					moveForward(200, HI_SPEED);
+					turn(90,HI_SPEED);
+				}
+
+				int bestEnemy = bestEnemyIfExists();
+				if(bestEnemy || time_counter/2 < start_time + 300){
+					
+					if(bestEnemy && closeEnoughToKill(robotID,robots[bestEnemy].data.range)) {
+						kill(robotID, sendID, bestEnemy);
+					}
+					else {
+						// wait
+						setSpeeds(0,0);
+					}
+				} 
+	
+				//if killed 2 times go for goal
+				else{
+					btcomSendString("I'm going for the goal!\r\n");
+					//receiveIR();
+					if (!nearGoal(robotID)) {
+						if (!avoidObstacle(robotID, sendID)) {
+							beelineToGoal(robotID);		
+						}
+					}
+					else {
+						beelineToGoal(robotID);
+					} 
+				}	
+			}
 		}
 	}
 	else if (sel == 3) { // SLAYER #1
