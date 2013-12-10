@@ -190,6 +190,9 @@ int inPenaltyBox() {
 	int i;
 	// check to make sure most pixels are red
 	for (i = 0; i < cam_width; i++) {
+		//char msg[80];
+		//sprintf(msg, "pixel %i, is: %i\r\n",i,smoothedColors[i]);
+		//btcomSendString(msg);
 		sum += smoothedColors[i];
 	}
 	return (sum > PENALTY_THRESH);	

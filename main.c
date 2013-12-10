@@ -1,27 +1,64 @@
 //////////////////////////////////////////////////////
-// NOTES:
+// CALIBRATED ROBOTS:
+// *2180 (flux) -- GREAT camera; good IR
+// *2110 (reverence) --  pretty good IR; bad green on camera
+// *2117 (cosmetic) -- decent camera but better yellow than green; great IR
 // 2046 (artisan) -- average camera; pretty bad IR
-// 2137 (eve) -- IR readings (for bounce-back) very good, except sensor 7 is too strong...
-// 2180 (surrender) -- GREAT camera; good IR
-// 2110 (reverence) --  pretty good IR; bad green on camera
+// 2137 (eve) -- CAMERAS NEEDS RECALIBRATION; IR readings (for bounce-back) very good, except sensor 7 is too strong
 // 2099 (surrender) -- great camera; lousy IR		
-// 2117 (cosmetic) -- decent camera but better yelllow than green; great IR
 // 2087 (bathtub) -- bad camera; IR is meh (can't sense from 11)
 //
+// *: potentially good for leader
+//
+// Not fully calibrated:
 // 2151 (hayley) -- really bad camera; IR not tested
-// 2020 (ballast) -- bad camera; IR not tested				    
+// 2028 (ballast) -- bad camera; IR not tested				    
 //////////////////////////////////////////////////////
 
-// The camera is, by default, configured with the following settings:
-// - Automatic white balance control
-// - Automatic exposure control
-// - Automatic flicker detection ( 50Hz and 60Hz )
+/*
+ROBOT ROLE PSEUDOCODE
+
+1. LEADER
+IF (x+3 seconds) have passed OR [GUARD] has not been detected nearby for > 10 seconds OR enemy detected nearby:
+	{state 1} beelineToGoal()
+ELSE:
+	{state 0} stay still
+
+
+2. GUARD
+IF (x seconds) have passed:
+	become a [SLAYER]
+ELSE:
+	IF [LEADER] has been out of range (25 cm?) for >= 3 seconds:
+		move back toward [LEADER]
+	ELSE IF enemy robot within y cm: 
+		attack that robot
+	ELSE:
+		circle around in front of goal??
+
+
+3/4. SLAYERS (one slightly staggered to prevent immediate collision)
+IF enemy leader in range:
+	attack enemy leader
+ELSE IF other enemy robot in range:
+	pick nearest one
+	attack that robot
+ELSE:
+	beelineToGoal()
+
+
+*PERVASIVE (all robots do this):
+- Stop if in penalty box
+- Avoid robots (that aren't your target, if you're a killer)
+- Avoid obstacles
+*/
+
 
 #include <p30f6014A.h>
 
-#include "stdio.h"  //Necessary for sprint 
-#include "string.h" //Necessary for string manipulation 
-#include "stdlib.h" //Neccessary for itoa conversion 
+#include "stdio.h"  
+#include "string.h" 
+#include "stdlib.h" 
 #include "time.h"
 
 #include "e_epuck_ports.h"
@@ -33,7 +70,6 @@
 #include "uart/e_uart_char.h"
 #include "bluetooth/btcom.h"
 
-
 #include "I2C/e_I2C_master_module.h"
 #include "I2C/e_I2C_protocol.h"
 #include "camera/fast_2_timer/e_poxxxx.h"
@@ -41,7 +77,6 @@
 #include "additional_functions_seas.h"
 #include "motor_led/advance_one_timer/e_agenda.h"
 
-//#include "ir_comm.h"
 #include "camera_helpers.h"
 #include "ir_helpers.h"
 
@@ -77,6 +112,7 @@ int robot1 = 2137; 		// Evaporation
 int robot2 = 2110; 		// Reverence
 int robot3 = 2180; 		// Flux
 
+
 unsigned int team;
 
 // Camera
@@ -98,14 +134,10 @@ unsigned char ir_sensor;
 unsigned char receivedID;
 union comm_value msg_data;
 unsigned int custom_msg;
-
-
 IR robots[12];
-
 
 //Buffer for sending back messages over bluetooth
 static unsigned char print_buffer[100];
-
 
 //Eases the transmission of integers as ascii code
 #define uart_send_text(msg) do { e_send_uart1_char(msg,strlen(msg)); while(e_uart1_sending()); } while(0)
@@ -129,7 +161,6 @@ void printRobots() {
 	}
 		
 }
-
 
 void printReadings() {
 	sprintf(msg, "sensor: %u, range: %u, bearing: %f, ID: %u\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing, receivedID);
@@ -232,6 +263,8 @@ void kill(int robotID, int sendID, int killID) {
 
 	while(time_counter/2 - robots[killID].time < 15) {
 		avoidRobot(robotID,sendID,killID);
+		avoidObstacle(robotID,sendID);
+		stopIfInPenaltyBox(robotID);
 
 		if(prevBearing != robots[killID].data.bearing) {
 			orientToRobot(killID, 0);
@@ -244,6 +277,7 @@ void kill(int robotID, int sendID, int killID) {
 	}
 }
 
+// not currently being used for anything
 void avoidFriends() {
 	int init = (team == GONDOR) ? 1 : 5;
 	int i = init;
@@ -277,6 +311,7 @@ void printCameraLine() {
 }
 
 void beelineToGoal(int robotID) {
+	// wandering...
 	if (goalLost >= 3) {
 		if (spinMode < 18) {
 			setSpeeds(HI_SPEED, HI_SPEED);
@@ -336,11 +371,30 @@ int bestEnemyIfExists(){
 
 	int init = (team == GONDOR) ? 5 : 1;
 	int i = init;
+	int closest = 0;
 
 	for(;i < init + 4; i++){
 		if(time_counter/2 - robots[i].time < 30 && robots[i].time != 0.0) {
-			return i;
+			if(i== init){
+				return i;
+			}
+			else if(robots[i].data.range > closest){
+				closest = i;
+			}
 		}			
+	}
+	return closest;
+}
+
+// if in penalty box, stop all movement 
+int stopIfInPenaltyBox(int robotID) {
+	getPenaltyCameraLine(robotID);
+	btcomSendString("Checking Penalty\r\n");
+	if (inPenaltyBox()) {
+		setSpeeds(0,0);
+		sprintf(msg, "IN THE PENALTY BOX\r\n");
+		btcomSendString(msg);
+		return 1;
 	}
 	return 0;
 }
@@ -362,14 +416,8 @@ int main(void)
 	}
 	
 	/* Each selector corresponds to a robot */
-	//wait to start
-	/*btcomWaitForCommand('s');
-	sprintf(msg,"link active\r\n");
-	btcomSendString(msg);*/
-
-	if (sel == 1){
-
-		int robotID = 2046;
+	if (sel == 1) { // LEADER
+		int robotID = 2180;
 		unsigned char sendID = 0x01;
 		team = GONDOR;
 		
@@ -383,52 +431,36 @@ int main(void)
 
 		while(1)
 		{
-			receiveIR();
-			
-			int bestEnemy = bestEnemyIfExists();
-			if(bestEnemy) {
-				kill(robotID, sendID, bestEnemy);
-			}
-		
-								
-
-		}
-	}
-	else if (sel == 2) {
-
-		int robotID = 2110;
-		unsigned char sendID = 0x02;
-		team = GONDOR;
-		
-		goalLost = 0;
-		spinMode = 0;
-		mode = 0;
-
-		unsigned char seed = time(NULL);
-		comm_init(seed, sendID); // need to factor out a way 
-		comm_store_tx(0);
-
-		while(1)
-		{
-			/* CAMERA */
+			/* receive camera and IR readings */
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
-
 			receiveIR();
-			if (!nearGoal(robotID)) {
-				if (!avoidRobot(robotID, sendID,0) && !avoidObstacle(robotID, sendID)) {
-					beelineToGoal(robotID);		
-				}
-			}
-			else {
-				beelineToGoal(robotID);
-			} 
-		}
-	}
-	else if (sel == 3) {
 
+			switch (mode) {
+				case 0:
+					setSpeeds(0,0);
+					if (time_counter/2 > 20) {
+						 mode = 1;
+					}
+					break;
+				case 1:
+					stopIfInPenaltyBox(robotID);
+					if (!nearGoal(robotID)) {
+						if (!avoidRobot(robotID, sendID,0) && !avoidObstacle(robotID, sendID)) {
+							beelineToGoal(robotID);		
+						}
+					}
+					else {
+						beelineToGoal(robotID);
+					} 
+					break;
+			}
+		}
+		
+	}
+	else if (sel == 2) { // GUARD
 		int robotID = 2046;
-		unsigned char sendID = 0x03;
+		unsigned char sendID = 0x02;
 		team = GONDOR;
 		
 		goalLost = 0;
@@ -448,31 +480,170 @@ int main(void)
 			receiveIR();
 			if (!nearGoal(robotID)) {
 				if (!avoidObstacle(robotID, sendID)) {
-					beelineToGoal(robotID);		
+					//beelineToGoal(robotID);
+					setSpeeds(HI_SPEED, HI_SPEED);		
 				}
 			}
 			else {
-				beelineToGoal(robotID);
+				//beelineToGoal(robotID);
+				setSpeeds(HI_SPEED, HI_SPEED);	
 			} 
 		}
 	}
-	else if (sel == 4) {		// for calibrating camera
-		/* calibration stuff save for later */
+	else if (sel == 3) { // SLAYER #1
+		int robotID = 2046; 
+		unsigned char sendID = 0x03;
+		team = GONDOR;
+		int death_count = 0;
+		int start_time = time_counter/2;
+		int death_flag = 0;
+		int in_box = 0;
+		
+		goalLost = 0;
+		spinMode = 0;
+		mode = 0;
+
+		unsigned char seed = time(NULL);
+		comm_init(seed, sendID); 
+		comm_store_tx(0);
+		
+		//move forward for 3sec to clear the goal
+		while (time_counter/2 <= start_time + 3){
+			setSpeeds(HI_SPEED, HI_SPEED);
+			btcomSendString("starting move");
+		}
+
 		while(1)
 		{
+
 			/* CAMERA */
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
-			while(!e_poxxxx_is_img_ready());
-		
-			printRGB(80);
-			myWait(500);
+			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
+			receiveIR();
+			if(stopIfInPenaltyBox(robotID)){
+				in_box += 1;
+			}
+			//make sure you actually left the box
+			while(in_box > 1){
+				sprintf(msg,"in box: %i\r\n",in_box);
+				btcomSendString(msg);
+				/* CAMERA */
+				e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
+				while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
+				death_flag = 1;							// set the death flag
+			
+				if(stopIfInPenaltyBox(robotID)){
+					in_box = 50;
+				} else {
+					in_box --;
+				}
+			}
+				
+			death_count += death_flag;
+			death_flag = 0;
+			sprintf(msg,"deathcount: %i\r\n",death_count);
+			btcomSendString(msg);
+			
+			if(death_count < 3){
+				int bestEnemy = bestEnemyIfExists();
+				if(bestEnemy) {
+					kill(robotID, sendID, bestEnemy);
+				}
+			} 
 
-			//getGoalCameraLine(robotID);
-			//printCameraLine();
-			//myWait(500);
+			//if killed 2 times go for goal
+			else{
+				btcomSendString("I'm going for the goal!\r\n");
+				receiveIR();
+				if (!nearGoal(robotID)) {
+					if (!avoidObstacle(robotID, sendID)) {
+						beelineToGoal(robotID);		
+					}
+				}
+				else {
+					beelineToGoal(robotID);
+				} 
+			}
 		}
-	
-	} else if (sel == 5) {
+	}
+	else if (sel == 4) { 	// SLAYER #2
+		int robotID = 2137;
+		unsigned char sendID = 0x04;
+		team = GONDOR;
+		
+		int death_count = 0;
+		int start_time = time_counter/2;
+		int death_flag = 0;
+		int in_box = 0;
+		
+		goalLost = 0;
+		spinMode = 0;
+		mode = 0;
+
+		unsigned char seed = time(NULL);
+		comm_init(seed, sendID); 
+		comm_store_tx(0);
+		
+		//move forward for 3sec to clear the goal
+		while (time_counter/2 <= start_time + 3){
+			setSpeeds(HI_SPEED, HI_SPEED);
+			btcomSendString("starting move");
+		}
+
+		while(1)
+		{
+
+			/* CAMERA */
+			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
+			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
+			receiveIR();
+			if(stopIfInPenaltyBox(robotID)){
+				in_box += 1;
+			}
+			//make sure you actually left the box
+			while(in_box > 1){
+				sprintf(msg,"in box: %i\r\n",in_box);
+				btcomSendString(msg);
+				/* CAMERA */
+				e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
+				while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
+				death_flag = 1;							// set the death flag
+			
+				if(stopIfInPenaltyBox(robotID)){
+					in_box = 50;
+				} else {
+					in_box --;
+				}
+			}
+				
+			death_count += death_flag;
+			death_flag = 0;
+			sprintf(msg,"deathcount: %i\r\n",death_count);
+			btcomSendString(msg);
+			
+			if(death_count < 3){
+				int bestEnemy = bestEnemyIfExists();
+				if(bestEnemy) {
+					kill(robotID, sendID, bestEnemy);
+				}
+			} 
+
+			//if killed 2 times go for goal
+			else{
+				btcomSendString("I'm going for the goal!\r\n");
+				receiveIR();
+				if (!nearGoal(robotID)) {
+					if (!avoidObstacle(robotID, sendID)) {
+						beelineToGoal(robotID);		
+					}
+				}
+				else {
+					beelineToGoal(robotID);
+				} 
+			}
+		}
+	}
+	else if (sel == 5) {
 
 		int robotID = 2046;
 		unsigned char sendID = 0x05;
@@ -495,9 +666,8 @@ int main(void)
 				kill(robotID,sendID, bestEnemy);
 			}
 		}
-	
-	} else if (sel == 6) {
-
+	}
+	else if (sel == 6) {
 		int robotID = 2110;
 		unsigned char sendID = 0x06;
 		team = MORDOR;
@@ -507,7 +677,7 @@ int main(void)
 		mode = 0;
 
 		unsigned char seed = time(NULL);
-		comm_init(seed, sendID); // need to factor out a way 
+		comm_init(seed, sendID); 
 		comm_store_tx(0);
 
 		while(1)
@@ -526,80 +696,204 @@ int main(void)
 				beelineToGoal(robotID);
 			} 
 		}
-	
-	} else if (sel == 7) {
-
+	} 
+	else if (sel == 7) {
 		int robotID = 2046;
 		unsigned char sendID = 0x07;
 		team = MORDOR;
 		
-		goalLost = 0;
-		spinMode = 0;
-		mode = 0;
-
-		unsigned char seed = time(NULL);
-		comm_init(seed, sendID); // need to factor out a way 
-		comm_store_tx(0);
-
-		while(1)
-		{
-			/* CAMERA */
-			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
-			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
-
-			receiveIR();
-			if (!nearGoal(robotID)) {
-				if (!avoidObstacle(robotID, sendID)) {
-					beelineToGoal(robotID);		
-				}
-			}
-			else {
-				beelineToGoal(robotID);
-			} 
-		}
-	
-	} else if (sel == 8) {
-
-		int robotID = 2137;
-		unsigned char sendID = 0x08;
-		team = MORDOR;
+		int death_count = 0;
+		int start_time = time_counter/2;
+		int death_flag = 0;
+		int in_box = 0;
 		
 		goalLost = 0;
 		spinMode = 0;
 		mode = 0;
 
 		unsigned char seed = time(NULL);
-		comm_init(seed, sendID); // need to factor out a way 
+		comm_init(seed, sendID); 
 		comm_store_tx(0);
+		
+		//move forward for 3sec to clear the goal
+		while (time_counter/2 <= start_time + 3){
+			setSpeeds(HI_SPEED, HI_SPEED);
+			btcomSendString("starting move");
+		}
 
+		while(1)
+		{
+
+			/* CAMERA */
+			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
+			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
+			receiveIR();
+			if(stopIfInPenaltyBox(robotID)){
+				in_box += 1;
+			}
+			//make sure you actually left the box
+			while(in_box > 1){
+				sprintf(msg,"in box: %i\r\n",in_box);
+				btcomSendString(msg);
+				/* CAMERA */
+				e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
+				while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
+				death_flag = 1;							// set the death flag
+			
+				if(stopIfInPenaltyBox(robotID)){
+					in_box = 50;
+				} else {
+					in_box --;
+				}
+			}
+				
+			death_count += death_flag;
+			death_flag = 0;
+			sprintf(msg,"deathcount: %i\r\n",death_count);
+			btcomSendString(msg);
+			
+			if(death_count < 3){
+				int bestEnemy = bestEnemyIfExists();
+				if(bestEnemy) {
+					kill(robotID, sendID, bestEnemy);
+				}
+			} 
+
+			//if killed 2 times go for goal
+			else{
+				btcomSendString("I'm going for the goal!\r\n");
+				receiveIR();
+				if (!nearGoal(robotID)) {
+					if (!avoidObstacle(robotID, sendID)) {
+						beelineToGoal(robotID);		
+					}
+				}
+				else {
+					beelineToGoal(robotID);
+				} 
+			}
+		}
+	} 
+	else if (sel == 8) {
+		int robotID = 2137;
+		unsigned char sendID = 0x08;
+		team = MORDOR;
+		
+		int death_count = 0;
+		int start_time = time_counter/2;
+		int death_flag = 0;
+		int in_box = 0;
+		
+		goalLost = 0;
+		spinMode = 0;
+		mode = 0;
+
+		unsigned char seed = time(NULL);
+		comm_init(seed, sendID); 
+		comm_store_tx(0);
+		
+		//move forward for 3sec to clear the goal
+		while (time_counter/2 <= start_time + 3){
+			setSpeeds(HI_SPEED, HI_SPEED);
+			btcomSendString("starting move");
+		}
+
+		while(1)
+		{
+
+			/* CAMERA */
+			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
+			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
+			receiveIR();
+			if(stopIfInPenaltyBox(robotID)){
+				in_box += 1;
+			}
+			//make sure you actually left the box
+			while(in_box > 1){
+				sprintf(msg,"in box: %i\r\n",in_box);
+				btcomSendString(msg);
+				/* CAMERA */
+				e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
+				while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
+				death_flag = 1;							// set the death flag
+			
+				if(stopIfInPenaltyBox(robotID)){
+					in_box = 50;
+				} else {
+					in_box --;
+				}
+			}
+				
+			death_count += death_flag;
+			death_flag = 0;
+			sprintf(msg,"deathcount: %i\r\n",death_count);
+			btcomSendString(msg);
+			
+			if(death_count < 3){
+				int bestEnemy = bestEnemyIfExists();
+				if(bestEnemy) {
+					kill(robotID, sendID, bestEnemy);
+				}
+			} 
+
+			//if killed 2 times go for goal
+			else{
+				btcomSendString("I'm going for the goal!\r\n");
+				receiveIR();
+				if (!nearGoal(robotID)) {
+					if (!avoidObstacle(robotID, sendID)) {
+						beelineToGoal(robotID);		
+					}
+				}
+				else {
+					beelineToGoal(robotID);
+				} 
+			}
+		}
+	
+	} 
+	else if (sel == 9) {		// test: for calibrating camera
+		/* calibration stuff save for later */
 		while(1)
 		{
 			/* CAMERA */
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
-			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
+			while(!e_poxxxx_is_img_ready());
+		
+			printRGB(80);
+			myWait(500);
 
-			receiveIR();
-			if (!nearGoal(robotID)) {
-				if (!avoidObstacle(robotID, sendID)) {
-					beelineToGoal(robotID);		
-				}
-			}
-			else {
-				beelineToGoal(robotID);
-			} 
+			//getGoalCameraLine(robotID);
+			//printCameraLine();
+			//myWait(500);
 		}
-	
-	} else {
+	}
+	else if (sel == 10) {		// test: for calibrating IR
+		unsigned char sendID = 0x03;
+		unsigned char seed = time(NULL);
+		comm_init(seed, sendID); 
+		comm_store_tx(0);
+
+		while (1) {
+			receiveIR();
+			printReadings();
+			setSpeeds(0,0);
+		}
+
+	}
+	else if (sel == 11) {		// test: for sending IR only
+		unsigned char sendID = 0x09;
+		unsigned char seed = time(NULL);
+		comm_init(seed, sendID); 
+		comm_store_tx(0);
+
+		while (1) {
+			receiveIR();
+			setSpeeds(0,0);
+		}
+	}
+	else {
 		while(1) NOP();
 	}
 }
 
-
-
-// if in penalty box, stop all movement 
-/*getPenaltyCameraLine(robotID);
-if (inPenaltyBox()) {
-	setSpeeds(0,0);
-	sprintf(msg, "IN THE PENALTY BOX\r\n");
-	btcomSendString(msg);
-}*/

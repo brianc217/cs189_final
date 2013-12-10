@@ -1,5 +1,5 @@
 // stuff related to goal-finding thresholds
-#define PENALTY_THRESH 50
+#define PENALTY_THRESH 30
 #define GOAL_THRESH 8
 #define DONE_THRESH 70
 
