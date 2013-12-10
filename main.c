@@ -6,7 +6,7 @@
 // 2046 (artisan) -- average camera; pretty bad IR
 // 2137 (eve) -- CAMERAS NEEDS RECALIBRATION; IR readings (for bounce-back) very good, except sensor 7 is too strong
 // 2099 (surrender) -- great camera; lousy IR		
-// 2087 (bathtub) -- bad camera; IR is meh (can't sense from 11)
+// 2087 (bathtub) -- bad camera; IR is meh (can't sense from 3 IR receivers)
 //
 // *: potentially good for leader
 //
@@ -142,7 +142,6 @@ static unsigned char print_buffer[100];
 //Eases the transmission of integers as ascii code
 #define uart_send_text(msg) do { e_send_uart1_char(msg,strlen(msg)); while(e_uart1_sending()); } while(0)
 
-
 // for debugging
 void printRGB(int pixel) {
 	getColor(pixel);
@@ -167,26 +166,13 @@ void printReadings() {
 	btcomSendString(msg);
 }
 
-// this isn't really being used
-int atGoal(robotID) {
-	int sum = 0;
-	for (i = 0; i < cam_width; i++) {
-		sum += smoothedColors[i];
-	}
-	/*
-	return (sum > DONE_THRESH 
-			&& ((ir_bearing < 90 && ir_bearing > 70) || (ir_bearing > -90 && ir_bearing < -70))
-			&& atObstacle(robotID));
-	*/
-	return 0;
-}
 
 int nearGoal(robotID) {
 	int sum = 0;
 	for (i = 0; i < cam_width; i++) {
 		sum += smoothedColors[i];
 	}
-	return (sum > 60);
+	return (sum > 65);
 
 }
 
@@ -220,31 +206,6 @@ void robot_init() {
 	time_counter = 0;
 }
 
-// yeah not working
-void wallFollow(int robotID, int sendID) {
-	int delta;
-	if (receivedID == sendID) {
-		sprintf(msg, "ANGLE ADJUSTMENT: sensor %u, range %u, bearing %f\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing);
-		btcomSendString(msg);
-		if (ir_bearing > 0) { // left wall follow
-			delta = ir_bearing - 90;
-		}
-		else { 	// right wall follow
-			delta = ir_bearing + 90;
-		}
-		if (abs(delta) > 30) {
-			if (delta > 0)
-				setSpeeds(3*HI_SPEED/4, HI_SPEED); // soft left
-			else
-				setSpeeds(HI_SPEED, 3*HI_SPEED/4); // soft right
-		}
-		else {
-			setSpeeds(HI_SPEED, HI_SPEED);
-		}
-		
-	}
-}
-
 
 void orientToRobot(int id, double theta) {
 	double bearing = robots[id].data.bearing;
@@ -261,19 +222,21 @@ void kill(int robotID, int sendID, int killID) {
 	//Opting for simpler idea - turn towards robot and go straight every 3 seconds
 	double prevBearing = 0.0;
 
-	while(time_counter/2 - robots[killID].time < 15) {
-		avoidRobot(robotID,sendID,killID);
-		avoidObstacle(robotID,sendID);
-		stopIfInPenaltyBox(robotID);
-
-		if(prevBearing != robots[killID].data.bearing) {
-			orientToRobot(killID, 0);
-			prevBearing = robots[killID].data.bearing;
-		}		
-		setSpeeds(HI_SPEED, HI_SPEED);
-		receiveIR();
-		sprintf(msg,"trying to kill: %i \r\n oriented: %f\r\n",killID,prevBearing);
-		btcomSendString(msg);
+	if (!avoidRobot(robotID, sendID, killID) && !avoidObstacle(robotID, sendID)) {
+		while(time_counter/2 - robots[killID].time < 15) {
+			//avoidRobot(robotID,sendID,killID);
+			//avoidObstacle(robotID,sendID);
+			//stopIfInPenaltyBox(robotID);
+	
+			if(prevBearing != robots[killID].data.bearing) {
+				orientToRobot(killID, 0);
+				prevBearing = robots[killID].data.bearing;
+			}		
+			setSpeeds(HI_SPEED, HI_SPEED);
+			receiveIR();
+			sprintf(msg,"trying to kill: %i \r\n oriented: %f\r\n",killID,prevBearing);
+			btcomSendString(msg);
+		}
 	}
 }
 
@@ -326,41 +289,35 @@ void beelineToGoal(int robotID) {
 
 	if (goalInView()) {
 		goalLost = 0;
-		if (atGoal(robotID)) {  // TODO: change this
-			setSpeeds(0,0);
-			myWait(2000);
-		}
-		else {
-			//sprintf(msg, "SEES GOAL\r\n");
-			//btcomSendString(msg);
-			// compute midpoint (center of gravity, really) of goal pixels
-			int mid = getGoalMidpoint();
-			int delta = cam_width/2 - mid;
-			//sprintf(msg, "delta: %d\r\n", delta);
-			//btcomSendString(msg);
-			float p;
+		//sprintf(msg, "SEES GOAL\r\n");
+		//btcomSendString(msg);
+		// compute midpoint (center of gravity, really) of goal pixels
+		int mid = getGoalMidpoint();
+		int delta = cam_width/2 - mid;
+		//sprintf(msg, "delta: %d\r\n", delta);
+		//btcomSendString(msg);
+		float p;
 
-			// if roughly in center of view, move straight forward
-			if (abs(delta) < 12) {
-            	setSpeeds(HI_SPEED, HI_SPEED);
+		// if roughly in center of view, move straight forward
+		if (abs(delta) < 12) {
+        	setSpeeds(HI_SPEED, HI_SPEED);
+        }
+
+        // if the puck is not centered, turn softly toward puck (proportional to midpoint's distance from camera center)
+        else {
+			// set proportionality constant
+            p = 1.0 - (abs(delta) - 15.0)/50.0;
+
+            // turn softly right
+            if (delta > 0) { // soft turn right
+            	setSpeeds(HI_SPEED, HI_SPEED*p);
             }
 
-            // if the puck is not centered, turn softly toward puck (proportional to midpoint's distance from camera center)
+            // turn softly left
             else {
-				// set proportionality constant
-                p = 1.0 - (abs(delta) - 15.0)/50.0;
-
-                // turn softly right
-                if (delta > 0) { // soft turn right
-                	setSpeeds(HI_SPEED, HI_SPEED*p);
-                }
-
-                // turn softly left
-                else {
-                	setSpeeds(HI_SPEED*p, HI_SPEED);
-                }               
-            }
-		}
+             	setSpeeds(HI_SPEED*p, HI_SPEED);
+       		}               
+    	}	
 	}
 	else {			
 		goalLost++;					
@@ -435,6 +392,7 @@ int main(void)
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
 			receiveIR();
+			stopIfInPenaltyBox(robotID);
 
 			switch (mode) {
 				case 0:
@@ -444,7 +402,6 @@ int main(void)
 					}
 					break;
 				case 1:
-					stopIfInPenaltyBox(robotID);
 					if (!nearGoal(robotID)) {
 						if (!avoidRobot(robotID, sendID,0) && !avoidObstacle(robotID, sendID)) {
 							beelineToGoal(robotID);		
@@ -491,13 +448,16 @@ int main(void)
 		}
 	}
 	else if (sel == 3) { // SLAYER #1
-		int robotID = 2046; 
+		int robotID = 2180; 
 		unsigned char sendID = 0x03;
 		team = GONDOR;
 		int death_count = 0;
 		int start_time = time_counter/2;
 		int death_flag = 0;
 		int in_box = 0;
+
+		int left_box = 0;
+		int move_flag = 1;
 		
 		goalLost = 0;
 		spinMode = 0;
@@ -510,7 +470,7 @@ int main(void)
 		//move forward for 3sec to clear the goal
 		while (time_counter/2 <= start_time + 3){
 			setSpeeds(HI_SPEED, HI_SPEED);
-			btcomSendString("starting move");
+			btcomSendString("starting move\r\n");
 		}
 
 		while(1)
@@ -520,14 +480,62 @@ int main(void)
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
 			receiveIR();
+
+						
+			sprintf(msg,"deathcount: %i\r\n",death_count);
+			btcomSendString(msg);
+
 			if(stopIfInPenaltyBox(robotID)){
-				in_box += 1;
+				in_box++;
 			}
+			else {
+				if (in_box > 10) {
+					left_box++;
+				}
+				if (left_box > 10) {
+					death_count++;
+					in_box = 0;
+					left_box = 0;
+				}
+
+				if(death_count < 3){
+					int bestEnemy = bestEnemyIfExists();
+					if(bestEnemy) {
+						kill(robotID, sendID, bestEnemy);
+					}
+					else {
+						// if no targets found go towards goal
+						if (!nearGoal(robotID)) {
+							if (!avoidObstacle(robotID, sendID)) {
+								beelineToGoal(robotID);		
+							}
+						}
+						else {
+							beelineToGoal(robotID);
+						} 
+					}
+				} 
+	
+				//if killed 2 times go for goal
+				else{
+					btcomSendString("I'm going for the goal!\r\n");
+					//receiveIR();
+					if (!nearGoal(robotID)) {
+						if (!avoidObstacle(robotID, sendID)) {
+							beelineToGoal(robotID);		
+						}
+					}
+					else {
+						beelineToGoal(robotID);
+					} 
+				}
+				
+			}
+
 			//make sure you actually left the box
-			while(in_box > 1){
+			/*while(in_box > 1){
 				sprintf(msg,"in box: %i\r\n",in_box);
 				btcomSendString(msg);
-				/* CAMERA */
 				e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
 				while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
 				death_flag = 1;							// set the death flag
@@ -535,35 +543,14 @@ int main(void)
 				if(stopIfInPenaltyBox(robotID)){
 					in_box = 50;
 				} else {
-					in_box --;
+					in_box--;
 				}
 			}
 				
 			death_count += death_flag;
 			death_flag = 0;
-			sprintf(msg,"deathcount: %i\r\n",death_count);
-			btcomSendString(msg);
-			
-			if(death_count < 3){
-				int bestEnemy = bestEnemyIfExists();
-				if(bestEnemy) {
-					kill(robotID, sendID, bestEnemy);
-				}
-			} 
+			*/
 
-			//if killed 2 times go for goal
-			else{
-				btcomSendString("I'm going for the goal!\r\n");
-				receiveIR();
-				if (!nearGoal(robotID)) {
-					if (!avoidObstacle(robotID, sendID)) {
-						beelineToGoal(robotID);		
-					}
-				}
-				else {
-					beelineToGoal(robotID);
-				} 
-			}
 		}
 	}
 	else if (sel == 4) { 	// SLAYER #2
@@ -829,7 +816,7 @@ int main(void)
 			sprintf(msg,"deathcount: %i\r\n",death_count);
 			btcomSendString(msg);
 			
-			if(death_count < 3){
+			if(death_count < 2){
 				int bestEnemy = bestEnemyIfExists();
 				if(bestEnemy) {
 					kill(robotID, sendID, bestEnemy);
@@ -897,3 +884,31 @@ int main(void)
 	}
 }
 
+
+
+/*
+// yeah not working
+void wallFollow(int robotID, int sendID) {
+	int delta;
+	if (receivedID == sendID) {
+		sprintf(msg, "ANGLE ADJUSTMENT: sensor %u, range %u, bearing %f\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing);
+		btcomSendString(msg);
+		if (ir_bearing > 0) { // left wall follow
+			delta = ir_bearing - 90;
+		}
+		else { 	// right wall follow
+			delta = ir_bearing + 90;
+		}
+		if (abs(delta) > 30) {
+			if (delta > 0)
+				setSpeeds(3*HI_SPEED/4, HI_SPEED); // soft left
+			else
+				setSpeeds(HI_SPEED, 3*HI_SPEED/4); // soft right
+		}
+		else {
+			setSpeeds(HI_SPEED, HI_SPEED);
+		}
+		
+	}
+}
+*/

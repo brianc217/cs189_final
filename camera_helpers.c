@@ -115,12 +115,12 @@ int checkRed(int robotID) {
 
 	switch (robotID) {
 		case 2046:
-			red_thresh = 13;
+			red_thresh = 11;
 			green_thresh = 1;
 			blue_thresh = 1;
 			break;
 		default:
-			red_thresh = 13;
+			red_thresh = 9;
 			green_thresh = 1;
 			blue_thresh = 1;
 			break;
