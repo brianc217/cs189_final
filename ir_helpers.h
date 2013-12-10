@@ -28,7 +28,7 @@ extern int time_counter;
 
 void receiveIR();
 int atObstacle(int robotID);
-int atGoal(robotID);
+int atGoal(int robotID);
 int avoidObstacle(int robotID, int sendID);
 int closeToRobot(int robotID);
 

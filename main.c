@@ -234,8 +234,8 @@ void kill(int robotID, int sendID, int killID) {
 			}		
 			setSpeeds(HI_SPEED, HI_SPEED);
 			receiveIR();
-			sprintf(msg,"trying to kill: %i \r\n oriented: %f\r\n",killID,prevBearing);
-			btcomSendString(msg);
+			//sprintf(msg,"trying to kill: %i \r\n oriented: %f\r\n",killID,prevBearing);
+			//btcomSendString(msg);
 		}
 	}
 }
@@ -273,7 +273,18 @@ void printCameraLine() {
 	btcomSendString(msg); 
 }
 
-void beelineToGoal(int robotID) {
+// NOW INCLUDES OBSTACLE AVOIDANCE
+void beelineToGoal(int robotID, int sendID) {
+	if (!nearGoal(robotID)) {
+		if (!avoidObstacle(robotID, sendID) && !avoidRobot(robotID, sendID, 0)) 
+			moveToGoal(robotID);		
+	}
+	else {
+		moveToGoal(robotID);
+	} 
+}
+
+void moveToGoal(robotID) {
 	// wandering...
 	if (goalLost >= 3) {
 		if (spinMode < 18) {
@@ -325,7 +336,6 @@ void beelineToGoal(int robotID) {
 }
 
 int bestEnemyIfExists(){
-
 	int init = (team == GONDOR) ? 5 : 1;
 	int i = init;
 	int closest = 0;
@@ -374,7 +384,7 @@ int main(void)
 	
 	/* Each selector corresponds to a robot */
 	if (sel == 1) { // LEADER
-		int robotID = 2180;
+		int robotID = 2117;
 		unsigned char sendID = 0x01;
 		team = GONDOR;
 		
@@ -397,23 +407,15 @@ int main(void)
 			switch (mode) {
 				case 0:
 					setSpeeds(0,0);
-					if (time_counter/2 > 20) {
+					if (time_counter/2 > 30) {
 						 mode = 1;
 					}
 					break;
 				case 1:
-					if (!nearGoal(robotID)) {
-						if (!avoidRobot(robotID, sendID,0) && !avoidObstacle(robotID, sendID)) {
-							beelineToGoal(robotID);		
-						}
-					}
-					else {
-						beelineToGoal(robotID);
-					} 
+					beelineToGoal(robotID, sendID);
 					break;
 			}
 		}
-		
 	}
 	else if (sel == 2) { // GUARD
 		int robotID = 2046;
@@ -448,12 +450,11 @@ int main(void)
 		}
 	}
 	else if (sel == 3) { // SLAYER #1
-		int robotID = 2180; 
+		int robotID = 2117; 
 		unsigned char sendID = 0x03;
 		team = GONDOR;
 		int death_count = 0;
 		int start_time = time_counter/2;
-		int death_flag = 0;
 		int in_box = 0;
 
 		int left_box = 0;
@@ -475,15 +476,13 @@ int main(void)
 
 		while(1)
 		{
-
 			/* CAMERA */
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
 			receiveIR();
-
 						
-			sprintf(msg,"deathcount: %i\r\n",death_count);
-			btcomSendString(msg);
+			//sprintf(msg,"deathcount: %i\r\n",death_count);
+			//btcomSendString(msg);
 
 			if(stopIfInPenaltyBox(robotID)){
 				in_box++;
@@ -504,53 +503,17 @@ int main(void)
 						kill(robotID, sendID, bestEnemy);
 					}
 					else {
-						// if no targets found go towards goal
-						if (!nearGoal(robotID)) {
-							if (!avoidObstacle(robotID, sendID)) {
-								beelineToGoal(robotID);		
-							}
-						}
-						else {
-							beelineToGoal(robotID);
-						} 
+						// if no targets found, go towards goal
+						beelineToGoal(robotID, sendID);
 					}
 				} 
 	
-				//if killed 2 times go for goal
+				//if killed 2 times, go for goal
 				else{
 					btcomSendString("I'm going for the goal!\r\n");
-					//receiveIR();
-					if (!nearGoal(robotID)) {
-						if (!avoidObstacle(robotID, sendID)) {
-							beelineToGoal(robotID);		
-						}
-					}
-					else {
-						beelineToGoal(robotID);
-					} 
-				}
-				
-			}
-
-			//make sure you actually left the box
-			/*while(in_box > 1){
-				sprintf(msg,"in box: %i\r\n",in_box);
-				btcomSendString(msg);
-				e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
-				while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
-				death_flag = 1;							// set the death flag
-			
-				if(stopIfInPenaltyBox(robotID)){
-					in_box = 50;
-				} else {
-					in_box--;
+					beelineToGoal(robotID, sendID); 
 				}
 			}
-				
-			death_count += death_flag;
-			death_flag = 0;
-			*/
-
 		}
 	}
 	else if (sel == 4) { 	// SLAYER #2
@@ -579,7 +542,6 @@ int main(void)
 
 		while(1)
 		{
-
 			/* CAMERA */
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
@@ -621,18 +583,18 @@ int main(void)
 				receiveIR();
 				if (!nearGoal(robotID)) {
 					if (!avoidObstacle(robotID, sendID)) {
-						beelineToGoal(robotID);		
+						beelineToGoal(robotID, sendID);		
 					}
 				}
 				else {
-					beelineToGoal(robotID);
+					beelineToGoal(robotID, sendID);
 				} 
 			}
 		}
 	}
-	else if (sel == 5) {
 
-		int robotID = 2046;
+	else if (sel == 5) {
+		int robotID = 2117;
 		unsigned char sendID = 0x05;
 		team = MORDOR;
 		
@@ -641,16 +603,27 @@ int main(void)
 		mode = 0;
 
 		unsigned char seed = time(NULL);
-		comm_init(seed, sendID); // need to factor out a way 
+		comm_init(seed, sendID); 
 		comm_store_tx(0);
 
 		while(1)
 		{
+			/* receive camera and IR readings */
+			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
+			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
 			receiveIR();
-			
-			int bestEnemy = bestEnemyIfExists();
-			if(bestEnemy) {
-				kill(robotID,sendID, bestEnemy);
+			stopIfInPenaltyBox(robotID);
+
+			switch (mode) {
+				case 0:
+					setSpeeds(0,0);
+					if (time_counter/2 > 20) {
+						 mode = 1;
+					}
+					break;
+				case 1:
+					beelineToGoal(robotID, sendID);
+					break;
 			}
 		}
 	}
@@ -676,11 +649,11 @@ int main(void)
 			receiveIR();
 			if (!nearGoal(robotID)) {
 				if (!avoidRobot(robotID, sendID,0) && !avoidObstacle(robotID, sendID)) {
-					beelineToGoal(robotID);		
+					beelineToGoal(robotID, sendID);		
 				}
 			}
 			else {
-				beelineToGoal(robotID);
+				beelineToGoal(robotID, sendID);
 			} 
 		}
 	} 
@@ -752,11 +725,11 @@ int main(void)
 				receiveIR();
 				if (!nearGoal(robotID)) {
 					if (!avoidObstacle(robotID, sendID)) {
-						beelineToGoal(robotID);		
+						beelineToGoal(robotID, sendID);		
 					}
 				}
 				else {
-					beelineToGoal(robotID);
+					beelineToGoal(robotID, sendID);
 				} 
 			}
 		}
@@ -829,11 +802,11 @@ int main(void)
 				receiveIR();
 				if (!nearGoal(robotID)) {
 					if (!avoidObstacle(robotID, sendID)) {
-						beelineToGoal(robotID);		
+						beelineToGoal(robotID, sendID);		
 					}
 				}
 				else {
-					beelineToGoal(robotID);
+					beelineToGoal(robotID, sendID);
 				} 
 			}
 		}

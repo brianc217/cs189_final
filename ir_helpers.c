@@ -53,13 +53,13 @@ int atObstacle(int robotID) {
 			break;
 		case 2117: 		// cosmetic
 			switch (ir_sensor) {
-				case 0: return (ir_range > 900);
-				case 1: return (ir_range > 900);
+				case 0: return (ir_range > 800);
+				case 1: return (ir_range > 800);
 				case 2: return (ir_range > 1000);
 				case 3: return (ir_range > 1400);
 				case 9: return (ir_range > 1100);
 				case 10: return (ir_range > 1000);
-				case 11: return (ir_range > 900); 
+				case 11: return (ir_range > 800); 
 				default: return 0;
 			}
 			break;
@@ -265,12 +265,12 @@ int avoidObstacle(int robotID, int sendID) {
 			//btcomSendString(msg);
 
 			// soft turn left
-			if (ir_bearing < -30) {
+			if (ir_bearing < -45 && ir_bearing > -100) {
 				setSpeeds(HI_SPEED/2, HI_SPEED);
 				//setSpeeds(-LO_SPEED, LO_SPEED);
 			}
 			// soft turn right
-			else if (ir_bearing > 30) {
+			else if (ir_bearing > 45 && ir_bearing < 100) {
 				setSpeeds(HI_SPEED, HI_SPEED/2);
 				//setSpeeds(LO_SPEED, -LO_SPEED);
 			}
@@ -279,9 +279,11 @@ int avoidObstacle(int robotID, int sendID) {
 				move(-20, MAX_SPEED);
 				// hard turn right
 				if (ir_bearing > 0) 
-					setSpeeds(HI_SPEED, -HI_SPEED);
+					turn(-60, HI_SPEED);
+					//setSpeeds(HI_SPEED, -HI_SPEED);
 				else 
-					setSpeeds(-HI_SPEED, HI_SPEED);
+					turn(60, HI_SPEED);
+					//setSpeeds(-HI_SPEED, HI_SPEED);
 			}
 			return 1;
 		}
@@ -302,11 +304,11 @@ int avoidRobot(int robotID, int sendID, int excludeID) {
 					setSpeeds(-HI_SPEED, HI_SPEED);
 			}
 			// right
-			else if (ir_bearing < -45 && ir_bearing > -135) {
+			else if (ir_bearing < -45 && ir_bearing > -110) {
 				setSpeeds(0, HI_SPEED);
 			}
 			// left
-			else if (ir_bearing > 45 && ir_bearing < 135) {
+			else if (ir_bearing > 45 && ir_bearing < 110) {
 				setSpeeds(HI_SPEED, 0);
 			}
 			// back
