@@ -422,9 +422,15 @@ int main(void)
 		unsigned char sendID = 0x02;
 		team = GONDOR;
 		
+		int death_count = 0;
+		int start_time = time_counter/2;
+		int in_box = 0;
+
+		int left_box = 0;
+		int move_flag = 1;
+		
 		goalLost = 0;
 		spinMode = 0;
-		mode = 0;
 
 		unsigned char seed = time(NULL);
 		comm_init(seed, sendID); 
@@ -435,18 +441,45 @@ int main(void)
 			/* CAMERA */
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
-
 			receiveIR();
-			if (!nearGoal(robotID)) {
-				if (!avoidObstacle(robotID, sendID)) {
-					//beelineToGoal(robotID);
-					setSpeeds(HI_SPEED, HI_SPEED);		
-				}
+
+			sprintf(msg,"deathcount: %i\r\n",death_count);
+			btcomSendString(msg);
+
+			if(stopIfInPenaltyBox(robotID)){
+				in_box++;
 			}
 			else {
-				//beelineToGoal(robotID);
-				setSpeeds(HI_SPEED, HI_SPEED);	
-			} 
+				if (in_box > 10) {
+					left_box++;
+				}
+				if (left_box > 10) {
+					death_count++;
+					in_box = 0;
+					left_box = 0;
+					//move back into position
+					moveForward(200, HI_SPEED);
+					turn(90,HI_SPEED);
+				}
+
+				int bestEnemy = bestEnemyIfExists();
+				if(bestEnemy || time_counter/2 < start_time + 300){
+					
+					if(bestEnemy && closeEnoughToKill(robotID,robots[bestEnemy].data.range)) {
+						kill(robotID, sendID, bestEnemy);
+					}
+					else {
+						// wait
+						setSpeeds(0,0);
+					}
+				} 
+	
+				//if killed 2 times go for goal
+				else{
+					btcomSendString("I'm going for the goal!\r\n");
+					beelineToGoal(robotID, sendID);
+				}	
+			}
 		}
 	}
 	else if (sel == 3) { // SLAYER #1
@@ -517,14 +550,15 @@ int main(void)
 		}
 	}
 	else if (sel == 4) { 	// SLAYER #2
-		int robotID = 2137;
+		int robotID = 2110; 
 		unsigned char sendID = 0x04;
 		team = GONDOR;
-		
 		int death_count = 0;
 		int start_time = time_counter/2;
-		int death_flag = 0;
 		int in_box = 0;
+
+		int left_box = 0;
+		int move_flag = 1;
 		
 		goalLost = 0;
 		spinMode = 0;
@@ -537,7 +571,7 @@ int main(void)
 		//move forward for 3sec to clear the goal
 		while (time_counter/2 <= start_time + 3){
 			setSpeeds(HI_SPEED, HI_SPEED);
-			btcomSendString("starting move");
+			btcomSendString("starting move\r\n");
 		}
 
 		while(1)
@@ -546,54 +580,44 @@ int main(void)
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
 			receiveIR();
-			if(stopIfInPenaltyBox(robotID)){
-				in_box += 1;
-			}
-			//make sure you actually left the box
-			while(in_box > 1){
-				sprintf(msg,"in box: %i\r\n",in_box);
-				btcomSendString(msg);
-				/* CAMERA */
-				e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
-				while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
-				death_flag = 1;							// set the death flag
-			
-				if(stopIfInPenaltyBox(robotID)){
-					in_box = 50;
-				} else {
-					in_box --;
-				}
-			}
-				
-			death_count += death_flag;
-			death_flag = 0;
-			sprintf(msg,"deathcount: %i\r\n",death_count);
-			btcomSendString(msg);
-			
-			if(death_count < 3){
-				int bestEnemy = bestEnemyIfExists();
-				if(bestEnemy) {
-					kill(robotID, sendID, bestEnemy);
-				}
-			} 
+						
+			//sprintf(msg,"deathcount: %i\r\n",death_count);
+			//btcomSendString(msg);
 
-			//if killed 2 times go for goal
-			else{
-				btcomSendString("I'm going for the goal!\r\n");
-				receiveIR();
-				if (!nearGoal(robotID)) {
-					if (!avoidObstacle(robotID, sendID)) {
-						beelineToGoal(robotID, sendID);		
-					}
+			if(stopIfInPenaltyBox(robotID)){
+				in_box++;
+			}
+			else {
+				if (in_box > 10) {
+					left_box++;
 				}
-				else {
-					beelineToGoal(robotID, sendID);
+				if (left_box > 10) {
+					death_count++;
+					in_box = 0;
+					left_box = 0;
+				}
+
+				if(death_count < 3){
+					int bestEnemy = bestEnemyIfExists();
+					if(bestEnemy) {
+						kill(robotID, sendID, bestEnemy);
+					}
+					else {
+						// if no targets found, go towards goal
+						beelineToGoal(robotID, sendID);
+					}
 				} 
+	
+				//if killed 2 times, go for goal
+				else{
+					btcomSendString("I'm going for the goal!\r\n");
+					beelineToGoal(robotID, sendID); 
+				}
 			}
 		}
 	}
 
-	else if (sel == 5) {
+	else if (sel == 5) { // LEADER
 		int robotID = 2117;
 		unsigned char sendID = 0x05;
 		team = MORDOR;
@@ -617,7 +641,7 @@ int main(void)
 			switch (mode) {
 				case 0:
 					setSpeeds(0,0);
-					if (time_counter/2 > 20) {
+					if (time_counter/2 > 30) {
 						 mode = 1;
 					}
 					break;
@@ -627,14 +651,20 @@ int main(void)
 			}
 		}
 	}
-	else if (sel == 6) {
-		int robotID = 2110;
+	else if (sel == 6) { // GUARD
+		int robotID = 2046;
 		unsigned char sendID = 0x06;
 		team = MORDOR;
 		
+		int death_count = 0;
+		int start_time = time_counter/2;
+		int in_box = 0;
+
+		int left_box = 0;
+		int move_flag = 1;
+		
 		goalLost = 0;
 		spinMode = 0;
-		mode = 0;
 
 		unsigned char seed = time(NULL);
 		comm_init(seed, sendID); 
@@ -645,27 +675,57 @@ int main(void)
 			/* CAMERA */
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
-
 			receiveIR();
-			if (!nearGoal(robotID)) {
-				if (!avoidRobot(robotID, sendID,0) && !avoidObstacle(robotID, sendID)) {
-					beelineToGoal(robotID, sendID);		
-				}
+
+			sprintf(msg,"deathcount: %i\r\n",death_count);
+			btcomSendString(msg);
+
+			if(stopIfInPenaltyBox(robotID)){
+				in_box++;
 			}
 			else {
-				beelineToGoal(robotID, sendID);
-			} 
+				if (in_box > 10) {
+					left_box++;
+				}
+				if (left_box > 10) {
+					death_count++;
+					in_box = 0;
+					left_box = 0;
+					//move back into position
+					moveForward(200, HI_SPEED);
+					turn(90,HI_SPEED);
+				}
+
+				int bestEnemy = bestEnemyIfExists();
+				if(bestEnemy || time_counter/2 < start_time + 300){
+					
+					if(bestEnemy && closeEnoughToKill(robotID,robots[bestEnemy].data.range)) {
+						kill(robotID, sendID, bestEnemy);
+					}
+					else {
+						// wait
+						setSpeeds(0,0);
+					}
+				} 
+	
+				//if killed 2 times go for goal
+				else{
+					btcomSendString("I'm going for the goal!\r\n");
+					beelineToGoal(robotID, sendID);
+				}	
+			}
 		}
 	} 
 	else if (sel == 7) {
-		int robotID = 2046;
+		int robotID = 2117; 
 		unsigned char sendID = 0x07;
 		team = MORDOR;
-		
 		int death_count = 0;
 		int start_time = time_counter/2;
-		int death_flag = 0;
 		int in_box = 0;
+
+		int left_box = 0;
+		int move_flag = 1;
 		
 		goalLost = 0;
 		spinMode = 0;
@@ -678,71 +738,61 @@ int main(void)
 		//move forward for 3sec to clear the goal
 		while (time_counter/2 <= start_time + 3){
 			setSpeeds(HI_SPEED, HI_SPEED);
-			btcomSendString("starting move");
+			btcomSendString("starting move\r\n");
 		}
 
 		while(1)
 		{
-
 			/* CAMERA */
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
 			receiveIR();
-			if(stopIfInPenaltyBox(robotID)){
-				in_box += 1;
-			}
-			//make sure you actually left the box
-			while(in_box > 1){
-				sprintf(msg,"in box: %i\r\n",in_box);
-				btcomSendString(msg);
-				/* CAMERA */
-				e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
-				while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
-				death_flag = 1;							// set the death flag
-			
-				if(stopIfInPenaltyBox(robotID)){
-					in_box = 50;
-				} else {
-					in_box --;
-				}
-			}
-				
-			death_count += death_flag;
-			death_flag = 0;
-			sprintf(msg,"deathcount: %i\r\n",death_count);
-			btcomSendString(msg);
-			
-			if(death_count < 3){
-				int bestEnemy = bestEnemyIfExists();
-				if(bestEnemy) {
-					kill(robotID, sendID, bestEnemy);
-				}
-			} 
+						
+			//sprintf(msg,"deathcount: %i\r\n",death_count);
+			//btcomSendString(msg);
 
-			//if killed 2 times go for goal
-			else{
-				btcomSendString("I'm going for the goal!\r\n");
-				receiveIR();
-				if (!nearGoal(robotID)) {
-					if (!avoidObstacle(robotID, sendID)) {
-						beelineToGoal(robotID, sendID);		
-					}
+			if(stopIfInPenaltyBox(robotID)){
+				in_box++;
+			}
+			else {
+				if (in_box > 10) {
+					left_box++;
 				}
-				else {
-					beelineToGoal(robotID, sendID);
+				if (left_box > 10) {
+					death_count++;
+					in_box = 0;
+					left_box = 0;
+				}
+
+				if(death_count < 3){
+					int bestEnemy = bestEnemyIfExists();
+					if(bestEnemy) {
+						kill(robotID, sendID, bestEnemy);
+					}
+					else {
+						// if no targets found, go towards goal
+						beelineToGoal(robotID, sendID);
+					}
 				} 
+	
+				//if killed 2 times, go for goal
+				else{
+					btcomSendString("I'm going for the goal!\r\n");
+					beelineToGoal(robotID, sendID); 
+				}
 			}
 		}
 	} 
 	else if (sel == 8) {
-		int robotID = 2137;
+		int robotID = 2137; 
 		unsigned char sendID = 0x08;
 		team = MORDOR;
-		
 		int death_count = 0;
 		int start_time = time_counter/2;
-		int death_flag = 0;
 		int in_box = 0;
+
+		int left_box = 0;
+		int move_flag = 1;
 		
 		goalLost = 0;
 		spinMode = 0;
@@ -755,63 +805,53 @@ int main(void)
 		//move forward for 3sec to clear the goal
 		while (time_counter/2 <= start_time + 3){
 			setSpeeds(HI_SPEED, HI_SPEED);
-			btcomSendString("starting move");
+			btcomSendString("starting move\r\n");
 		}
 
 		while(1)
 		{
-
 			/* CAMERA */
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
 			receiveIR();
-			if(stopIfInPenaltyBox(robotID)){
-				in_box += 1;
-			}
-			//make sure you actually left the box
-			while(in_box > 1){
-				sprintf(msg,"in box: %i\r\n",in_box);
-				btcomSendString(msg);
-				/* CAMERA */
-				e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
-				while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
-				death_flag = 1;							// set the death flag
-			
-				if(stopIfInPenaltyBox(robotID)){
-					in_box = 50;
-				} else {
-					in_box --;
-				}
-			}
-				
-			death_count += death_flag;
-			death_flag = 0;
-			sprintf(msg,"deathcount: %i\r\n",death_count);
-			btcomSendString(msg);
-			
-			if(death_count < 2){
-				int bestEnemy = bestEnemyIfExists();
-				if(bestEnemy) {
-					kill(robotID, sendID, bestEnemy);
-				}
-			} 
+						
+			//sprintf(msg,"deathcount: %i\r\n",death_count);
+			//btcomSendString(msg);
 
-			//if killed 2 times go for goal
-			else{
-				btcomSendString("I'm going for the goal!\r\n");
-				receiveIR();
-				if (!nearGoal(robotID)) {
-					if (!avoidObstacle(robotID, sendID)) {
-						beelineToGoal(robotID, sendID);		
-					}
+			if(stopIfInPenaltyBox(robotID)){
+				in_box++;
+			}
+			else {
+				if (in_box > 10) {
+					left_box++;
 				}
-				else {
-					beelineToGoal(robotID, sendID);
+				if (left_box > 10) {
+					death_count++;
+					in_box = 0;
+					left_box = 0;
+				}
+
+				if(death_count < 3){
+					int bestEnemy = bestEnemyIfExists();
+					if(bestEnemy) {
+						kill(robotID, sendID, bestEnemy);
+					}
+					else {
+						// if no targets found, go towards goal
+						beelineToGoal(robotID, sendID);
+					}
 				} 
+	
+				//if killed 2 times, go for goal
+				else{
+					btcomSendString("I'm going for the goal!\r\n");
+					beelineToGoal(robotID, sendID); 
+				}
 			}
 		}
-	
 	} 
+
+	/* some stuff for calibration */
 	else if (sel == 9) {		// test: for calibrating camera
 		/* calibration stuff save for later */
 		while(1)
