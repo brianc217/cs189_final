@@ -1,10 +1,11 @@
 //////////////////////////////////////////////////////
 // CALIBRATED ROBOTS:
 // *2180 (flux) -- GREAT camera; good IR
-// *2110 (reverence) --  pretty good IR; bad green on camera
 // *2117 (cosmetic) -- decent camera but better yellow than green; great IR
-// 2046 (artisan) -- average camera; pretty bad IR
+// *2110 (reverence) --  pretty good IR; bad green on camera
 // 2137 (eve) -- CAMERAS NEEDS RECALIBRATION; IR readings (for bounce-back) very good, except sensor 7 is too strong
+// 2028 (ballast) -- bad camera; IR good
+// 2046 (artisan) -- average camera; pretty meh IR
 // 2099 (surrender) -- great camera; lousy IR		
 // 2087 (bathtub) -- bad camera; IR is meh (can't sense from 3 IR receivers)
 //
@@ -12,8 +13,8 @@
 //
 // Not fully calibrated:
 // 2151 (hayley) -- really bad camera; IR not tested
-// 2028 (ballast) -- bad camera; IR not tested				    
-//////////////////////////////////////////////////////
+			    
+////////////////////////////////////////////////////// 
 
 /*
 ROBOT ROLE PSEUDOCODE
@@ -85,6 +86,7 @@ ELSE:
 double range = 0;
 unsigned char sel;					//the position of the selector switch
 int time_counter;
+int turnSwitch = 0;
 
 // camera init
 #define LINE_OF_INTEREST 290
@@ -234,8 +236,8 @@ void kill(int robotID, int sendID, int killID) {
 			}		
 			setSpeeds(HI_SPEED, HI_SPEED);
 			receiveIR();
-			//sprintf(msg,"trying to kill: %i \r\n oriented: %f\r\n",killID,prevBearing);
-			//btcomSendString(msg);
+			sprintf(msg,"trying to kill: %i \r\n oriented: %f\r\n",killID,prevBearing);
+			btcomSendString(msg);
 		}
 	}
 }
@@ -287,11 +289,17 @@ void beelineToGoal(int robotID, int sendID) {
 void moveToGoal(robotID) {
 	// wandering...
 	if (goalLost >= 3) {
+		if (spinMode == 18) {
+			turnSwitch = (turnSwitch + 1) % 2;
+		}
 		if (spinMode < 18) {
 			setSpeeds(HI_SPEED, HI_SPEED);
 		}
 		else { // spin
-			setSpeeds(LO_SPEED, -LO_SPEED);
+			if (turnSwitch) 
+				setSpeeds(LO_SPEED, -LO_SPEED);
+			else
+				setSpeeds(-LO_SPEED, LO_SPEED);
 		}
 		spinMode = (spinMode + 1) % 36;
 	}
@@ -384,7 +392,7 @@ int main(void)
 	
 	/* Each selector corresponds to a robot */
 	if (sel == 1) { // LEADER
-		int robotID = 2117;
+		int robotID = 2110;
 		unsigned char sendID = 0x01;
 		team = GONDOR;
 		
@@ -395,9 +403,6 @@ int main(void)
 		unsigned char seed = time(NULL);
 		comm_init(seed, sendID); 
 		comm_store_tx(0);
-		double lastTime = 0.0;
-		int wallDirection = 0;
-		double prevBearing = 0.0;
 
 		while(1)
 		{
@@ -407,32 +412,7 @@ int main(void)
 			receiveIR();
 			stopIfInPenaltyBox(robotID);
 
-			if(robots[1].time != lastTime){
-				lastTime = robots[1].time;
-				if(!wallDirection) {
-					prevBearing = robots[1].data.bearing;
-					if(prevBearing < 0){
-						wallDirection = -1;
-					} else {
-						wallDirection = 1;
-					}
-				}
-
-				if(wallDirection > 0){ // Keep wall on left side
-					double diff = robots[1].data.bearing - 90 - 10;
-					if(abs(diff) < 80){
-						turn(diff, HALF_SPEED);
-						setSpeeds(HALF_SPEED, HALF_SPEED);
-					}
-				} else {
-					double diff = robots[1].data.bearing + 90 - 10;
-					if(abs(diff) < 80){
-						turn(diff, HALF_SPEED);
-						setSpeeds(HALF_SPEED, HALF_SPEED);
-					}
-				}
-			}
-			/*switch (mode) {
+			switch (mode) {
 				case 0:
 					setSpeeds(0,0);
 					if (time_counter/2 > 30) {
@@ -440,13 +420,22 @@ int main(void)
 					}
 					break;
 				case 1:
+					if (!avoidRobot(robotID, sendID, 0) && !avoidObstacle(robotID, sendID)) {
+						setSpeeds(HALF_SPEED, HALF_SPEED);
+					}
+
+					if(time_counter/2 > 55) {
+						mode = 2;
+					}
+					break;
+				case 2:
 					beelineToGoal(robotID, sendID);
 					break;
-			}*/
+			}
 		}
 	}
 	else if (sel == 2) { // GUARD
-		int robotID = 2046;
+		int robotID = 2137; // always use eve
 		unsigned char sendID = 0x02;
 		team = GONDOR;
 		
@@ -486,19 +475,24 @@ int main(void)
 					in_box = 0;
 					left_box = 0;
 					//move back into position
-					moveForward(200, HI_SPEED);
+					moveForward(755, HI_SPEED);
 					turn(90,HI_SPEED);
 				}
 
 				int bestEnemy = bestEnemyIfExists();
-				if(bestEnemy || time_counter/2 < start_time + 300){
-					
-					if(bestEnemy && closeEnoughToKill(robotID,robots[bestEnemy].data.range)) {
+				if(bestEnemy || time_counter/2 < start_time + 600){
+					int close = 0;
+					close = closeEnoughToKill(robotID,robots[bestEnemy].data.range);
+					sprintf(msg,"I am detecting robot: %i\r\n\r\n close: %i\r\n", bestEnemy, close);
+					btcomSendString(msg);
+					if(bestEnemy > 0 && closeEnoughToKill(robotID,robots[bestEnemy].data.range)!= 0) {
+						btcomSendString("I'm going to kill them\r\n");
 						kill(robotID, sendID, bestEnemy);
 					}
 					else {
 						// wait
 						setSpeeds(0,0);
+						btcomSendString("waiting\r\n");
 					}
 				} 
 	
@@ -511,7 +505,7 @@ int main(void)
 		}
 	}
 	else if (sel == 3) { // SLAYER #1
-		int robotID = 2117; 
+		int robotID = 2028; 
 		unsigned char sendID = 0x03;
 		team = GONDOR;
 		int death_count = 0;
@@ -645,8 +639,9 @@ int main(void)
 		}
 	}
 
-	else if (sel == 5) { // MORDOR LEADER
-		int robotID = 2137;
+
+	else if (sel == 5) { // LEADER
+		int robotID = 2110;
 		unsigned char sendID = 0x05;
 		team = MORDOR;
 		
@@ -674,13 +669,22 @@ int main(void)
 					}
 					break;
 				case 1:
+					if (!avoidRobot(robotID, sendID, 0) && !avoidObstacle(robotID, sendID)) {
+						setSpeeds(HALF_SPEED, HALF_SPEED);
+					}
+
+					if(time_counter/2 > 55) {
+						mode = 2;
+					}
+					break;
+				case 2:
 					beelineToGoal(robotID, sendID);
 					break;
 			}
 		}
 	}
 	else if (sel == 6) { // GUARD
-		int robotID = 2046;
+		int robotID = 2137;
 		unsigned char sendID = 0x06;
 		team = MORDOR;
 		
@@ -720,19 +724,24 @@ int main(void)
 					in_box = 0;
 					left_box = 0;
 					//move back into position
-					moveForward(200, HI_SPEED);
+					moveForward(755, HI_SPEED);
 					turn(90,HI_SPEED);
 				}
 
 				int bestEnemy = bestEnemyIfExists();
-				if(bestEnemy || time_counter/2 < start_time + 300){
-					
-					if(bestEnemy && closeEnoughToKill(robotID,robots[bestEnemy].data.range)) {
+				if(bestEnemy || time_counter/2 < start_time + 600){
+					int close = 0;
+					close = closeEnoughToKill(robotID,robots[bestEnemy].data.range);
+					sprintf(msg,"I am detecting robot: %i\r\n\r\n close: %i\r\n", bestEnemy, close);
+					btcomSendString(msg);
+					if(bestEnemy > 0 && closeEnoughToKill(robotID,robots[bestEnemy].data.range)!= 0) {
+						btcomSendString("I'm going to kill them\r\n");
 						kill(robotID, sendID, bestEnemy);
 					}
 					else {
 						// wait
 						setSpeeds(0,0);
+						btcomSendString("waiting\r\n");
 					}
 				} 
 	
@@ -745,7 +754,7 @@ int main(void)
 		}
 	} 
 	else if (sel == 7) {
-		int robotID = 2117; 
+		int robotID = 2110; 
 		unsigned char sendID = 0x07;
 		team = MORDOR;
 		int death_count = 0;
@@ -952,4 +961,32 @@ void wallFollow(int robotID, int sendID) {
 		
 	}
 }
+*/
+
+/*
+	if(robots[1].time != lastTime){
+		lastTime = robots[1].time;
+		if(!wallDirection) {
+			prevBearing = robots[1].data.bearing;
+			if(prevBearing < 0){
+				wallDirection = -1;
+			} else {
+				wallDirection = 1;
+			}
+		}
+
+		if(wallDirection > 0){ // Keep wall on left side
+			double diff = robots[1].data.bearing - 90 - 10;
+			if(abs(diff) < 80){
+				turn(diff, HALF_SPEED);
+				setSpeeds(HALF_SPEED, HALF_SPEED);
+			}
+		} else {
+			double diff = robots[1].data.bearing + 90 - 10;
+			if(abs(diff) < 80){
+				turn(diff, HALF_SPEED);
+				setSpeeds(HALF_SPEED, HALF_SPEED);
+			}
+		}
+	}
 */

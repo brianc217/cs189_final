@@ -29,13 +29,13 @@ int atObstacle(int robotID) {
 			break;
 		case 2110:
 			switch (ir_sensor) {
-				case 0: return (ir_range > 600);
-				case 1: return (ir_range > 1000);
+				case 0: return (ir_range > 400);
+				case 1: return (ir_range > 800);
 				case 2: return (ir_range > 1500);
 				case 3: return (ir_range > 1700);
 				case 9: return (ir_range > 1700);
-				case 10: return (ir_range > 1500);
-				case 11: return (ir_range > 1000); 
+				case 10: return (ir_range > 800);
+				case 11: return (ir_range > 600); 
 				default: return 0;
 			}
 			break;
@@ -84,6 +84,18 @@ int atObstacle(int robotID) {
 				case 9: return (ir_range > 1400);
 				case 10: return (ir_range > 1400);
 				case 11: return (ir_range > 1400); 
+				default: return 0;
+			}
+			break;
+		case 2028: 		// ballast
+			switch (ir_sensor) {
+				case 0: return (ir_range > 1200);
+				case 1: return (ir_range > 1400);
+				case 2: return (ir_range > 1900);
+				case 3: return (ir_range > 2000); 
+				case 9: return (ir_range > 1700);
+				case 10: return (ir_range > 1100);
+				case 11: return (ir_range > 1000); 
 				default: return 0;
 			}
 			break;
@@ -214,6 +226,23 @@ int closeToRobot(int robotID) {
 				default: return 0;
 			}
 			break;
+		case 2028:	//ballast
+			switch (ir_sensor) {
+				case 0: return (ir_range > 1500);
+				case 1: return (ir_range > 1400);
+				case 2: return (ir_range > 1600); 
+				case 3: return (ir_range > 2100);
+				case 4: return (ir_range > 2200);			
+				case 5: return (ir_range > 3000); 
+				case 6: return (ir_range > 2500);
+				case 7: return (ir_range > 2300); 
+				case 8: return (ir_range > 1700); 
+				case 9: return (ir_range > 1800);
+				case 10: return (ir_range > 1500);
+				case 11: return (ir_range > 1300);  
+				default: return 0;
+			}
+			break;
 		default:
 			switch (ir_sensor) {
 				case 0: return (ir_range > 890);
@@ -235,141 +264,70 @@ int closeToRobot(int robotID) {
 }
 
 int closeEnoughToKill(int robotID, int range) {
+	sprintf(msg, "range: %i\r\n",range);
+	btcomSendString(msg);
 	switch (robotID) {
 		case 2180:
-			switch (range) {
-				case 0: return (ir_range > 890);
-				case 1: return (ir_range > 690);
-				case 2: return (ir_range > 1000); // dummy value -- no sensor 2 readings
-				case 3: return (ir_range > 500);
-				case 4: return (ir_range > 1070);			
-				case 5: return (ir_range > 1030);
-				case 6: return (ir_range > 880);
-				case 7: return (ir_range > 1000);
-				case 8: return (ir_range > 1200);
-				case 9: return (ir_range > 1150);
-				case 10: return (ir_range > 900);
-				case 11: return (ir_range > 1100); 
-				default: return 0;
+			if(range > 600){
+				return 1;
+			}
+			else{
+				return 0;
 			}
 			break;
 		case 2110:
-			switch (range) {
-				case 0: return (ir_range > 800);
-				case 1: return (ir_range > 800);
-				case 2: return (ir_range > 1100); // dummy value -- no sensor 2 readings
-				case 3: return (ir_range > 1100);
-				case 4: return (ir_range > 1170);			
-				case 5: return (ir_range > 900);
-				case 6: return (ir_range > 1000);
-				case 7: return (ir_range > 1100);
-				case 8: return (ir_range > 1150);
-				case 9: return (ir_range > 1100);
-				case 10: return (ir_range > 1000);
-				case 11: return (ir_range > 800); 
-				default: return 0;
+			if(range > 450){
+				return 1;
+			}
+			else{
+				return 0;
 			}
 			break;
 		case 2099:
-			switch (range) {
-				case 0: return (ir_range > 1200);
-				case 1: return (ir_range > 1300);
-				case 2: return (ir_range > 1400); 
-				case 3: return (ir_range > 1400);
-				case 4: return (ir_range > 1400);			
-				case 5: return (ir_range > 1300);
-				case 6: return (ir_range > 1200);
-				case 7: return (ir_range > 1200);
-				case 8: return (ir_range > 1000); // dummy value
-				case 9: return (ir_range > 1300);
-				case 10: return (ir_range > 1300);
-				case 11: return (ir_range > 1100); 
-				default: return 0;
+			if(range > 450){
+				return 1;
+			}
+			else{
+				return 0;
 			}
 			break;
 		case 2137:
-			switch (range) {
-				case 0: return (ir_range > 1100);
-				case 1: return (ir_range > 1150);
-				case 2: return (ir_range > 1400); 
-				case 3: return (ir_range > 1000); // dummy value
-				case 4: return (ir_range > 1100);			
-				case 5: return (ir_range > 1100);
-				case 6: return (ir_range > 1200);
-				case 7: return (ir_range > 1100);
-				case 8: return (ir_range > 1100);
-				case 9: return (ir_range > 1200);
-				case 10: return (ir_range > 1100);
-				case 11: return (ir_range > 1300); 
-				default: return 0;
+			if(range > 450){
+				return 1;
+			}
+			else{
+				return 0;
 			}
 			break;
 		case 2117:
-			switch (range) {
-				case 0: return (ir_range > 700);
-				case 1: return (ir_range > 900);
-				case 2: return (ir_range > 900); 
-				case 3: return (ir_range > 900);
-				case 4: return (ir_range > 900);			
-				case 5: return (ir_range > 700);
-				case 6: return (ir_range > 700);
-				case 7: return (ir_range > 1000);
-				case 8: return (ir_range > 1000);
-				case 9: return (ir_range > 1000);
-				case 10: return (ir_range > 900);
-				case 11: return (ir_range > 800); 
-				default: return 0;
+			if(range > 450){
+				return 1;
+			}
+			else{
+				return 0;
 			}
 			break;
 		case 2046:
-			switch (range) {
-				case 0: return (ir_range > 700);
-				case 1: return (ir_range > 700);
-				case 2: return (ir_range > 1000); 
-				case 3: return (ir_range > 850);
-				case 4: return (ir_range > 900);			
-				case 5: return (ir_range > 800);
-				case 6: return (ir_range > 850);
-				case 7: return (ir_range > 900); // dummy value
-				case 8: return (ir_range > 900);
-				case 9: return (ir_range > 1000);
-				case 10: return (ir_range > 750);
-				case 11: return (ir_range > 300); 
-				default: return 0;
+			if(range > 450){
+				return 1;
 			}
-			break;
+			else{
+				return 0;
+			}
 		case 2087:
-			switch (range) {
-				case 0: return (ir_range > 300);
-				case 1: return (ir_range >650);
-				case 2: return (ir_range > 500); 
-				case 3: return (ir_range > 700);
-				case 4: return (ir_range > 750);			
-				case 5: return (ir_range > 700); // dummy value
-				case 6: return (ir_range > 600);
-				case 7: return (ir_range > 400); 
-				case 8: return (ir_range > 700); // dummy value
-				case 9: return (ir_range > 650);
-				case 10: return (ir_range > 600);
-				case 11: return (ir_range > 700); // dummy value 
-				default: return 0;
+			if(range > 450){
+				return 1;
+			}
+			else{
+				return 0;
 			}
 			break;
 		default:
-			switch (range) {
-				case 0: return (ir_range > 890);
-				case 1: return (ir_range > 690);
-				case 2: return (ir_range > 1000); // dummy value -- no sensor 2 readings
-				case 3: return (ir_range > 500);
-				case 4: return (ir_range > 1070);			
-				case 5: return (ir_range > 1030);
-				case 6: return (ir_range > 880);
-				case 7: return (ir_range > 1000);
-				case 8: return (ir_range > 1200);
-				case 9: return (ir_range > 1150);
-				case 10: return (ir_range > 900);
-				case 11: return (ir_range > 1100); 
-				default: return 0;
+			if(range > 450){
+				return 1;
+			}
+			else{
+				return 0;
 			}
 			break;
 	}
@@ -396,7 +354,7 @@ void receiveIR() {
 		robots[receivedID] = rData;
 	}
 	
-	printRobots();
+	//printRobots();
 }
 
 int avoidObstacle(int robotID, int sendID) {
@@ -406,12 +364,12 @@ int avoidObstacle(int robotID, int sendID) {
 			//btcomSendString(msg);
 
 			// soft turn left
-			if (ir_bearing < -45 && ir_bearing > -100) {
+			if (ir_bearing < -60 && ir_bearing > -100) {
 				setSpeeds(HI_SPEED/2, HI_SPEED);
 				//setSpeeds(-LO_SPEED, LO_SPEED);
 			}
 			// soft turn right
-			else if (ir_bearing > 45 && ir_bearing < 100) {
+			else if (ir_bearing > 60 && ir_bearing < 100) {
 				setSpeeds(HI_SPEED, HI_SPEED/2);
 				//setSpeeds(LO_SPEED, -LO_SPEED);
 			}
