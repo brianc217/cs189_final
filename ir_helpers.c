@@ -396,7 +396,7 @@ void receiveIR() {
 		robots[receivedID] = rData;
 	}
 	
-	//printRobots();
+	printRobots();
 }
 
 int avoidObstacle(int robotID, int sendID) {

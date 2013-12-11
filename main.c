@@ -395,6 +395,9 @@ int main(void)
 		unsigned char seed = time(NULL);
 		comm_init(seed, sendID); 
 		comm_store_tx(0);
+		double lastTime = 0.0;
+		int wallDirection = 0;
+		double prevBearing = 0.0;
 
 		while(1)
 		{
@@ -404,7 +407,32 @@ int main(void)
 			receiveIR();
 			stopIfInPenaltyBox(robotID);
 
-			switch (mode) {
+			if(robots[1].time != lastTime){
+				lastTime = robots[1].time;
+				if(!wallDirection) {
+					prevBearing = robots[1].data.bearing;
+					if(prevBearing < 0){
+						wallDirection = -1;
+					} else {
+						wallDirection = 1;
+					}
+				}
+
+				if(wallDirection > 0){ // Keep wall on left side
+					double diff = robots[1].data.bearing - 90 - 10;
+					if(abs(diff) < 80){
+						turn(diff, HALF_SPEED);
+						setSpeeds(HALF_SPEED, HALF_SPEED);
+					}
+				} else {
+					double diff = robots[1].data.bearing + 90 - 10;
+					if(abs(diff) < 80){
+						turn(diff, HALF_SPEED);
+						setSpeeds(HALF_SPEED, HALF_SPEED);
+					}
+				}
+			}
+			/*switch (mode) {
 				case 0:
 					setSpeeds(0,0);
 					if (time_counter/2 > 30) {
@@ -414,7 +442,7 @@ int main(void)
 				case 1:
 					beelineToGoal(robotID, sendID);
 					break;
-			}
+			}*/
 		}
 	}
 	else if (sel == 2) { // GUARD
@@ -617,8 +645,8 @@ int main(void)
 		}
 	}
 
-	else if (sel == 5) { // LEADER
-		int robotID = 2117;
+	else if (sel == 5) { // MORDOR LEADER
+		int robotID = 2137;
 		unsigned char sendID = 0x05;
 		team = MORDOR;
 		
