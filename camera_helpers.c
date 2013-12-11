@@ -51,6 +51,11 @@ int checkYellow(int robotID) {
 			green_thresh = 2;
 			blue_thresh = 2;
 			break;
+		case 2028: 	// ballast
+			red_thresh = 12;
+			green_thresh = 3;
+			blue_thresh = 4;
+			break;
 		default:
 			red_thresh = 10;
 			green_thresh = 2;
@@ -100,6 +105,11 @@ int checkGreen(int robotID) {
 			green_thresh = 2;
 			blue_thresh = 2;
 			break;
+		case 2028: // ballast
+			red_thresh = 5;
+			green_thresh = 5;
+			blue_thresh = 6;
+			break;
 		default:
 			red_thresh = 5;
 			green_thresh = 2;
@@ -115,12 +125,12 @@ int checkRed(int robotID) {
 
 	switch (robotID) {
 		case 2046:
-			red_thresh = 11;
+			red_thresh = 10;
 			green_thresh = 1;
 			blue_thresh = 1;
 			break;
 		default:
-			red_thresh = 9;
+			red_thresh = 8;
 			green_thresh = 1;
 			blue_thresh = 1;
 			break;

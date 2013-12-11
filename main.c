@@ -1,10 +1,11 @@
 //////////////////////////////////////////////////////
 // CALIBRATED ROBOTS:
 // *2180 (flux) -- GREAT camera; good IR
-// *2110 (reverence) --  pretty good IR; bad green on camera
 // *2117 (cosmetic) -- decent camera but better yellow than green; great IR
-// 2046 (artisan) -- average camera; pretty bad IR
+// *2110 (reverence) --  pretty good IR; bad green on camera
 // 2137 (eve) -- CAMERAS NEEDS RECALIBRATION; IR readings (for bounce-back) very good, except sensor 7 is too strong
+// 2028 (ballast) -- bad camera; IR good
+// 2046 (artisan) -- average camera; pretty meh IR
 // 2099 (surrender) -- great camera; lousy IR		
 // 2087 (bathtub) -- bad camera; IR is meh (can't sense from 3 IR receivers)
 //
@@ -12,7 +13,7 @@
 //
 // Not fully calibrated:
 // 2151 (hayley) -- really bad camera; IR not tested
-// 2028 (ballast) -- bad camera; IR not tested				    
+			    
 //////////////////////////////////////////////////////
 
 /*
@@ -85,6 +86,7 @@ ELSE:
 double range = 0;
 unsigned char sel;					//the position of the selector switch
 int time_counter;
+int turnSwitch = 0;
 
 // camera init
 #define LINE_OF_INTEREST 290
@@ -287,11 +289,17 @@ void beelineToGoal(int robotID, int sendID) {
 void moveToGoal(robotID) {
 	// wandering...
 	if (goalLost >= 3) {
+		if (spinMode == 18) {
+			turnSwitch = (turnSwitch + 1) % 2;
+		}
 		if (spinMode < 18) {
 			setSpeeds(HI_SPEED, HI_SPEED);
 		}
 		else { // spin
-			setSpeeds(LO_SPEED, -LO_SPEED);
+			if (turnSwitch) 
+				setSpeeds(LO_SPEED, -LO_SPEED);
+			else
+				setSpeeds(-LO_SPEED, LO_SPEED);
 		}
 		spinMode = (spinMode + 1) % 36;
 	}
@@ -384,7 +392,7 @@ int main(void)
 	
 	/* Each selector corresponds to a robot */
 	if (sel == 1) { // LEADER
-		int robotID = 2117;
+		int robotID = 2028;
 		unsigned char sendID = 0x01;
 		team = GONDOR;
 		
@@ -483,7 +491,7 @@ int main(void)
 		}
 	}
 	else if (sel == 3) { // SLAYER #1
-		int robotID = 2117; 
+		int robotID = 2028; 
 		unsigned char sendID = 0x03;
 		team = GONDOR;
 		int death_count = 0;
@@ -618,7 +626,7 @@ int main(void)
 	}
 
 	else if (sel == 5) { // LEADER
-		int robotID = 2117;
+		int robotID = 2110;
 		unsigned char sendID = 0x05;
 		team = MORDOR;
 		
@@ -717,7 +725,7 @@ int main(void)
 		}
 	} 
 	else if (sel == 7) {
-		int robotID = 2117; 
+		int robotID = 2110; 
 		unsigned char sendID = 0x07;
 		team = MORDOR;
 		int death_count = 0;

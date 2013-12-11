@@ -29,13 +29,13 @@ int atObstacle(int robotID) {
 			break;
 		case 2110:
 			switch (ir_sensor) {
-				case 0: return (ir_range > 600);
-				case 1: return (ir_range > 1000);
+				case 0: return (ir_range > 400);
+				case 1: return (ir_range > 800);
 				case 2: return (ir_range > 1500);
 				case 3: return (ir_range > 1700);
 				case 9: return (ir_range > 1700);
-				case 10: return (ir_range > 1500);
-				case 11: return (ir_range > 1000); 
+				case 10: return (ir_range > 800);
+				case 11: return (ir_range > 600); 
 				default: return 0;
 			}
 			break;
@@ -84,6 +84,18 @@ int atObstacle(int robotID) {
 				case 9: return (ir_range > 1400);
 				case 10: return (ir_range > 1400);
 				case 11: return (ir_range > 1400); 
+				default: return 0;
+			}
+			break;
+		case 2028: 		// ballast
+			switch (ir_sensor) {
+				case 0: return (ir_range > 1200);
+				case 1: return (ir_range > 1400);
+				case 2: return (ir_range > 1900);
+				case 3: return (ir_range > 2000); 
+				case 9: return (ir_range > 1700);
+				case 10: return (ir_range > 1100);
+				case 11: return (ir_range > 1000); 
 				default: return 0;
 			}
 			break;
@@ -211,6 +223,23 @@ int closeToRobot(int robotID) {
 				case 9: return (ir_range > 650);
 				case 10: return (ir_range > 600);
 				case 11: return (ir_range > 700); // dummy value 
+				default: return 0;
+			}
+			break;
+		case 2028:	//ballast
+			switch (ir_sensor) {
+				case 0: return (ir_range > 1500);
+				case 1: return (ir_range > 1400);
+				case 2: return (ir_range > 1600); 
+				case 3: return (ir_range > 2100);
+				case 4: return (ir_range > 2200);			
+				case 5: return (ir_range > 3000); 
+				case 6: return (ir_range > 2500);
+				case 7: return (ir_range > 2300); 
+				case 8: return (ir_range > 1700); 
+				case 9: return (ir_range > 1800);
+				case 10: return (ir_range > 1500);
+				case 11: return (ir_range > 1300);  
 				default: return 0;
 			}
 			break;
@@ -406,12 +435,12 @@ int avoidObstacle(int robotID, int sendID) {
 			//btcomSendString(msg);
 
 			// soft turn left
-			if (ir_bearing < -45 && ir_bearing > -100) {
+			if (ir_bearing < -60 && ir_bearing > -100) {
 				setSpeeds(HI_SPEED/2, HI_SPEED);
 				//setSpeeds(-LO_SPEED, LO_SPEED);
 			}
 			// soft turn right
-			else if (ir_bearing > 45 && ir_bearing < 100) {
+			else if (ir_bearing > 60 && ir_bearing < 100) {
 				setSpeeds(HI_SPEED, HI_SPEED/2);
 				//setSpeeds(LO_SPEED, -LO_SPEED);
 			}
