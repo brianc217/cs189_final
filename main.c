@@ -1,58 +1,24 @@
 //////////////////////////////////////////////////////
-// CALIBRATED ROBOTS:
-// *2180 (flux) -- GREAT camera; good IR
-// *2117 (cosmetic) -- decent camera but better yellow than green; great IR
-// *2110 (reverence) --  pretty good IR; bad green on camera
-// 2137 (eve) -- CAMERAS NEEDS RECALIBRATION; IR readings (for bounce-back) very good, except sensor 7 is too strong
-// 2028 (ballast) -- bad camera; IR good
-// 2046 (artisan) -- average camera; pretty meh IR
-// 2099 (surrender) -- great camera; lousy IR		
-// 2087 (bathtub) -- bad camera; IR is meh (can't sense from 3 IR receivers)
+// The Battle of Pelennor Fields
+// Johnathan Budd, Brian Connolly, 
+// Lakshmi Parthasarathy, Vanessa Tan
 //
-// *: potentially good for leader
+// See also ir_helpers.c, ir_helpers.h, 
+// camera_helpers.h and camera_helpers.c.
+//
+// CALIBRATED ROBOTS:
+// 2180 (flux)
+// 2117 (cosmetic)
+// 2110 (reverence) 
+// 2137 (eve)
+// 2028 (ballast)
+// 2046 (artisan)
+// 2099 (surrender)		
+// 2087 (bathtub) 
 //
 // Not fully calibrated:
-// 2151 (hayley) -- really bad camera; IR not tested
-			    
+// 2151 (hayley) -- IR not tested
 ////////////////////////////////////////////////////// 
-
-/*
-ROBOT ROLE PSEUDOCODE
-
-1. LEADER
-IF (x+3 seconds) have passed OR [GUARD] has not been detected nearby for > 10 seconds OR enemy detected nearby:
-	{state 1} beelineToGoal()
-ELSE:
-	{state 0} stay still
-
-
-2. GUARD
-IF (x seconds) have passed:
-	become a [SLAYER]
-ELSE:
-	IF [LEADER] has been out of range (25 cm?) for >= 3 seconds:
-		move back toward [LEADER]
-	ELSE IF enemy robot within y cm: 
-		attack that robot
-	ELSE:
-		circle around in front of goal??
-
-
-3/4. SLAYERS (one slightly staggered to prevent immediate collision)
-IF enemy leader in range:
-	attack enemy leader
-ELSE IF other enemy robot in range:
-	pick nearest one
-	attack that robot
-ELSE:
-	beelineToGoal()
-
-
-*PERVASIVE (all robots do this):
-- Stop if in penalty box
-- Avoid robots (that aren't your target, if you're a killer)
-- Avoid obstacles
-*/
 
 
 #include <p30f6014A.h>
@@ -82,42 +48,17 @@ ELSE:
 #include "ir_helpers.h"
 
 
-/* global vars */
-double range = 0;
-unsigned char sel;					//the position of the selector switch
-int time_counter;
-int turnSwitch = 0;
-
-// camera init
 #define LINE_OF_INTEREST 290
 
-
+/* Control-related globals */
+unsigned char sel;		//the position of the selector switch
+int time_counter;
+int turnSwitch = 0;
 unsigned int mode;		// current state of the robot 
 char msg[80]; 			// debug messages				
-
-
-// Ox01 = FRODO, 0x02-0x04 allies; 0x04 = WITCH-KING, 0x05-0x07 allies
-unsigned char id1 = 0x01;
-unsigned char id2 = 0x02;
-unsigned char id3 = 0x03;
-unsigned char id4 = 0x04;
-
-unsigned char id5 = 0x05;
-unsigned char id6 = 0x06;
-unsigned char id7 = 0x07;
-unsigned char id8 = 0x08;
-
-
-/* PUT ROBOT IDS HERE */
-int robot0 = 2046; 		// Artisan
-int robot1 = 2137; 		// Evaporation
-int robot2 = 2110; 		// Reverence
-int robot3 = 2180; 		// Flux
-
-
 unsigned int team;
 
-// Camera
+// Camera-related globals
 unsigned char pixelColors[80];
 unsigned char smoothedColors[80];
 int cam_width;
@@ -144,7 +85,7 @@ static unsigned char print_buffer[100];
 //Eases the transmission of integers as ascii code
 #define uart_send_text(msg) do { e_send_uart1_char(msg,strlen(msg)); while(e_uart1_sending()); } while(0)
 
-// for debugging
+/* Some debugging helpers */
 void printRGB(int pixel) {
 	getColor(pixel);
 	
@@ -168,103 +109,6 @@ void printReadings() {
 	btcomSendString(msg);
 }
 
-
-int nearGoal(robotID) {
-	int sum = 0;
-	for (i = 0; i < cam_width; i++) {
-		sum += smoothedColors[i];
-	}
-	return (sum > 65);
-
-}
-
-void robot_init() {
-	//Definitions of variables
-	int cam_mode, cam_heigth, cam_zoom, buffer_size;
-
-	myWait(500);
-	e_init_port();    //Configure port pins
-	e_init_motors();
-	e_init_uart1();   //Initialize UART to 115200 Kbit
-	e_i2cp_init();    //I2C bus for the camera
-
-	cam_mode=RGB_565_MODE; 					//Value defined in e_poxxxx.h (RGB_565_MODE, GREY_SCALE_MODE, YUV_MODE)
-	cam_width=80;
-	cam_heigth=1; 
-	cam_zoom=8; 							//Fully zoomed out
-	buffer_size=cam_width*cam_heigth*2; 	//Multiply by 1 or 2 depending on if grayscale or color is used.
-	e_poxxxx_init_cam(); 					//Located in e_common.c 
-	 
-	//Returns 0 if setup parameters for the camera are ok. Returns -1 if not.       
-	if(0 != e_poxxxx_config_cam((ARRAY_WIDTH -cam_width*cam_zoom)/2,LINE_OF_INTEREST,cam_width*cam_zoom,cam_heigth*cam_zoom,cam_zoom,cam_zoom,cam_mode))	
-	{
-		e_set_led(0, 1);  //Turn on center diode when robot is considered from the front if setup FAILED.
-		while(1);         //And then stay passive 
-	}
-
-	manual_camera_calibration();
-	e_poxxxx_write_cam_registers(); //Initialization and changes to the setup of the camera.
-
-	time_counter = 0;
-}
-
-
-void orientToRobot(int id, double theta) {
-	double bearing = robots[id].data.bearing;
-	turn(bearing + theta, HALF_SPEED);
-}
-
-void kill(int robotID, int sendID, int killID) {
-	/*orientToRobot(id, 0);
-	while(time_counter/2 - robots[id].time < 15) {
-	setSpeeds(HI_SPEED, HI_SPEED);
-	}
-	setSpeeds(0,0);*/
-	
-	//Opting for simpler idea - turn towards robot and go straight every 3 seconds
-	double prevBearing = 0.0;
-
-	if (!avoidRobot(robotID, sendID, killID) && !avoidObstacle(robotID, sendID)) {
-		while(time_counter/2 - robots[killID].time < 15) {
-			//avoidRobot(robotID,sendID,killID);
-			//avoidObstacle(robotID,sendID);
-			//stopIfInPenaltyBox(robotID);
-	
-			if(prevBearing != robots[killID].data.bearing) {
-				orientToRobot(killID, 0);
-				prevBearing = robots[killID].data.bearing;
-			}		
-			setSpeeds(HI_SPEED, HI_SPEED);
-			receiveIR();
-			sprintf(msg,"trying to kill: %i \r\n oriented: %f\r\n",killID,prevBearing);
-			btcomSendString(msg);
-		}
-	}
-}
-
-// not currently being used for anything
-void avoidFriends() {
-	int init = (team == GONDOR) ? 1 : 5;
-	int i = init;
-	
-	// get the your id
-	int id = getselector();
-
-	//if a friend is close turn 90 away from them and move until they are no longer close
-	for(;i < init + 4; i++){
-		if(time_counter/2 - robots[i].time < 8 && robots[i].time != 0.0 && robots[i].data.range > 1111 && i!= id) {
-			orientToRobot(i,90);
-			while(time_counter/2 - robots[i].time < 8 && robots[i].time != 0.0 && robots[i].data.range > 1111) {
-				setSpeeds(HI_SPEED, HI_SPEED);
-				receiveIR();
-				flow_led();
-			}
-			setSpeeds(0,0);
-			e_led_clear();
-		}			
-	}
-}
-
 void printCameraLine() {
 	// Debug print of camera line
 	sprintf(msg, "");
@@ -275,7 +119,29 @@ void printCameraLine() {
 	btcomSendString(msg); 
 }
 
-// NOW INCLUDES OBSTACLE AVOIDANCE
+
+
+/* Returns whether the robot is "near" the goal, based on camera line.
+ * Used to turn off obstacle avoidance when entering goal. */
+int nearGoal(robotID) {
+	int sum = 0;
+	for (i = 0; i < cam_width; i++) {
+		sum += smoothedColors[i];
+	}
+	return (sum > 65);
+
+}
+
+/* Given a robot ID and a theta offset, turns by that robot's offset 
+ * plus theta degrees. */
+void orientToRobot(int id, double theta) {
+	double bearing = robots[id].data.bearing;
+	turn(bearing + theta, HALF_SPEED);
+}
+
+
+/* Make a beeline to the goal. Combines obstacle/robot avoidance with 
+ * moveToGoal(). */
 void beelineToGoal(int robotID, int sendID) {
 	if (!nearGoal(robotID)) {
 		if (!avoidObstacle(robotID, sendID) && !avoidRobot(robotID, sendID, 0)) 
@@ -286,6 +152,10 @@ void beelineToGoal(int robotID, int sendID) {
 	} 
 }
 
+/* Given robot ID, takes one step towards the goal. 
+ * When goal not seen, alternates between "wandering" (moving forward) 
+ * and "scanning," where scanning alternates turn directions. 
+ * If goal is seen, adjusts angle based on the midpoint of the goal pixels. */
 void moveToGoal(robotID) {
 	// wandering...
 	if (goalLost >= 3) {
@@ -304,45 +174,41 @@ void moveToGoal(robotID) {
 		spinMode = (spinMode + 1) % 36;
 	}
 	getGoalCameraLine(robotID, team);
-	//printCameraLine();
 
 	if (goalInView()) {
 		goalLost = 0;
-		//sprintf(msg, "SEES GOAL\r\n");
-		//btcomSendString(msg);
 		// compute midpoint (center of gravity, really) of goal pixels
 		int mid = getGoalMidpoint();
 		int delta = cam_width/2 - mid;
-		//sprintf(msg, "delta: %d\r\n", delta);
-		//btcomSendString(msg);
 		float p;
 
 		// if roughly in center of view, move straight forward
 		if (abs(delta) < 12) {
-        	setSpeeds(HI_SPEED, HI_SPEED);
-        }
+      setSpeeds(HI_SPEED, HI_SPEED);
+    }
 
-        // if the puck is not centered, turn softly toward puck (proportional to midpoint's distance from camera center)
-        else {
-			// set proportionality constant
-            p = 1.0 - (abs(delta) - 15.0)/50.0;
+    // if the puck is not centered, turn softly toward puck 
+    // (proportional to midpoint's distance from camera center)
+    else {
+		   // set proportionality constant
+       p = 1.0 - (abs(delta) - 15.0)/50.0;
+ 
+       // turn softly right
+       if (delta > 0)  
+        	setSpeeds(HI_SPEED, HI_SPEED*p);
 
-            // turn softly right
-            if (delta > 0) { // soft turn right
-            	setSpeeds(HI_SPEED, HI_SPEED*p);
-            }
-
-            // turn softly left
-            else {
-             	setSpeeds(HI_SPEED*p, HI_SPEED);
-       		}               
-    	}	
+       // turn softly left
+       else 
+         	setSpeeds(HI_SPEED*p, HI_SPEED);
+   	}	
 	}
 	else {			
 		goalLost++;					
 	}
 }
 
+/* Returns the ID of the "best" enemy to target, if a robot exists in range.
+ * Prioritizes the enemy's leader robot, then the closest enemy. */
 int bestEnemyIfExists(){
 	int init = (team == GONDOR) ? 5 : 1;
 	int i = init;
@@ -361,10 +227,29 @@ int bestEnemyIfExists(){
 	return closest;
 }
 
-// if in penalty box, stop all movement 
+/* Given a robot ID (e.g. 2046), and the IR IDs (e.g. 0x04) of self
+ * and kill target, continuously follows the kill target. */
+void kill(int robotID, int sendID, int killID) {
+	// Turn towards robot and go straight every 3 seconds
+	double prevBearing = 0.0;
+
+	if (!avoidRobot(robotID, sendID, killID) && !avoidObstacle(robotID, sendID)) {
+		while(time_counter/2 - robots[killID].time < 15) {
+			if(prevBearing != robots[killID].data.bearing) {
+				orientToRobot(killID, 0);
+				prevBearing = robots[killID].data.bearing;
+			}		
+			setSpeeds(HI_SPEED, HI_SPEED);
+			receiveIR();
+			//sprintf(msg,"trying to kill: %i \r\n oriented: %f\r\n",killID,prevBearing);
+			//btcomSendString(msg);
+		}
+	}
+}
+
+/* If in penalty box, stop all movement and return true */ 
 int stopIfInPenaltyBox(int robotID) {
 	getPenaltyCameraLine(robotID);
-	btcomSendString("Checking Penalty\r\n");
 	if (inPenaltyBox()) {
 		setSpeeds(0,0);
 		sprintf(msg, "IN THE PENALTY BOX\r\n");
@@ -374,15 +259,45 @@ int stopIfInPenaltyBox(int robotID) {
 	return 0;
 }
 
+/* Initialize the robot. */
+void robot_init() {
+	int cam_mode, cam_heigth, cam_zoom, buffer_size;
+
+	myWait(500);
+	e_init_port();    //Configure port pins
+	e_init_motors();
+	e_init_uart1();   //Initialize UART to 115200 Kbit
+	e_i2cp_init();    //I2C bus for the camera
+
+	cam_mode=RGB_565_MODE; 				
+	cam_width=80;
+	cam_heigth=1; 
+	cam_zoom=8; 							
+	buffer_size=cam_width*cam_heigth*2; 	
+	e_poxxxx_init_cam(); 					// Located in e_common.c 
+	 
+	//Returns 0 if setup parameters for the camera are ok, -1 if not.       
+	if(0 != e_poxxxx_config_cam((ARRAY_WIDTH -cam_width*cam_zoom)/2,LINE_OF_INTEREST,cam_width*cam_zoom,cam_heigth*cam_zoom,cam_zoom,cam_zoom,cam_mode))	
+	{
+		e_set_led(0, 1);  //Turn on center diode when robot is considered from the front if setup FAILED.
+		while(1);         //And then stay passive 
+	}
+
+	manual_camera_calibration();
+	e_poxxxx_write_cam_registers(); //Initialization and changes to the setup of the camera.
+
+	time_counter = 0;
+}
+
 
 int main(void)
 {	
-	if(RCONbits.POR) {	//Reset if necessary
+	if(RCONbits.POR) {	
 		RCONbits.POR=0;
 		RESET();
 	}
 
-	sel = getselector();			//Read position of selector switch, refer to utility.c
+	sel = getselector();		
 	if (sel != 0) {
 		robot_init();
 	} 
@@ -391,7 +306,7 @@ int main(void)
 	}
 	
 	/* Each selector corresponds to a robot */
-	if (sel == 1) { // LEADER
+	if (sel == 1) { // "GOOD" LEADER
 		int robotID = 2110;
 		unsigned char sendID = 0x01;
 		team = GONDOR;
@@ -407,19 +322,19 @@ int main(void)
 		while(1)
 		{
 			/* receive camera and IR readings */
-			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
-			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
+			e_poxxxx_launch_capture(&buffer[0]);     
+			while(!e_poxxxx_is_img_ready());		
 			receiveIR();
 			stopIfInPenaltyBox(robotID);
 
 			switch (mode) {
-				case 0:
+				case 0: // Remain still for 30 seconds
 					setSpeeds(0,0);
 					if (time_counter/2 > 30) {
 						 mode = 1;
 					}
 					break;
-				case 1:
+				case 1: // Move forward for seconds 31-55
 					if (!avoidRobot(robotID, sendID, 0) && !avoidObstacle(robotID, sendID)) {
 						setSpeeds(HALF_SPEED, HALF_SPEED);
 					}
@@ -428,13 +343,13 @@ int main(void)
 						mode = 2;
 					}
 					break;
-				case 2:
+				case 2: // Beeline to goal
 					beelineToGoal(robotID, sendID);
 					break;
 			}
 		}
 	}
-	else if (sel == 2) { // GUARD
+	else if (sel == 2) { // "GOOD" GUARD
 		int robotID = 2137; // always use eve
 		unsigned char sendID = 0x02;
 		team = GONDOR;
@@ -455,14 +370,12 @@ int main(void)
 
 		while(1)
 		{
-			/* CAMERA */
+			/* Camera and IR  */
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
 			receiveIR();
 
-			sprintf(msg,"deathcount: %i\r\n",death_count);
-			btcomSendString(msg);
-
+      /* Check whether the robot is in the box and keep track of deaths */
 			if(stopIfInPenaltyBox(robotID)){
 				in_box++;
 			}
@@ -474,11 +387,13 @@ int main(void)
 					death_count++;
 					in_box = 0;
 					left_box = 0;
-					//move back into position
+
+					// after leaving penalty box, move back into position in front of goal
 					moveForward(755, HI_SPEED);
 					turn(90,HI_SPEED);
 				}
 
+        // Get the enemy within range and target if exists
 				int bestEnemy = bestEnemyIfExists();
 				if(bestEnemy || time_counter/2 < start_time + 600){
 					int close = 0;
@@ -490,21 +405,20 @@ int main(void)
 						kill(robotID, sendID, bestEnemy);
 					}
 					else {
-						// wait
+						// If no enemy nearby, stay still near goal
 						setSpeeds(0,0);
 						btcomSendString("waiting\r\n");
 					}
 				} 
 	
-				//if killed 2 times go for goal
+				// If 5 minutes have passed, guard may head for goal
 				else{
-					btcomSendString("I'm going for the goal!\r\n");
 					beelineToGoal(robotID, sendID);
 				}	
 			}
 		}
 	}
-	else if (sel == 3) { // SLAYER #1
+	else if (sel == 3) { // "GOOD" SLAYER #1
 		int robotID = 2028; 
 		unsigned char sendID = 0x03;
 		team = GONDOR;
@@ -523,22 +437,20 @@ int main(void)
 		comm_init(seed, sendID); 
 		comm_store_tx(0);
 		
-		//move forward for 3sec to clear the goal
+		//move forward for 3 sec to clear the goal
 		while (time_counter/2 <= start_time + 3){
 			setSpeeds(HI_SPEED, HI_SPEED);
-			btcomSendString("starting move\r\n");
 		}
 
 		while(1)
 		{
-			/* CAMERA */
+			/* Camera and IR */
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
 			receiveIR();
 						
-			//sprintf(msg,"deathcount: %i\r\n",death_count);
-			//btcomSendString(msg);
-
+      
+      /* Check whether the robot is in the box and keep track of deaths */
 			if(stopIfInPenaltyBox(robotID)){
 				in_box++;
 			}
@@ -552,8 +464,10 @@ int main(void)
 					left_box = 0;
 				}
 
+        // If killed less than twice, look for enemy
 				if(death_count < 3){
-					int bestEnemy = bestEnemyIfExists();
+					int bestEnemy = bestEnemyIfExists();  
+          // If best enemy exists, kill it
 					if(bestEnemy) {
 						kill(robotID, sendID, bestEnemy);
 					}
@@ -565,13 +479,12 @@ int main(void)
 	
 				//if killed 2 times, go for goal
 				else{
-					btcomSendString("I'm going for the goal!\r\n");
 					beelineToGoal(robotID, sendID); 
 				}
 			}
 		}
 	}
-	else if (sel == 4) { 	// SLAYER #2
+	else if (sel == 4) { 	// "GOOD" SLAYER #2
 		int robotID = 2110; 
 		unsigned char sendID = 0x04;
 		team = GONDOR;
@@ -598,14 +511,12 @@ int main(void)
 
 		while(1)
 		{
-			/* CAMERA */
+			/* CAMERA AND IR */
 			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
 			while(!e_poxxxx_is_img_ready());		//Wait for capture to complete
 			receiveIR();
 						
-			//sprintf(msg,"deathcount: %i\r\n",death_count);
-			//btcomSendString(msg);
-
+      /* Check whether the robot is in the box and keep track of deaths */
 			if(stopIfInPenaltyBox(robotID)){
 				in_box++;
 			}
@@ -618,7 +529,8 @@ int main(void)
 					in_box = 0;
 					left_box = 0;
 				}
-
+        
+        // If died less than twice, check for enemy
 				if(death_count < 3){
 					int bestEnemy = bestEnemyIfExists();
 					if(bestEnemy) {
@@ -639,8 +551,8 @@ int main(void)
 		}
 	}
 
-
-	else if (sel == 5) { // LEADER
+  /* "EVIL" SELECTORS. Equivalent to above. See sel 1-4 for more detailed comments. */
+	else if (sel == 5) { // "EVIL" LEADER
 		int robotID = 2110;
 		unsigned char sendID = 0x05;
 		team = MORDOR;
@@ -683,7 +595,7 @@ int main(void)
 			}
 		}
 	}
-	else if (sel == 6) { // GUARD
+	else if (sel == 6) { // "EVIL" GUARD
 		int robotID = 2137;
 		unsigned char sendID = 0x06;
 		team = MORDOR;
@@ -753,7 +665,7 @@ int main(void)
 			}
 		}
 	} 
-	else if (sel == 7) {
+	else if (sel == 7) { // "EVIL" SLAYER #1
 		int robotID = 2110; 
 		unsigned char sendID = 0x07;
 		team = MORDOR;
@@ -820,7 +732,7 @@ int main(void)
 			}
 		}
 	} 
-	else if (sel == 8) {
+	else if (sel == 8) { // "EVIL" SLAYER #2
 		int robotID = 2137; 
 		unsigned char sendID = 0x08;
 		team = MORDOR;
@@ -887,106 +799,9 @@ int main(void)
 			}
 		}
 	} 
-
-	/* some stuff for calibration */
-	else if (sel == 9) {		// test: for calibrating camera
-		/* calibration stuff save for later */
-		while(1)
-		{
-			/* CAMERA */
-			e_poxxxx_launch_capture(&buffer[0]); 	//Start image capture    
-			while(!e_poxxxx_is_img_ready());
-		
-			printRGB(80);
-			myWait(500);
-
-			//getGoalCameraLine(robotID);
-			//printCameraLine();
-			//myWait(500);
-		}
-	}
-	else if (sel == 10) {		// test: for calibrating IR
-		unsigned char sendID = 0x03;
-		unsigned char seed = time(NULL);
-		comm_init(seed, sendID); 
-		comm_store_tx(0);
-
-		while (1) {
-			receiveIR();
-			printReadings();
-			setSpeeds(0,0);
-		}
-
-	}
-	else if (sel == 11) {		// test: for sending IR only
-		unsigned char sendID = 0x09;
-		unsigned char seed = time(NULL);
-		comm_init(seed, sendID); 
-		comm_store_tx(0);
-
-		while (1) {
-			receiveIR();
-			setSpeeds(0,0);
-		}
-	}
 	else {
 		while(1) NOP();
 	}
 }
 
 
-
-/*
-// yeah not working
-void wallFollow(int robotID, int sendID) {
-	int delta;
-	if (receivedID == sendID) {
-		sprintf(msg, "ANGLE ADJUSTMENT: sensor %u, range %u, bearing %f\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing);
-		btcomSendString(msg);
-		if (ir_bearing > 0) { // left wall follow
-			delta = ir_bearing - 90;
-		}
-		else { 	// right wall follow
-			delta = ir_bearing + 90;
-		}
-		if (abs(delta) > 30) {
-			if (delta > 0)
-				setSpeeds(3*HI_SPEED/4, HI_SPEED); // soft left
-			else
-				setSpeeds(HI_SPEED, 3*HI_SPEED/4); // soft right
-		}
-		else {
-			setSpeeds(HI_SPEED, HI_SPEED);
-		}
-		
-	}
-}
-*/
-
-/*
-	if(robots[1].time != lastTime){
-		lastTime = robots[1].time;
-		if(!wallDirection) {
-			prevBearing = robots[1].data.bearing;
-			if(prevBearing < 0){
-				wallDirection = -1;
-			} else {
-				wallDirection = 1;
-			}
-		}
-
-		if(wallDirection > 0){ // Keep wall on left side
-			double diff = robots[1].data.bearing - 90 - 10;
-			if(abs(diff) < 80){
-				turn(diff, HALF_SPEED);
-				setSpeeds(HALF_SPEED, HALF_SPEED);
-			}
-		} else {
-			double diff = robots[1].data.bearing + 90 - 10;
-			if(abs(diff) < 80){
-				turn(diff, HALF_SPEED);
-				setSpeeds(HALF_SPEED, HALF_SPEED);
-			}
-		}
-	}
-*/

@@ -129,7 +129,7 @@ int checkRed(int robotID) {
 			green_thresh = 1;
 			blue_thresh = 1;
 			break;
-		default:
+		default: // works for most robots
 			red_thresh = 8;
 			green_thresh = 1;
 			blue_thresh = 1;
@@ -138,6 +138,8 @@ int checkRed(int robotID) {
     return (red > red_thresh && green <= green_thresh && blue <= blue_thresh);
 }
 
+/* Smooths out array of ones and zeroes from pixelColors, putting results in
+ * smoothedColors array. */
 void smoothColorLine() {
 	int i;
 	// Smooth array of pixels
@@ -148,6 +150,7 @@ void smoothColorLine() {
 	}
 }
 
+/* Checks the pixels in the most recent camera line for red. */
 void getPenaltyCameraLine(int robotID) {
 	int i;
 	// Store array of which pixels are the penalty box color (red)
@@ -158,6 +161,7 @@ void getPenaltyCameraLine(int robotID) {
 	smoothColorLine();		// puts values in smoothedColors (global)
 }
 
+/* Checks the pixels in the most recent camera line for the goal color */
 void getGoalCameraLine(int robotID, int team) {
 	int i;
 	// Store array of which pixels are the goal color (yellow or green)
@@ -171,6 +175,8 @@ void getGoalCameraLine(int robotID, int team) {
 	smoothColorLine();
 }
 
+/* Returns true (1) if the number of red pixels in camera line exceeds 
+ * threshold, false otherwise */
 int goalInView() {
 	int sum = 0;
 	int i;
@@ -181,7 +187,8 @@ int goalInView() {
 	return (sum > GOAL_THRESH);
 }
 
-// is based on smoothedColors
+/* Finds the center of mass of the filtered and smoothed camera line, to find
+ * the "midpoint" of the goal in the robot's view */
 int getGoalMidpoint() {
 	int sum = 0;
 	int total = 0;
@@ -195,14 +202,13 @@ int getGoalMidpoint() {
 	return sum/total;
 }
 
+/* Returns true (1) if the amount of red in camera line exceeds threshold, 
+ * false otherwise */
 int inPenaltyBox() {
 	int sum = 0;
 	int i;
 	// check to make sure most pixels are red
 	for (i = 0; i < cam_width; i++) {
-		//char msg[80];
-		//sprintf(msg, "pixel %i, is: %i\r\n",i,smoothedColors[i]);
-		//btcomSendString(msg);
 		sum += smoothedColors[i];
 	}
 	return (sum > PENALTY_THRESH);	

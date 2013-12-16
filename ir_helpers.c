@@ -1,6 +1,7 @@
 #include "ir_helpers.h"
 
-
+/* Given a robot ID (e.g. 2046), determines whether the most recent IR range
+ * reading is an obstacle within 7cm of the robot. */
 int atObstacle(int robotID) {
 	switch (robotID) {
 		case 2046:
@@ -105,6 +106,9 @@ int atObstacle(int robotID) {
 	}
 }
 
+
+/* Given a robot ID (e.g. 2046), determines whether the most recent IR range
+ * reading is another robot within 15cm of the robot. */
 int closeToRobot(int robotID) {
 	switch (robotID) {
 		case 2180:
@@ -263,6 +267,8 @@ int closeToRobot(int robotID) {
 	}
 }
 
+/* Given a robot ID and range, determines whether a robot is within 
+ * "killing" range (used for Guardian robot only) */
 int closeEnoughToKill(int robotID, int range) {
 	sprintf(msg, "range: %i\r\n",range);
 	btcomSendString(msg);
@@ -333,9 +339,8 @@ int closeEnoughToKill(int robotID, int range) {
 	}
 }
 
-
+/* Waits for new IR message and extracts desired data (range, bearing, etc.) */
 void receiveIR() {
-	//btcomSendString("started receive IR");
 	comm_rx(&data);
 	ir_range = data.range;
 	ir_bearing = 57.296*(data.bearing);
@@ -353,27 +358,22 @@ void receiveIR() {
 	if((int) receivedID >= 0 && (int) receivedID <= 12) {
 		robots[receivedID] = rData;
 	}
-	
-	//printRobots();
 }
 
+/* Using atObstacle, determines whether a messsage has bounced back from an
+ * obstacle within 7cm of self; if so, take evasive action. */
 int avoidObstacle(int robotID, int sendID) {
 	if (receivedID == sendID) {
 		if (atObstacle(robotID)) {
-			//sprintf(msg, "OBSTACLE: sensor %u, range %u, bearing %f\r\n", (unsigned int) ir_sensor, ir_range, ir_bearing);
-			//btcomSendString(msg);
-
 			// soft turn left
 			if (ir_bearing < -60 && ir_bearing > -100) {
 				setSpeeds(HI_SPEED/2, HI_SPEED);
-				//setSpeeds(-LO_SPEED, LO_SPEED);
 			}
 			// soft turn right
 			else if (ir_bearing > 60 && ir_bearing < 100) {
 				setSpeeds(HI_SPEED, HI_SPEED/2);
-				//setSpeeds(LO_SPEED, -LO_SPEED);
 			}
-			// hard turn based on sign of bearing
+			// back up & hard turn based on sign of bearing
 			else {
 				move(-20, MAX_SPEED);
 				// hard turn right
@@ -388,6 +388,8 @@ int avoidObstacle(int robotID, int sendID) {
 	return 0;
 }
 
+/* Using closeToRobot, determines whether a messsage is from another robot
+ * within 15cm of self; if so, take evasive action. */
 int avoidRobot(int robotID, int sendID, int excludeID) {
 	if (receivedID != sendID && receivedID != excludeID) {
 		if (closeToRobot(robotID)) {
